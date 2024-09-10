@@ -1,0 +1,111 @@
+<img
+  src="https://ideogram.ai/assets/image/lossless/response/l2KRwEaXS5GBZ5s57p9XYg"
+  class="opacity-50 w-full h-screen"
+  alt="hospital-mangement-Bg-Image"
+/>
+<div
+  id="moreDetailsContainer"
+  class="modal fixed inset-0 bg-black bg-opacity-80 z-[999]"
+>
+  <div class="flex items-center justify-center h-screen">
+    <div
+      class="authForm flex flex-col justify-center rounded-lg bg-gray-100 w-3/12"
+    >
+      <p class="text-2xl font-bold py-4 text-center">LOG IN</p>
+      <div class="fnameLname" *ngIf="authIsSignup">
+        <div class="firstName flex flex-col">
+          <label class="mx-4 my-2 text-sm">First Name</label>
+          <div class="mx-8">
+            <fa-icon
+              [icon]="faUser"
+              class="mr-3 text-gray-300 text-sm"
+            ></fa-icon>
+            <input
+              type="text"
+              [(ngModel)]="first_name"
+              class="text-sm border-none bg-transparent focus:outline-none w-3/4"
+              placeholder="Type your firstname"
+            />
+            <hr class="text-2xl mb-3" />
+          </div>
+        </div>
+        <div class="lastName flex flex-col">
+          <label class="mx-4 my-2 text-sm">LastName</label>
+          <div class="mx-8">
+            <fa-icon
+              [icon]="faUser"
+              class="mr-3 text-gray-300 text-sm"
+            ></fa-icon>
+            <input
+              type="text"
+              [(ngModel)]="last_name"
+              class="text-sm border-none bg-transparent focus:outline-none w-3/4"
+              placeholder="Type your lastname"
+            />
+            <hr class="text-2xl mb-3" />
+          </div>
+        </div>
+      </div>
+      <div class="userName flex flex-col">
+        <label class="mx-4 text-sm my-2">Email</label>
+        <div class="mx-8">
+          <fa-icon
+            [icon]="faEnvelope"
+            class="mr-3 text-gray-300 text-sm"
+          ></fa-icon>
+          <input
+            type="text"
+            [(ngModel)]="userName"
+            class="bg-transparent focus:outline-none text-sm w-3/4"
+            placeholder="Type your email"
+            required
+          />
+          <hr class="text-2xl mb-3" />
+        </div>
+      </div>
+      <div class="password flex flex-col">
+        <label class="mx-4 my-2 text-sm">Password</label>
+        <div class="mx-8">
+          <fa-icon [icon]="faLock" class="mr-3 text-gray-300 text-sm"></fa-icon>
+          <input
+            type="text"
+            [(ngModel)]="password"
+            class="text-sm border-none bg-transparent focus:outline-none w-3/4"
+            placeholder="Type your password"
+          />
+          <hr class="text-2xl mb-3" />
+        </div>
+      </div>
+      <div class="mobileNumber" *ngIf="authIsSignup">
+        <div class="mobileNumber flex flex-col">
+          <label class="mx-4 my-2 text-sm">mobileNumber</label>
+          <div class="mx-8">
+            <fa-icon
+              [icon]="faPhone"
+              class="mr-3 text-gray-300 text-sm"
+            ></fa-icon>
+            <input
+              type="text"
+              [(ngModel)]="mobile_number"
+              class="text-sm border-none bg-transparent focus:outline-none w-3/4"
+              placeholder="Type your mobilenumber"
+            />
+            <hr class="text-2xl mb-3" />
+          </div>
+        </div>
+      </div>
+      <p
+        class="text-sm px-4 cursor-pointer hover:text-blue-300"
+        (click)="authToggle()"
+      >
+        {{ authMessage }}
+      </p>
+      <div
+        class="Submit Button my-4 flex items-center justify-center bg-blue-300 p-2 text-white mx-4 rounded-lg"
+        (click)="submitCredentials()"
+      >
+        <button>Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
