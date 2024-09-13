@@ -1,32 +1,35 @@
-<img
+<!-- <img
   src="https://ideogram.ai/assets/image/lossless/response/l2KRwEaXS5GBZ5s57p9XYg"
   class="opacity-50 w-full h-screen"
   alt="hospital-mangement-Bg-Image"
-/>
+/> -->
 <div
   id="moreDetailsContainer"
-  class="modal fixed inset-0 bg-black bg-opacity-80 z-[999]"
+  class="modal z-[999]"
 >
-  <div class="flex items-center justify-center h-screen">
-    <div
-      class="authForm flex flex-col justify-center rounded-lg bg-gray-100 w-3/12"
-    >
-      <p class="text-2xl font-bold py-4 text-center">LOG IN</p>
-      <div class="fnameLname" *ngIf="authIsSignup">
-        <div class="firstName flex flex-col">
-          <label class="mx-4 my-2 text-sm">First Name</label>
-          <div class="mx-8">
-            <fa-icon
-              [icon]="faUser"
-              class="mr-3 text-gray-300 text-sm"
-            ></fa-icon>
-            <input
-              type="text"
-              [(ngModel)]="first_name"
-              class="text-sm border-none bg-transparent focus:outline-none w-3/4"
-              placeholder="Type your firstname"
-            />
-            <hr class="text-2xl mb-3" />
+  <div class="flex items-center justify-center">
+    <div class="authForm flex flex-col justify-center rounded-lg bg-gray-100 w-96">
+      <div class="headingContainer">
+        <div class="text-2xl font-semibold  text-slate-800 pt-8 mb-1 text-left px-4 text-center">{{messageFromParent}}</div>
+        <div class="m-0 px-4 font-thin text-slate-600 text-sm mb-5">Empowering Hospitals with Smart Scheduling</div>
+      </div>
+      <div class="flex" *ngIf="authIsSignup">
+        <div class="fnameLname">
+          <div class="firstName flex flex-col">
+            <label class="mx-4 my-2 text-sm">First Name</label>
+            <div class="mx-8">
+              <fa-icon
+                [icon]="faUser"
+                class="mr-3 text-gray-300 text-sm"
+              ></fa-icon>
+              <input
+                type="text"
+                [(ngModel)]="first_name"
+                class="text-xs border-none bg-transparent focus:outline-none w-3/4"
+                placeholder="Enter Firstname"
+              />
+              <hr class="text-2xl mb-3" />
+            </div>
           </div>
         </div>
         <div class="lastName flex flex-col">
@@ -39,8 +42,8 @@
             <input
               type="text"
               [(ngModel)]="last_name"
-              class="text-sm border-none bg-transparent focus:outline-none w-3/4"
-              placeholder="Type your lastname"
+              class="text-xs border-none bg-transparent focus:outline-none w-3/4"
+              placeholder="Enter Lastname"
             />
             <hr class="text-2xl mb-3" />
           </div>
@@ -78,7 +81,7 @@
       </div>
       <div class="mobileNumber" *ngIf="authIsSignup">
         <div class="mobileNumber flex flex-col">
-          <label class="mx-4 my-2 text-sm">mobileNumber</label>
+          <label class="mx-4 my-2 text-sm">MobileNumber</label>
           <div class="mx-8">
             <fa-icon
               [icon]="faPhone"
@@ -94,7 +97,7 @@
           </div>
         </div>
       </div>
-      <p
+      <p *ngIf="isUserLogin"
         class="text-sm px-4 cursor-pointer hover:text-blue-300"
         (click)="authToggle()"
       >
