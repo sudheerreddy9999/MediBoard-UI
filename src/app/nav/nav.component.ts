@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
   styleUrl: './nav.component.css',
 })
 export class NavComponent implements OnInit {
-  typeOfUser = 'Patient';
+  typeOfUser:string = 'Patient';
   userInfo: any = '';
   isLoginButtonClicked = false;
   parentMessage: string = 'Hello from Parent!';
@@ -40,13 +40,15 @@ export class NavComponent implements OnInit {
   }
 
   constructor(private router: Router) {}
-
   ngOnInit(): void {
-    const storedData = localStorage.getItem('mediboard') || '';
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const storedData: string = localStorage.getItem('mediboard') || '';
     if (storedData) {
       this.userInfo = JSON.parse(storedData);
     }
   }
+}
+
 
   onUserSelectChange(value: any) {
     this.isLoginButtonClicked = false;

@@ -1,0 +1,193 @@
+<!-- Doctors grid -->
+<div
+  class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-10/12 pb-4"
+  *ngIf="doctorsData?.length && !generateSlot"
+>
+  <!-- Individual doctor card -->
+  <div
+    class="rounded-lg shadow-lg bg-gray-100 relative transform transition duration-300 hover:scale-105"
+    *ngFor="let doctor of doctorsData"
+  >
+    <!-- Doctor image section -->
+    <div
+      class="bg-blue-400 w-full h-28 flex items-center rounded-lg justify-center relative mb-6"
+    >
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKorWaOyI-EQ54TUK9IhJ_fB0PH25_O8k6Lg&s"
+        class="w-32 h-32 rounded-full border-4 border-white shadow-md"
+        style="position: relative; top: 50%; transform: translateY(-20%)"
+      />
+    </div>
+    <!-- Doctor information section -->
+    <div class="flex flex-col items-center text-center mb-4 mt-14">
+      <div class="text-2xl font-semibold text-gray-800">{{ doctor.name }}</div>
+      <div class="text-xl text-gray-600">{{ doctor.specialization }}</div>
+    </div>
+
+    <!-- Doctor contact information -->
+    <div class="flex flex-col space-y-2 mb-4 ml-6">
+      <div class="flex items-center space-x-2">
+        <mat-icon class="text-blue-400">mail</mat-icon>
+        <p class="text-lg text-gray-800">{{ doctor.email }}</p>
+      </div>
+      <div class="flex items-center space-x-2">
+        <mat-icon class="text-blue-400 text-2xl">phone</mat-icon>
+        <p class="text-lg text-gray-800">{{ doctor.mobile_number }}</p>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="flex justify-between space-x-2 px-6 pb-6">
+      <button
+        class="py-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full shadow-md transition duration-300 w-full"
+      >
+        contact
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full shadow-md transition duration-300 w-full"
+        (click)="toggleComponnet('schedule', doctor.name, doctor.doctor_id)"
+      >
+        Schedule
+      </button>
+    </div>
+  </div>
+</div>
+<!--Calender Grid-->
+<div *ngIf="generateSlot">
+  <div class="absolute top-0 right-0 m-4 flex justify-center items-center">
+    <mat-icon (click)="closeScheduleModal()">close</mat-icon>
+  </div>
+  <button (click)="openSlotModal()">Manage Schedule</button>
+  <full-calendar [options]="calendarOptions" class="m-10 h-50vh"></full-calendar>
+</div>
+<div class="modal fixed inset-0 bg-black bg-opacity-80 z-[999]" *ngIf="slotModal">
+  <div class="flex items-center justify-center min-h-screen">
+    <div
+      class="alret-modal bg-white dark:bg-neutral-950 relative rounded-[20px] shadow-lg w-1/4"
+    >
+      <div class="relative">
+        <div class="absolute top-0 right-0 m-4">
+          <mat-icon (click)="closeSlotModal()">close</mat-icon>
+        </div>
+        <div
+          class="flex flex-col w-full mx-auto items-center justify-center bg-gray-200 p-8 rounded-lg shadow-lg"
+        >
+          <div class=" mb-6">
+            <label class="block text-xl font-semibold text-gray-700 mb-2"
+              >Doctor</label
+            >
+            <input
+              type="text"
+              [(value)]="currentDoctor"
+              disabled
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div class="w-full mb-6">
+            <label class="block text-xl font-semibold text-gray-700 mb-2"
+              >Select Date</label
+            >
+            <input
+              type="date"
+              [(ngModel)]="slotDetails.slot_date"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="w-full mb-6">
+            <label class="block text-xl font-semibold text-gray-700 mb-2"
+              >Slot Start Time</label
+            >
+            <input
+              type="time"
+              [(ngModel)]="slotDetails.slot_time"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="w-full mb-6">
+            <label class="block text-xl font-semibold text-gray-700 mb-2"
+              >Slot End Time</label
+            >
+            <input
+              type="time"
+              [(ngModel)]="slotDetails.slot_end_time"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div class="w-full mb-6">
+            <label class="block text-xl font-semibold text-gray-700 mb-2"
+              >Enter Number of Slots</label
+            >
+            <input
+              type="number"
+              [(ngModel)]="slotDetails.available_slots"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3 bg-blue-500 text-white rounded-lg font-semibold text-lg hover:bg-blue-600 transition-colors duration-300 shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none"
+            (click)="bookSlot()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50" *ngIf="isModalOpen">
+  <div class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full max-w-2xl h-auto mx-4 md:mx-0 p-8 space-y-8">
+    
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center border-b pb-4">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">View Or Edit Event</h2>
+      <button class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-3xl" (click)="closeModal()">
+        &times;
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="space-y-6">
+      <!-- Event Title -->
+      <div>
+        <label for="title" class="block text-lg font-semibold text-gray-700 dark:text-gray-300">Title</label>
+        <input type="text" id="title" [(ngModel)]="editableEvent.title" class="mt-2 block w-full border-gray-300 rounded-lg shadow-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg dark:bg-neutral-900 dark:border-gray-600 dark:text-gray-200 p-3" />
+      </div>
+
+      <!-- Start Time -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="start" class="block text-lg font-semibold text-gray-700 dark:text-gray-300">Start Time</label>
+          <input type="datetime-local" id="start" [(ngModel)]="editableEvent.start" class="mt-2 block w-full border-gray-300 rounded-lg shadow-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg dark:bg-neutral-900 dark:border-gray-600 dark:text-gray-200 p-3" />
+        </div>
+
+        <!-- End Time -->
+        <div>
+          <label for="end" class="block text-lg font-semibold text-gray-700 dark:text-gray-300">End Time</label>
+          <input type="datetime-local" id="end" [(ngModel)]="editableEvent.end" class="mt-2 block w-full border-gray-300 rounded-lg shadow-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg dark:bg-neutral-900 dark:border-gray-600 dark:text-gray-200 p-3" />
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-lg font-semibold text-gray-700 dark:text-gray-300">Description</label>
+        <textarea id="description" [(ngModel)]="editableEvent.description" rows="3" class="mt-2 block w-full border-gray-300 rounded-lg shadow-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg dark:bg-neutral-900 dark:border-gray-600 dark:text-gray-200 p-3"></textarea>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="flex justify-end space-x-4 pt-6 border-t">
+      <button class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-lg text-gray-700 rounded-lg dark:bg-neutral-800 dark:text-gray-400 dark:hover:bg-neutral-700" (click)="closeModal()">Cancel</button>
+      <button class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-lg text-white rounded-lg" (click)="saveEvent()">Save</button>
+    </div>
+  </div>
+</div>
+
+
+

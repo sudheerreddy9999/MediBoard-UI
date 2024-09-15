@@ -29,6 +29,7 @@ interface AuthResponse {
 })
 export class AuthComponent implements OnInit {
   @Input() messageFromParent: string = '';
+  @Input() typeOfuser: string = '';
   @Output() userLoggedIn = new EventEmitter<any>();
   userName: string = 'sudheerjanga9999@gmail.com';
   password: string = 'Sudheer@123';
@@ -45,6 +46,7 @@ export class AuthComponent implements OnInit {
   apiUrl = 'http://localhost:3000';
 
   ngOnInit(): void{
+    console.log()
     if(this.messageFromParent ==='Login'){
       this.isUserLogin = true;
     } else if(this.messageFromParent ==='Patient Signup'){
@@ -56,7 +58,7 @@ export class AuthComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   submitCredentials() {
-    if (this.authIsSignup) {
+    if (this.authIsSignup && this.typeOfuser ==='patient') {
       const body = {
         email: this.userName,
         password: this.password,
@@ -69,32 +71,59 @@ export class AuthComponent implements OnInit {
       });
 
       this.http
-        .post(`${this.apiUrl}/employee/auth`, body, { headers: headers })
-        .subscribe(
-          (response) => {
-            console.log(response)
+        .post(`${this.apiUrl}/employee/auth`, body, { headers: headers }).subscribe({
+          next: (response) => {
+            console.log('Api response is', response);
           },
-          (error) => {
-            console.error(`API Error is ${error}`);
+          error: (error) => {
+            console.error('API Error:', error); // Handle the error
+          },
+          complete: () => {
+            console.log('API request completed successfully.'); // Optional: Handle completion if needed
           }
-        );
-    } else {
+        })
+    } else if(this.typeOfuser ==='Patient') {
       const headers = new HttpHeaders({
         email: this.userName,
         password: this.password,
         'Content-Type': 'application/json',
       });
-      this.http.get<AuthResponse>(`${this.apiUrl}/auth`, { headers: headers }).subscribe(
-        (response) => {
-          console.log('Api response is ', response);
+      this.http.get<AuthResponse>(`${this.apiUrl}/auth`, { headers: headers }).subscribe({
+        next: (response) => {
+          console.log('Api response is', response);
           const data = response.data;
-          this.userLoggedIn.emit(data);
-          localStorage.setItem('mediboard', JSON.stringify(data));
+          this.userLoggedIn.emit(data); // Emit the data (assuming you're using EventEmitter)
+          localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
         },
-        (error) => {
-          console.error('API Error:', error);
+        error: (error) => {
+          console.error('API Error:', error); // Handle the error
+        },
+        complete: () => {
+          console.log('API request completed successfully.'); // Optional: Handle completion if needed
         }
-      );
+      })
+      
+    }
+    else if(this.typeOfuser==='Employee'){
+      const headers = new HttpHeaders({
+        email: this.userName,
+        password: this.password,
+        'Content-Type': 'application/json',
+      });
+      this.http.get<AuthResponse>(`${this.apiUrl}/employee/auth`, { headers: headers }).subscribe({
+        next: (response) => {
+          console.log('Api response is', response);
+          const data = response.data;
+          this.userLoggedIn.emit(data); // Emit the data (assuming you're using EventEmitter)
+          localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
+        },
+        error: (error) => {
+          console.error('API Error:', error); // Handle the error
+        },
+        complete: () => {
+          console.log('API request completed successfully.'); // Optional: Handle completion if needed
+        }
+      })
     }
   }
   authToggle() {

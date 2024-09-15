@@ -96,6 +96,7 @@
 <div *ngIf="isLoginButtonClicked">
   <app-auth
     [messageFromParent]="parentMessage"
+    [typeOfuser]="typeOfUser"
     (userLoggedIn)="onUserLoggedIn($event)"
   ></app-auth>
 </div>

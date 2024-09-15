@@ -1,0 +1,42 @@
+/* CSS for the calendar day cell */
+.fc-daygrid-day {
+    position: relative;
+    height: 100px; /* Limit height of each day box */
+    max-height: 100px; /* Max height for each day box */
+    overflow: hidden; /* Hide overflow until hovered or expanded */
+  }
+  
+  /* Ensure events do not expand the day box unless necessary */
+  .fc-event {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; /* Truncate event title if too long */
+    width: 100%; /* Ensure event fills the available width */
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  /* Show tooltip when hovering on an event */
+  .fc-event:hover .fc-event-title {
+    overflow: visible;
+    white-space: normal;
+  }
+  
+  /* Make the event list scrollable if there are too many events */
+  .fc-daygrid-day-events {
+    max-height: 80px; /* Limit event list height */
+    overflow-y: auto; /* Scrollable if events exceed height */
+    padding-right: 8px; /* Space for scrollbar */
+  }
+  
+  /* Adjust the overall calendar height */
+  .full-calendar {
+    max-height: 50vh;
+    overflow: hidden; /* Prevent overflow for the entire calendar */
+  }
+  .adjust-tooltip-right {
+    left: auto;
+    right: 100%;
+    transform: translateX(-10px); /* Adjust as necessary */
+  }
+  

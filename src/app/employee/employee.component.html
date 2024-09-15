@@ -1,37 +1,6 @@
-<div>
-    <button class="p-4 bg-blue-700 text-lg rounded-lg text-white" (click)="getDoctors()">
-        Scheduling doctors appointments
-    </button>
-    <div class="doctorsGrid flex">
-        <div class=" rounded-lg bg-gray-100 relative m-4">
-            <div class="bg-blue-400 w-full h-32 flex items-center rounded-lg justify-center relative">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKorWaOyI-EQ54TUK9IhJ_fB0PH25_O8k6Lg&s" 
-                     class="w-5/12 rounded-full absolute" 
-                     style="top: 50%; transform: translateY(-30%);">
-            </div>
-            <div class="flex flex-col items-center justify-center">
-                <div class="pt-14 text-2xl font-medium">Marnus Labuschagne</div>
-                <div class="text-xl pb-4">Heart Specialist</div>
-            </div>
-            <div class="flex items-center justify-center">
-                <div class="flex justify-center items-center bg-blue-500">
-                    <mat-icon
-                    class="text-blue-400 "
-                    >mail</mat-icon
-                  >
-                    <p class="px-3 text-center text-lg">630392872202</p>
-                </div>
-                <mat-icon
-                class="text-blue-400 text-2xl pl-1"
-                >phone</mat-icon
-              >
-                <p class="text-lg">manusgmail.com</p>
-            </div>
-            <div class="buttons mb-4">
-                <button class="p-4 text-white bg-blue-400 rounded-full m-2">Send Message</button>
-                <button class="p-4 text-white bg-blue-400 rounded-full m-2">Schedule Meetings </button>
-            </div>
-        </div>
-    </div>
-    
+<div class="p-6" *ngIf="currentComponent==='doctors'">
+</div>
+
+<div *ngIf="currentComponent==='doctors'">
+    <app-slot (dataFromSchedule)="toggleComponnet($event)"></app-slot>
 </div>
