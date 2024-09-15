@@ -3,7 +3,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from '../auth/auth.component';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { DoctorComponent } from '../doctor/doctor.component';
 import { EmployeeComponent } from '../employee/employee.component';
@@ -42,7 +42,7 @@ export class NavComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const storedData = localStorage.getItem('mediboard');
+    const storedData = localStorage.getItem('mediboard') || '';
     if (storedData) {
       this.userInfo = JSON.parse(storedData);
     }
