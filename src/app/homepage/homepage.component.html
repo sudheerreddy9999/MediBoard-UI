@@ -1,0 +1,42 @@
+<section class="flex px-4">
+    <div class="flex w-full">
+      <!-- Swiper Section -->
+      <div class="w-7/12 h-[550px] flex items-center justify-center">
+        <swiper-container
+          [slidesPerView]="1"
+          [spaceBetween]="20"
+          [loop]="true"
+          [autoplay]="swiperConfig.autoplay"
+          [pagination]="swiperConfig.pagination"
+          [navigation]="swiperConfig.navigation"
+          class="mySwiper h-full w-full"
+          [config]="swiperConfig"
+          (slideChange)="onSlideChange($event)"
+        >
+          <swiper-slide *ngFor="let slide of slides">
+            <div class="relative w-full h-full bg-cover">
+              <!-- Image that covers the entire div -->
+              <img class="absolute inset-0 w-full h-full rounded-lg object-cover" [src]="slide.image" [alt]="slide.title">
+              
+              <!-- Text positioned at the bottom of the image -->
+              <div class="absolute inset-0 flex flex-col justify-end items-center bg-black bg-opacity-50 text-white p-4 rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">{{ slide.title }}</h3>
+                <p class="text-center mb-4">{{ slide.description }}</p>
+              </div>
+            </div>
+          </swiper-slide>
+          <!-- Navigation arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </swiper-container>
+      </div>
+      
+      <!-- Hero Section -->
+      <div class="w-5/12 h-[550px] flex flex-col justify-center items-center p-4 bg-gray-50">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Hospital Management</h1>
+        <p class="max-w-xl mx-auto text-lg text-gray-500 mb-6">Offering advanced care across various specialties. Explore our services to find the best care for you and your loved ones.</p>
+        <button class="px-6 py-4 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%  text-white rounded-full text-lg hover:bg-blue-500 transition">Book Appointment</button>
+      </div>
+    </div>
+  </section>
+  

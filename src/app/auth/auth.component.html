@@ -1,114 +1,97 @@
-<!-- <img
-  src="https://ideogram.ai/assets/image/lossless/response/l2KRwEaXS5GBZ5s57p9XYg"
-  class="opacity-50 w-full h-screen"
-  alt="hospital-mangement-Bg-Image"
-/> -->
-<div
-  id="moreDetailsContainer"
-  class="modal z-[999]"
->
-  <div class="flex items-center justify-center">
-    <div class="authForm flex flex-col justify-center rounded-lg bg-gray-100 w-96">
-      <div class="headingContainer">
-        <div class="text-2xl font-semibold  text-slate-800 pt-8 mb-1 text-left px-4 text-center">{{messageFromParent}}</div>
-        <div class="m-0 px-4 font-thin text-slate-600 text-sm mb-5">Empowering Hospitals with Smart Scheduling</div>
+<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+  <div class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full h-auto mx-4 md:mx-0 md:max-w-5xl space-y-8">
+    <!-- Modal Content -->
+    <div class="flex flex-col md:flex-row bg-white dark:bg-neutral-950 rounded-lg shadow-lg">
+      <!-- Image Section -->
+      <div class="w-7/12 h-[600px] flex items-center justify-center rounded-lg">
+        <img src="https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg" class=" rounded-tl-lg rounded-bl-lg w-full h-full object-cover">
       </div>
-      <div class="flex" *ngIf="authIsSignup">
-        <div class="fnameLname">
-          <div class="firstName flex flex-col">
-            <label class="mx-4 my-2 text-sm">First Name</label>
-            <div class="mx-8">
-              <fa-icon
-                [icon]="faUser"
-                class="mr-3 text-gray-300 text-sm"
-              ></fa-icon>
+      <!-- Form Section -->
+      <div id="moreDetailsContainer" class="w-5/12 h-[600px]">
+    <div class="flex items-center justify-center h-full">
+      <div class="authForm flex flex-col justify-center rounded-lg bg-gray-100 shadow-md p-6 w-full h-full">
+        <div class="flex justify-end top-0" (click)="closeAuthForm()"><mat-icon>close</mat-icon></div>
+        <div class="headingContainer w-full ">
+          <div class="text-3xl font-bold text-gray-800 mb-2 text-center">{{messageFromParent}}</div>
+          <div class="text-center text-gray-500 mb-5">Empowering Hospitals with Smart Scheduling</div>
+        </div>
+        <div class="flex space-x-4 mb-5" *ngIf="authIsSignup">
+          <div class="w-1/2">
+            <label class="block text-gray-600 text-sm mb-1">First Name</label>
+            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+              <fa-icon [icon]="faUser" class="mr-3 text-gray-400"></fa-icon>
               <input
                 type="text"
                 [(ngModel)]="first_name"
-                class="text-xs border-none bg-transparent focus:outline-none w-3/4"
+                class="w-full text-sm bg-transparent focus:outline-none"
                 placeholder="Enter Firstname"
               />
-              <hr class="text-2xl mb-3" />
+            </div>
+          </div>
+          <div class="w-1/2">
+            <label class="block text-gray-600 text-sm mb-1">Last Name</label>
+            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+              <fa-icon [icon]="faUser" class="mr-3 text-gray-400"></fa-icon>
+              <input
+                type="text"
+                [(ngModel)]="last_name"
+                class="w-full text-sm bg-transparent focus:outline-none"
+                placeholder="Enter Lastname"
+              />
             </div>
           </div>
         </div>
-        <div class="lastName flex flex-col">
-          <label class="mx-4 my-2 text-sm">LastName</label>
-          <div class="mx-8">
-            <fa-icon
-              [icon]="faUser"
-              class="mr-3 text-gray-300 text-sm"
-            ></fa-icon>
+        <div class="mb-5">
+          <label class="block text-gray-600 text-sm mb-1">Email</label>
+          <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+            <fa-icon [icon]="faEnvelope" class="mr-3 text-gray-400"></fa-icon>
             <input
               type="text"
-              [(ngModel)]="last_name"
-              class="text-xs border-none bg-transparent focus:outline-none w-3/4"
-              placeholder="Enter Lastname"
+              [(ngModel)]="userName"
+              class="w-full text-sm bg-transparent focus:outline-none"
+              placeholder="Type your email"
+              required
             />
-            <hr class="text-2xl mb-3" />
           </div>
         </div>
-      </div>
-      <div class="userName flex flex-col">
-        <label class="mx-4 text-sm my-2">Email</label>
-        <div class="mx-8">
-          <fa-icon
-            [icon]="faEnvelope"
-            class="mr-3 text-gray-300 text-sm"
-          ></fa-icon>
-          <input
-            type="text"
-            [(ngModel)]="userName"
-            class="bg-transparent focus:outline-none text-sm w-3/4"
-            placeholder="Type your email"
-            required
-          />
-          <hr class="text-2xl mb-3" />
-        </div>
-      </div>
-      <div class="password flex flex-col">
-        <label class="mx-4 my-2 text-sm">Password</label>
-        <div class="mx-8">
-          <fa-icon [icon]="faLock" class="mr-3 text-gray-300 text-sm"></fa-icon>
-          <input
-            type="text"
-            [(ngModel)]="password"
-            class="text-sm border-none bg-transparent focus:outline-none w-3/4"
-            placeholder="Type your password"
-          />
-          <hr class="text-2xl mb-3" />
-        </div>
-      </div>
-      <div class="mobileNumber" *ngIf="authIsSignup">
-        <div class="mobileNumber flex flex-col">
-          <label class="mx-4 my-2 text-sm">MobileNumber</label>
-          <div class="mx-8">
-            <fa-icon
-              [icon]="faPhone"
-              class="mr-3 text-gray-300 text-sm"
-            ></fa-icon>
+        <div class="mb-5" *ngIf="authIsSignup">
+          <label class="block text-gray-600 text-sm mb-1">Mobile Number</label>
+          <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+            <fa-icon [icon]="faPhone" class="mr-3 text-gray-400"></fa-icon>
             <input
               type="text"
               [(ngModel)]="mobile_number"
-              class="text-sm border-none bg-transparent focus:outline-none w-3/4"
-              placeholder="Type your mobilenumber"
+              class="w-full text-sm bg-transparent focus:outline-none"
+              placeholder="Type your mobile number"
             />
-            <hr class="text-2xl mb-3" />
           </div>
         </div>
-      </div>
-      <p *ngIf="isUserLogin"
-        class="text-sm px-4 cursor-pointer hover:text-blue-300"
-        (click)="authToggle()"
-      >
-        {{ authMessage }}
-      </p>
-      <div
-        class="Submit Button my-4 flex items-center justify-center bg-blue-300 p-2 text-white mx-4 rounded-lg"
-        (click)="submitCredentials()"
-      >
-        <button>Submit</button>
+        <div class="mb-5">
+          <label class="block text-gray-600 text-sm mb-1">Password</label>
+          <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+            <fa-icon [icon]="faLock" class="mr-3 text-gray-400"></fa-icon>
+            <input
+              type="password"
+              [(ngModel)]="password"
+              class="w-full text-sm bg-transparent focus:outline-none"
+              placeholder="Type your password"
+            />
+          </div>
+        </div>
+        <p *ngIf="isUserLogin" class="text-sm text-gray-500 cursor-pointer hover:text-blue-400 mb-6" (click)="authToggle()">
+          {{ authMessage }}
+        </p>
+        <div class="flex justify-center">
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white text-xl py-2 px-6 rounded-lg shadow-lg transition-colors duration-300"
+            (click)="submitCredentials()"
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-modal *ngIf="openModalComponnet" [message]="modalMessage" [typeOfModal]="typeOfModal" (closeModalEmit)="handleCloseEmitModal($event)"></app-modal>

@@ -2,5 +2,9 @@
 </div>
 
 <div *ngIf="currentComponent==='doctors'">
-    <app-slot (dataFromSchedule)="toggleComponnet($event)"></app-slot>
+    <app-doctors (dataFromSchedule)="toggleComponnet($event)"></app-doctors>
 </div>
+<div *ngIf="ActivateLoader">
+    <app-loader message="Loading data, please wait..."></app-loader>
+</div>
+<app-modal *ngIf="openModal"></app-modal>

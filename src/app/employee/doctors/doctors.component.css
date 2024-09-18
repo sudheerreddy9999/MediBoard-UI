@@ -39,4 +39,17 @@
     right: 100%;
     transform: translateX(-10px); /* Adjust as necessary */
   }
+  .day-box {
+    width: 100px;  /* or whatever your desired width is */
+    overflow: hidden;
+    position: relative;  /* This ensures any absolute positioning of inner elements is relative to the day box */
+    border: 1px solid #ccc;
+  }
+  
+  .appointment-box {
+    width: 100%;  /* Appointment should fit within the day box */
+    box-sizing: border-box;  /* Ensures padding doesn't increase the width */
+    background-color: #f4f4f4;
+    padding: 5px;
+  }
   

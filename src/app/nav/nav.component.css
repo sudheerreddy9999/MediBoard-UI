@@ -1,0 +1,38 @@
+/* Custom styles for the smaller mat-form-field */
+.small-form-field {
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 170px; /* Adjust width as needed */
+    height: 70px;
+    border-radius: 100%;
+  }
+  
+  /* Custom styles for the smaller mat-select */
+  .small-select {
+    font-size: 18px; /* Smaller font size */
+    height: 40px; /* Adjust height for a smaller form field */
+    padding: 4px 8px; /* Adjust padding for a compact look */
+  }
+  
+  /* Custom styles for small mat-icon */
+  .small-icon {
+    color: #1e88e5; /* Replace with your preferred color */
+    font-size: 30px; /* Smaller icon size */
+    margin-right: 4px; /* Space between icon and text */
+  }
+  
+  /* Custom styles for small mat-option icons */
+  .small-option-icon {
+    color: #1e88e5; /* Replace with your preferred color */
+    font-size: 1rem; /* Smaller icon size */
+    margin-right: 4px; /* Space between icon and text */
+  }
+  .navMainContainer {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensure it stays above other content */
+    background-color: #fff; /* Optional: add background color to cover content underneath */
+  }
+  
+  
+  
