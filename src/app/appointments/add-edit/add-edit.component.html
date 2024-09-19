@@ -1,1 +1,159 @@
-<p>add-edit works!</p>
+<div
+  class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 mt-20"
+>
+  <div
+    class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full max-w-5xl h-auto mx-4 md:mx-0 p-8 space-y-8"
+  >
+    <!-- Content -->
+    <div class="text-center mb-8">
+      <p class="text-gray-600 text-xl">Select an appointment service</p>
+    </div>
+
+
+    <form class="space-y-8">
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Left Column -->
+        <div>
+          <div class="flex">
+            <div>
+              <label class="block text-medium font-medium text-gray-700 mx-4">
+                First Name</label
+              >
+              <input
+                type="text"
+                [(ngModel)]="appointmentFormData.patient_firstname"
+                name="patient_firstname"
+                class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                placeholder="Enter your first name"
+              />
+            </div>
+            <div>
+              <label class="block text-medium px-4 font-medium text-gray-700"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                [(ngModel)]="appointmentFormData.patient_lastname"
+                name="patient_lastname"
+                class="mt-1 ml-2 block w-full border py-2 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-4"
+                placeholder="Enter your last name"
+              />
+            </div>
+          </div>
+
+          <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
+            >Phone Number</label
+          >
+          <input
+            type="tel"
+            [(ngModel)]="appointmentFormData.phone_number"
+            name="phone_number"
+            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            placeholder="Enter your phone number"
+          />
+
+          <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
+            >Email</label
+          >
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="appointmentFormData.email"
+            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            placeholder="Enter your email"
+          />
+          <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
+            >Date of Birth</label
+          >
+          <input
+            type="date"
+            [(ngModel)]="appointmentFormData.date_of_bith"
+            name="date"
+            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+          />
+          <div class="w-full p-4 rounded-lg">
+            <!-- Input Group -->
+            <label class="block text-medium font-medium text-gray-700 px-2 mb-2"
+              >Concern</label
+            >
+            <div class="flex w-full">
+              <input
+                type="text"
+                [(ngModel)]="appointmentFormData.find_doctor"
+                name="searchContent"
+                class="w-full border py-2 px-4 border-gray-300 rounded-l-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                placeholder="Find Your Doctor"
+              />
+
+              <!-- Button Group -->
+              <button
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-r-full shadow"
+                type="button"
+                (click)="openDoctorsModal()"
+              >
+                Search
+              </button>
+            </div>
+            <label class="block text-medium font-medium text-gray-700  mt-4 px-4"
+            >Doctor Name</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="appointmentFormData.doctor_name"
+            (ngModelChange)="doctorValueChanged()"
+            name="Doctor name"
+            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+            placeholder="Selected Doctor Name"
+          />
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div >
+          <label class="block text-sm font-medium text-gray-700 mt-4">
+            Appointment Date
+          </label>
+          <p-calendar
+            class="max-w-full"
+            [(ngModel)]="appointmentFormData.appointment_date"
+            (ngModelChange)="onDateChange($event)"
+            name="appaointment date"
+            [inline]="true"
+            [showWeek]="true"
+          />
+          <div class="flex flex-wrap justify-center gap-4 my-4">
+            <div *ngFor="let slot of currentDayDoctorSlots" class="flex items-center">
+              <button 
+                class="p-3 shadow-lg rounded-lg text-gray-700 font-medium text-center" 
+                [ngClass]="{'bg-blue-500 text-white': userSelectedSlot === slot.slot_id, 'bg-white': userSelectedSlot !== slot.slot_id}"
+                (click)="selectTimeSlotIf(slot.slot_id)">
+                {{ slot.slot_time | timeFormat }} - {{slot.slot_end_time | timeFormat}}
+              </button> 
+            </div>            
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-end mt-8 items-end">
+        <button
+          type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+          (click)="bookAppointment()"
+        >
+          Book Appointment
+        </button>
+      </div>
+    </form>
+
+    <!-- <input id="datepicker" type="text"> 
+      <input type="text"> 
+      <h1>Hello, how are you?</h1> -->
+  </div>
+</div>
+<app-doctors
+  *ngIf="issearchDoctor"
+  (closeDoctorsSearch)="handelDoctorsClose($event)"
+  (doctorInfo)="handleAppointmentData($event)"
+></app-doctors>

@@ -4,7 +4,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from '../auth/auth.component';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+
 import { AuthService } from '../shared/auth.service';
+import { DropdownModule } from 'primeng/dropdown';
 import {
   NavigationEnd,
   RouterLink,
@@ -16,6 +19,12 @@ import { EmployeeComponent } from '../employee/employee.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
+
+interface Country {
+  name: string;
+  code: string;
+  image:string;
+}
 
 @Component({
   selector: 'app-nav',
@@ -31,16 +40,25 @@ import { filter } from 'rxjs';
     AuthComponent,
     DoctorComponent,
     EmployeeComponent,
+    DropdownModule,
+    FormsModule
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
 export class NavComponent implements OnInit {
-  typeOfUser: string = 'Patient';
+  typeOfUser: string = 'this.selectedUser';
   userInfo: any = '';
   isLoginButtonClicked = false;
   parentMessage: string = 'Hello from Parent!';
   currentRoute: string = '';
+  countries: Country[]; // Array to hold the countries list
+  selectedUser: Country | null ={
+    "name": "Patient",
+    "code": "US",
+    "image": "https://thumbs.dreamstime.com/b/portrait-young-handsome-man-white-shirt-outdoor-portrait-young-handsome-man-white-shirt-outdoor-nice-appearance-131934608.jpg"
+}
+
 
   onUserLoggedIn(user: any) {
     this.userInfo = user;
@@ -50,7 +68,12 @@ export class NavComponent implements OnInit {
     this.isLoginButtonClicked=event
   }
 
-  constructor(private router: Router, private route: ActivatedRoute,private AuthService:AuthService) {}
+  constructor(private router: Router, private route: ActivatedRoute,private AuthService:AuthService) {
+    this.countries = [
+      { name: 'Patient', code: 'US',image:"https://thumbs.dreamstime.com/b/portrait-young-handsome-man-white-shirt-outdoor-portrait-young-handsome-man-white-shirt-outdoor-nice-appearance-131934608.jpg" },
+      { name: 'Doctor', code: 'CA',image:"https://img.freepik.com/premium-vector/doctor-icon-avatar-white_136162-58.jpg" },
+      { name: 'Employee', code: 'GB',image:"https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"}]
+  }
   ngOnInit(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedData: string = localStorage.getItem('mediboard') || '';
@@ -70,17 +93,6 @@ export class NavComponent implements OnInit {
         });
     }
   }
-  onUserSelectChange(value: any) {
-    this.isLoginButtonClicked = false;
-    this.typeOfUser = value;
-    if (this.typeOfUser === 'Patient') {
-      this.router.navigate(['/']);
-    } else if (this.typeOfUser === 'Doctor') {
-      this.router.navigate(['/Doctor']);
-    } else if (this.typeOfUser === 'Employee') {
-      this.router.navigate(['/Employee']);
-    }
-  }
   loginButtonClicked(authType: string) {
     console.log(authType)
     this.isLoginButtonClicked = !this.isLoginButtonClicked;
@@ -96,6 +108,24 @@ export class NavComponent implements OnInit {
       } else {
         this.parentMessage = 'Signup';
       }
+    }
+  }
+  onCountrySelect(){
+    console.log("Event data is",this.selectedUser)
+    this.isLoginButtonClicked = false;
+    if (this.selectedUser?.name === 'Patient') {
+      this.router.navigate(['/']);
+    } else if (this.selectedUser?.name === 'Doctor') {
+      this.router.navigate(['/Doctor']);
+    } else if (this.selectedUser?.name === 'Employee') {
+      this.router.navigate(['/Employee']);
+    }else{
+      this.selectedUser={
+        "name": "Patient",
+        "code": "US",
+        "image": "https://thumbs.dreamstime.com/b/portrait-young-handsome-man-white-shirt-outdoor-portrait-young-handsome-man-white-shirt-outdoor-nice-appearance-131934608.jpg"
+    }
+      this.router.navigate(['/']);
     }
   }
   logoutButtonClicked() {

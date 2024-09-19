@@ -1,16 +1,18 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperOptions } from 'swiper/types';
+import { AddEditComponent } from '../appointments/add-edit/add-edit.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,AddEditComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomepageComponent {
+  openBookAppointment:boolean=false;
   slides = [
     { image: 'https://t3.ftcdn.net/jpg/02/95/51/80/360_F_295518052_aO5d9CqRhPnjlNDTRDjKLZHNftqfsxzI.jpg', title: 'Neurology', description: 'Advanced brain and nerve care.', duration: 3 },
     { image: 'https://t3.ftcdn.net/jpg/02/60/04/08/360_F_260040863_fYxB1SnrzgJ9AOkcT0hoe7IEFtsPiHAD.jpg', title: 'Cardiology', description: 'Expert care for heart health.', duration: 4 },
@@ -43,5 +45,9 @@ export class HomepageComponent {
     const duration = this.slides[currentIndex]?.duration || 3000; // Default to 3000ms if no duration is set
     swiper.params.autoplay.delay = 1000 * duration; // Set delay in milliseconds
     swiper.autoplay.start(); // Restart autoplay with new delay
+  }
+  bookAppointmentClicked(){
+    console.log("Book Appointment is    Clciked")
+    this.openBookAppointment=!this.openBookAppointment;
   }
 }

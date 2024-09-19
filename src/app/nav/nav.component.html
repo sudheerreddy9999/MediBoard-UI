@@ -1,63 +1,50 @@
 <div class="navMainContainer mb-4">
-  <div class="NavMain flex justify-between bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ">
+  <div
+    class="NavMain flex justify-between bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
+  >
     <div class="navLogo flex flex-none p-1 items-center ml-8">
-      <div >
+      <div>
         <img
           src="https://www.zilliondesigns.com/images/portfolio/healthcare-hospital/iStock-471629610-Converted.png"
           class="w-20 h-20"
           alt="WebsiteLogo"
         />
       </div>
-      <div><p class="pt-5 text-3xl font-serif font-black">MediBoard</p></div>
+      <div><p class="pt-5 text-3xl font-serif font-black text-white">MediBoard</p></div>
     </div>
     <div class="flex items-center justify-center" *ngIf="!userInfo">
-      <div>
-        <mat-form-field appearance="fill" class="small-form-field">
-          <mat-select
-            [(value)]="typeOfUser"
-            (selectionChange)="onUserSelectChange($event.value)"
-            class="small-select"
-          >
-            <mat-select-trigger>
-              <mat-icon
-                *ngIf="typeOfUser === 'Patient'"
-                class="small-icon"
-              >
-                person
-              </mat-icon>
-              <mat-icon
-                *ngIf="typeOfUser === 'Doctor'"
-                class="small-icon"
-              >
-                person
-              </mat-icon>
-              <mat-icon
-                *ngIf="typeOfUser === 'Employee'"
-                class="small-icon"
-              >
-                badge
-              </mat-icon>
-              <!-- Default icon when none of the conditions match -->
-              <mat-icon *ngIf="!typeOfUser" class="small-icon">
-                ecg
-              </mat-icon>
-              {{ typeOfUser || "Select User" }}
-            </mat-select-trigger>
-      
-            <mat-option value="Patient">
-              <mat-icon class="small-option-icon">group</mat-icon>
-              Patient
-            </mat-option>
-            <mat-option value="Doctor">
-              <mat-icon class="small-option-icon">badge</mat-icon>
-              Doctor
-            </mat-option>
-            <mat-option value="Employee">
-              <mat-icon class="small-option-icon">person</mat-icon>
-              Employee
-            </mat-option>
-          </mat-select>
-        </mat-form-field>        
+      <div class="rounded-full bg-slate-400">
+        <p-dropdown
+  [options]="countries"
+  [(ngModel)]="selectedUser"
+  (ngModelChange)="onCountrySelect()"
+  optionLabel="name"
+  [showClear]="true"
+  placeholder="Select a Country"
+  [ngStyle]="{'background-color': '#c7544c','border-radius': '80%'}"
+>
+  <ng-template pTemplate="selectedItem">
+    <div class="flex align-items-center gap-2" *ngIf="selectedUser">
+      <img
+        [src]="selectedUser.image"
+        [class]="'flag flag-' + selectedUser.code.toLowerCase()"
+        style="width: 18px"
+      />
+      <div>{{ selectedUser.name }}</div>
+    </div>
+  </ng-template>
+  <ng-template let-country pTemplate="item">
+    <div class="flex align-items-center gap-2">
+      <img
+        [src]="country.image"
+        [class]="'flag flag-' + country.code.toLowerCase()"
+        style="width: 18px"
+      />
+      <div>{{ country.name }}</div>
+    </div>
+  </ng-template>
+</p-dropdown>
+
       </div>
       <div class="mr-8">
         <button
@@ -88,7 +75,9 @@
         class="absolutetop-full mt-2 bg-blue-300 text-white px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
         <p>{{ userInfo.first_name }}</p>
-        <p class="hover:cursor-pointer" (click)="logoutButtonClicked()">Logout</p>
+        <p class="hover:cursor-pointer" (click)="logoutButtonClicked()">
+          Logout
+        </p>
       </div>
     </div>
   </div>

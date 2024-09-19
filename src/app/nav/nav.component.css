@@ -33,6 +33,11 @@
     z-index: 1000; /* Ensure it stays above other content */
     background-color: #fff; /* Optional: add background color to cover content underneath */
   }
+
+  :host::ng-deep .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item,
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group {
+    background: lightgreen;
+}
   
   
   
