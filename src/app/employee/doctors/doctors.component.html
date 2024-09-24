@@ -14,7 +14,7 @@
       class="bg-blue-400 w-full h-28 flex items-center rounded-lg justify-center relative mb-6"
     >
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKorWaOyI-EQ54TUK9IhJ_fB0PH25_O8k6Lg&s"
+        [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
         class="w-32 h-32 rounded-full border-4 border-white shadow-md"
         style="position: relative; top: 50%; transform: translateY(-20%)"
       />

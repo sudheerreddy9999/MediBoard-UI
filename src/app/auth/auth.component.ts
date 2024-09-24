@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService } from '../shared/auth.service';
 import { ModalComponent } from '../components/modal/modal.component';
+import { environment } from '../../environments/environment';
 import {
   faLock,
   faPhone,
@@ -31,6 +32,7 @@ interface AuthResponse {
   styleUrls: ['./auth.component.css'], // Corrected typo here
 })
 export class AuthComponent implements OnInit {
+  private apiUrl:string = environment.apiBaseUrl
   @Input() messageFromParent: string = '';
   @Input() typeOfuser: string = '';
   @Output() userLoggedIn = new EventEmitter<any>();
@@ -50,7 +52,6 @@ export class AuthComponent implements OnInit {
   openModalComponnet: boolean = false;
   modalMessage: string = 'Success';
   typeOfModal: string = 'success';
-  apiUrl = 'http://localhost:3000';
   
 
   ngOnInit(): void {

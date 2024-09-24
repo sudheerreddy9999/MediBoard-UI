@@ -31,10 +31,10 @@
       >
         <!-- Doctor image section -->
         <div
-          class="flex-shrink-0 w-full md:w-4/12 h-full flex items-center justify-center overflow-hidden"
+          class="flex-shrink-0 w-full md:w-4/12 h-44 flex items-center justify-center overflow-hidden"
         >
           <img
-            src="https://t3.ftcdn.net/jpg/02/95/51/80/360_F_295518052_aO5d9CqRhPnjlNDTRDjKLZHNftqfsxzI.jpg"
+            [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
             class="w-full h-full object-cover rounded-lg"
             alt="Doctor's photo"
           />

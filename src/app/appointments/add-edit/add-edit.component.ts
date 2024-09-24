@@ -3,6 +3,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DoctorsComponent } from '../doctors/doctors.component';
 import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 import { CalendarModule } from 'primeng/calendar';
 import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import flatpickr from 'flatpickr';
@@ -13,7 +14,7 @@ import { __param } from 'tslib';
 @Component({
   selector: 'app-add-edit',
   standalone: true,
-  imports: [CommonModule,DoctorsComponent,FormsModule,CalendarModule,TimeFormatPipe],
+  imports: [CommonModule,DoctorsComponent,FormsModule,CalendarModule,TimeFormatPipe,MatIcon],
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.css'] // Corrected the property name
 })
@@ -32,6 +33,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     date_of_bith:"",
     doctor_name:"",
   }
+  @Output() closeAppointmentModel = new EventEmitter<boolean>();
   currentDoctorSlots:any[] =[];
   currentDayDoctorSlots:any[] =[];
   userSelectedSlot:any=0;
@@ -153,5 +155,8 @@ complete: () => {
   selectTimeSlotIf( slot_id:any){
     console.log(slot_id)
     this.userSelectedSlot=slot_id
+  }
+  handleCloseModel(){
+    this.closeAppointmentModel.emit(false);
   }
 }

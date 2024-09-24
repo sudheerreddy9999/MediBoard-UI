@@ -4,12 +4,14 @@
   <div
     class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full max-w-5xl h-auto mx-4 md:mx-0 p-8 space-y-8"
   >
-    <!-- Content -->
-    <div class="text-center mb-8">
-      <p class="text-gray-600 text-xl">Select an appointment service</p>
+    <div class="text-center mb-8 flex ml-[35%]">
+      <p class="text-gray-600 text-2xl font-bold">
+        Select an appointment service
+      </p>
+      <mat-icon class="ml-[41%] h-24" (click)="handleCloseModel()"
+        >close</mat-icon
+      >
     </div>
-
-
     <form class="space-y-8">
       <div class="grid grid-cols-2 gap-6">
         <!-- Left Column -->
@@ -71,9 +73,9 @@
             name="date"
             class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
-          <div class="w-full p-4 rounded-lg">
+          <div class="w-full mt-4 rounded-lg">
             <!-- Input Group -->
-            <label class="block text-medium font-medium text-gray-700 px-2 mb-2"
+            <label class="block text-medium font-medium text-gray-700 px-4 mb-2"
               >Concern</label
             >
             <div class="flex w-full">
@@ -94,22 +96,22 @@
                 Search
               </button>
             </div>
-            <label class="block text-medium font-medium text-gray-700  mt-4 px-4"
-            >Doctor Name</label
-          >
-          <input
-            type="text"
-            [(ngModel)]="appointmentFormData.doctor_name"
-            (ngModelChange)="doctorValueChanged()"
-            name="Doctor name"
-            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            placeholder="Selected Doctor Name"
-          />
+            <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
+              >Doctor Name</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="appointmentFormData.doctor_name"
+              (ngModelChange)="doctorValueChanged()"
+              name="Doctor name"
+              class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+              placeholder="Selected Doctor Name"
+            />
           </div>
         </div>
 
         <!-- Right Column -->
-        <div >
+        <div>
           <label class="block text-sm font-medium text-gray-700 mt-4">
             Appointment Date
           </label>
@@ -122,16 +124,23 @@
             [showWeek]="true"
           />
           <div class="flex flex-wrap justify-center gap-4 my-4">
-            <div *ngFor="let slot of currentDayDoctorSlots" class="flex items-center">
-              <button 
-                class="p-3 shadow-lg rounded-lg text-gray-700 font-medium text-center" 
-                [ngClass]="{'bg-blue-500 text-white': userSelectedSlot === slot.slot_id, 'bg-white': userSelectedSlot !== slot.slot_id}"
-                (click)="selectTimeSlotIf(slot.slot_id)">
-                {{ slot.slot_time | timeFormat }} - {{slot.slot_end_time | timeFormat}}
-              </button> 
-            </div>            
+            <div
+              *ngFor="let slot of currentDayDoctorSlots"
+              class="flex items-center"
+            >
+              <button
+                class="p-3 shadow-lg rounded-lg text-gray-700 font-medium text-center"
+                [ngClass]="{
+                  'bg-blue-500 text-white': userSelectedSlot === slot.slot_id,
+                  'bg-white': userSelectedSlot !== slot.slot_id
+                }"
+                (click)="selectTimeSlotIf(slot.slot_id)"
+              >
+                {{ slot.slot_time | timeFormat }} -
+                {{ slot.slot_end_time | timeFormat }}
+              </button>
+            </div>
           </div>
-          
         </div>
       </div>
 

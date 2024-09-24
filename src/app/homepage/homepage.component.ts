@@ -14,9 +14,9 @@ import { AddEditComponent } from '../appointments/add-edit/add-edit.component';
 export class HomepageComponent {
   openBookAppointment:boolean=false;
   slides = [
-    { image: 'https://t3.ftcdn.net/jpg/02/95/51/80/360_F_295518052_aO5d9CqRhPnjlNDTRDjKLZHNftqfsxzI.jpg', title: 'Neurology', description: 'Advanced brain and nerve care.', duration: 3 },
-    { image: 'https://t3.ftcdn.net/jpg/02/60/04/08/360_F_260040863_fYxB1SnrzgJ9AOkcT0hoe7IEFtsPiHAD.jpg', title: 'Cardiology', description: 'Expert care for heart health.', duration: 4 },
-    { image: 'https://thumbs.dreamstime.com/b/confident-female-doctor-office-desk-sitting-smiling-camera-health-care-prevention-concept-56351853.jpg', title: 'Pediatrics', description: 'Comprehensive care for children.', duration: 5 },
+    { image: 'https://ideogram.ai/assets/image/lossless/response/mS0dhUkxSQWf1Z4z_E9iyg', title: 'Neurology', description: 'Advanced brain and nerve care.', duration: 3 },
+    { image: 'https://ideogram.ai/assets/progressive-image/balanced/response/r6AFc6x0TQWm_pezAQqnnw', title: 'Cardiology', description: 'Expert care for heart health.', duration: 4 },
+    { image: 'https://ideogram.ai/assets/image/lossless/response/lgVE2X6WT5GJCLdWrxQePg', title: 'Pediatrics', description: 'Comprehensive care for children.', duration: 5 },
     { image: 'https://t4.ftcdn.net/jpg/03/20/52/31/360_F_320523164_tx7Rdd7I2XDTvvKfz2oRuRpKOPE5z0ni.jpg', title: 'Neurology', description: 'Advanced brain and nerve care.', duration: 3 },
     { image: 'https://www.shutterstock.com/image-photo/portrait-female-doctor-asian-physician-260nw-2465771411.jpg', title: 'Pediatrics', description: 'Comprehensive care for children.', duration: 5 }
   ];
@@ -49,5 +49,8 @@ export class HomepageComponent {
   bookAppointmentClicked(){
     console.log("Book Appointment is    Clciked")
     this.openBookAppointment=!this.openBookAppointment;
+  }
+  handleCloseAppointment(){
+    this.openBookAppointment = false;
   }
 }

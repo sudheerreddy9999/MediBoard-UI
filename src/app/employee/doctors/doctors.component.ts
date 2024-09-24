@@ -8,7 +8,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { ModalComponent } from '../../components/modal/modal.component';
-
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-doctors',
   standalone: true,
@@ -18,6 +18,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 })
 export class DoctorComponent implements OnInit {
   @Output() dataFromSchedule = new EventEmitter<string>();
+  private apiUrl:string = environment.apiBaseUrl;
   selectedEvent: any = null;
   isModalOpen = false;
   scheduleInput: string = 'doctors';
@@ -75,7 +76,6 @@ export class DoctorComponent implements OnInit {
   closeScheduleModal() {
     this.generateSlot = !this.generateSlot;
   }
-  apiUrl = 'http://localhost:3000';
   doctorsData: any[] = [];
   calendarOptions: any = {
     initialView: 'dayGridMonth',
