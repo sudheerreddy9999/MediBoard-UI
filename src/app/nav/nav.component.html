@@ -1,15 +1,15 @@
-<div class="navMainContainer mb-4">
+<div class="navMainContainer mb-4 shadow-2xl bg-white">
   <div class="NavMain fixed top-0 left-0 right-0 flex justify-between z-50" style="background-color: #dde5fb; overflow: visible;">
-    <div class="navLogo flex flex-none p-1 items-center ml-8">
-      <div>
+    <div class="navLogo flex flex-none \ items-center ml-8">
+      <div class>
         <img
-          src="https://www.zilliondesigns.com/images/portfolio/healthcare-hospital/iStock-471629610-Converted.png"
+          src="/images/mediLogo.png"
           class="w-20 h-20"
           alt="WebsiteLogo"
         />
       </div>
       <div>
-        <p class="pt-5 text-3xl font-serif font-black ">Medi Board</p>
+        <p class="pt-5 text-3xl font-black ">Medi Board</p>
       </div>
     </div>
     <div class="flex items-center justify-center" *ngIf="!userInfo">
@@ -58,7 +58,7 @@
       </div>
       <div class="mr-8">
         <button
-          class="mx-2 p-3 text-[18px] m-4 w-28 border border-[#6f82c6] rounded-full hover:bg-[#6f82c6] hover:text-white transition-colors"
+          class="mx-2 p-3 text-[18px] m-4 w-28 border-4 border-[#6f82c6] rounded-full hover:bg-[#6f82c6] hover:text-white transition-colors"
           (click)="loginButtonClicked('Login')"
         >
           Login
@@ -67,7 +67,7 @@
         <button
           *ngIf="typeOfUser === 'Patient'"
           (click)="loginButtonClicked('signUp')"
-          class="mx-2 p-3 text-[18px] m-4 w-28 border border-[#6f82c6] rounded-full hover:bg-[#6f82c6] hover:text-white transition-colors"
+          class="mx-2 p-3 text-[18px] m-4 w-28  border-4 border-[#6f82c6] rounded-full hover:bg-[#6f82c6] hover:text-white transition-colors"
         >
           Signup
         </button>
