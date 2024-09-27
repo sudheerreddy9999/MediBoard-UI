@@ -3,19 +3,10 @@
       <!-- Swiper Section -->
    <div class="w-7/12 h-[550px] flex items-center justify-center">
     <swiper-container
-    [slidesPerView]="1"
-    [spaceBetween]="20"
-    [loop]="true"
-    [autoplay]="swiperConfig.autoplay"
-    [pagination]="swiperConfig.pagination"
-    [navigation]="swiperConfig.navigation"
-    class="mySwiper h-full w-full"
-    [config]="swiperConfig"
-    (swiper)="onSwiper($event)" 
-    (slideChange)="onSlideChange($event)" 
-  >
-    <swiper-slide *ngFor="let slide of slides">
-      <div class="relative w-full h-full bg-cover">
+    class="mySwiper rounded-full" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
+    centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
+    <swiper-slide *ngFor="let slide of slides" class="rounded-lg">
+      <div class="relative w-full h-full bg-cover rounded-lg">
         <img class="absolute inset-0 w-full h-full rounded-lg object-cover" [src]="slide.image" [alt]="slide.title">
   
         <div class="absolute bottom-0 left-0 right-0 flex flex-col justify-end items-center bg-black bg-opacity-50 text-white p-2 rounded-lg">
@@ -28,7 +19,6 @@
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </swiper-container>
-  
 
   
 </div>
