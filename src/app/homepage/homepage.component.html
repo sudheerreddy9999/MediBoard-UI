@@ -28,9 +28,10 @@
       <div class="w-5/12 h-[550px] flex flex-col justify-center items-center p-4">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Hospital Management</h1>
         <p class="max-w-xl mx-auto text-lg text-gray-500 mb-6">Offering advanced care across various specialties. Explore our services to find the best care for you and your loved ones.>Offering advanced care across various specialties. Explore our services to find the best care for you and your loved ones.</p>
-        <button class="px-6 py-4 bg-[#6e81c7] rounded-full text-xl font-normal text-white " (click)="bookAppointmentClicked()">Book Appointment</button>
+        <button class="px-6 py-4 bg-[#6e81c7] rounded-full text-xl font-normal text-white" (click)="bookAppointmentClicked()">Book Appointment</button>
       </div>
     </div>
   </section>
   <app-add-edit *ngIf="openBookAppointment" (closeAppointmentModel)="handleCloseAppointment()"></app-add-edit>
+  <!--*ngIf="openBookAppointment"-->
   

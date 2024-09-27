@@ -4,75 +4,100 @@
   <div
     class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full max-w-5xl h-auto mx-4 md:mx-0 p-8 space-y-8"
   >
-    <div class="text-center mb-8 flex ml-[35%]">
+    <div class="text-center mb-8 flex ml-[38%]">
       <p class="text-gray-600 text-2xl font-bold">
-        Select an appointment service
+        Book An Appointment
       </p>
-      <mat-icon class="ml-[41%] h-24" (click)="handleCloseModel()"
+      <mat-icon class="ml-[55%]" (click)="handleCloseModel()"
         >close</mat-icon
       >
     </div>
-    <form class="space-y-8">
+    <form [formGroup]="AppointmentData" (ngSubmit)="onSubmit()" class="space-y-8">
       <div class="grid grid-cols-2 gap-6">
         <!-- Left Column -->
         <div>
           <div class="flex">
-            <div>
-              <label class="block text-medium font-medium text-gray-700 mx-4">
-                First Name</label
-              >
-              <input
-                type="text"
-                [(ngModel)]="appointmentFormData.patient_firstname"
-                name="patient_firstname"
-                class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-                placeholder="Enter your first name"
-              />
+            <div class="w-1/2 mx-2">
+              <label class="block text-medium mb-1">First Name</label>
+              <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+                <mat-icon class="mr-3 text-gray-400">person</mat-icon>
+                <input
+                  type="text"
+                  formControlName="patient_firstname"
+                  class="w-full text-medium bg-transparent focus:outline-none"
+                  placeholder="Enter First Name"
+                />
+              </div>
+              <div *ngIf="AppointmentData.get('patient_firstname')?.touched && AppointmentData.get('patient_firstname')?.invalid">
+                <small *ngIf="AppointmentData.get('patient_firstname')?.errors?.['required']" class="text-red-600">First Name is required.</small>
+                <small *ngIf="AppointmentData.get('patient_firstname')?.errors?.['minlength']" class="text-red-600">Must be at least 2 characters long.</small>
+                <small *ngIf="AppointmentData.get('patient_firstname')?.errors?.['pattern']" class="text-red-600">Only letters and spaces allowed.</small>
+              </div>
             </div>
-            <div>
-              <label class="block text-medium px-4 font-medium text-gray-700"
-                >Last Name</label
-              >
-              <input
-                type="text"
-                [(ngModel)]="appointmentFormData.patient_lastname"
-                name="patient_lastname"
-                class="mt-1 ml-2 block w-full border py-2 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-4"
-                placeholder="Enter your last name"
-              />
+            <div class="w-1/2">
+              <label class="block text-medium mb-1">First Name</label>
+              <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+                <mat-icon class="mr-3 text-gray-400">person</mat-icon>
+                <input
+                  type="text"
+                  formControlName="patient_lastname"
+                  class="w-full text-medium bg-transparent focus:outline-none"
+                  placeholder="Enter Last Name"
+                />
+              </div>
+              <div *ngIf="AppointmentData.get('patient_lastname')?.touched && AppointmentData.get('patient_lastname')?.invalid">
+                <small *ngIf="AppointmentData.get('patient_lastname')?.errors?.['required']" class="text-red-600">First Name is required.</small>
+                <small *ngIf="AppointmentData.get('patient_lastname')?.errors?.['minlength']" class="text-red-600">Must be at least 2 characters long.</small>
+                <small *ngIf="AppointmentData.get('patient_lastname')?.errors?.['pattern']" class="text-red-600">Only letters and spaces allowed.</small>
+              </div>
             </div>
           </div>
 
-          <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
-            >Phone Number</label
-          >
-          <input
-            type="tel"
-            [(ngModel)]="appointmentFormData.phone_number"
-            name="phone_number"
-            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            placeholder="Enter your phone number"
-          />
+          <div class="w-full mx-2 mt-4">
+            <label class="block text-medium mb-1">Enter Phone Number</label>
+            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+              <mat-icon class="mr-3 text-gray-400">call</mat-icon>
+              <input
+                type="text"
+                formControlName="mobile_number"
+                class="w-full text-medium bg-transparent focus:outline-none"
+                placeholder="Enter First Name"
+              />
+            </div>
+            <div *ngIf="AppointmentData.get('mobile_number')?.touched && AppointmentData.get('mobile_number')?.invalid">
+              <small *ngIf="AppointmentData.get('mobile_number')?.errors?.['required']" class="text-red-600">Mobile number is required.</small>
+              <small *ngIf="AppointmentData.get('mobile_number')?.errors?.['pattern']" class="text-red-600">Enter a valid 10-digit mobile number.</small>
+            </div>
+          </div>
 
-          <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
-            >Email</label
-          >
-          <input
-            type="email"
-            name="email"
-            [(ngModel)]="appointmentFormData.email"
-            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-            placeholder="Enter your email"
-          />
-          <label class="block text-medium font-medium text-gray-700 mt-4 px-4"
-            >Date of Birth</label
-          >
-          <input
-            type="date"
-            [(ngModel)]="appointmentFormData.date_of_bith"
-            name="date"
-            class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          />
+          <div class="w-full mx-2 mt-4">
+            <label class="block text-medium mb-1">Enter Email</label>
+            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+              <mat-icon class="mr-3 text-gray-400">mail</mat-icon>
+              <input
+                type="text"
+                formControlName="patientEmail"
+                class="w-full text-medium bg-transparent focus:outline-none"
+                placeholder="Enter First Name"
+              />
+            </div>
+            <div *ngIf="AppointmentData.get('patientEmail')?.touched && AppointmentData.get('patientEmail')?.invalid">
+              <small *ngIf="AppointmentData.get('patientEmail')?.errors?.['required']" class="text-red-600">Email is required.</small>
+              <small *ngIf="AppointmentData.get('patientEmail')?.errors?.['minlength']" class="text-red-600">Email must be at least 4 characters long.</small>
+              <small *ngIf="AppointmentData.get('patientEmail')?.errors?.['pattern']" class="text-red-600">Please enter a valid email address.</small>
+            </div>
+          </div>
+          <div class="w-full mx-2 mt-4">
+            <label class="block text-medium mb-1">Select Birth Date</label>
+            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
+              <mat-icon class="mr-3 text-gray-400">calendar_month</mat-icon>
+              <input
+                type="date"
+                class="w-full text-medium bg-transparent focus:outline-none"
+                placeholder="Enter First Name"
+              />
+            </div>
+          </div>
           <div class="w-full mt-4 rounded-lg">
             <!-- Input Group -->
             <label class="block text-medium font-medium text-gray-700 px-4 mb-2"
@@ -81,15 +106,15 @@
             <div class="flex w-full">
               <input
                 type="text"
-                [(ngModel)]="appointmentFormData.find_doctor"
                 name="searchContent"
-                class="w-full border py-2 px-4 border-gray-300 rounded-l-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                formControlName="find_doctor"
+                class="w-full border py-2 px-4 rounded-lg rounded-r-none border-gray-300  shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
                 placeholder="Find Your Doctor"
               />
 
               <!-- Button Group -->
               <button
-                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-r-full shadow"
+                class="bg-[#6e81c7] rounded-lg text-medium rounded-l-none text-white font-semibold py-2 px-6 shadow"
                 type="button"
                 (click)="openDoctorsModal()"
               >
@@ -101,25 +126,30 @@
             >
             <input
               type="text"
-              [(ngModel)]="appointmentFormData.doctor_name"
-              (ngModelChange)="doctorValueChanged()"
               name="Doctor name"
+              formControlName="doctor_name"
+              (ngModelChange)="doctorValueChanged()"
               class="mt-1 block w-full border py-2 px-4 border-gray-500 rounded-full shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
               placeholder="Selected Doctor Name"
             />
           </div>
+          <div *ngIf="AppointmentData.get('doctor_name')?.touched && AppointmentData.get('doctor_name')?.invalid">
+            <small *ngIf="AppointmentData.get('doctor_name')?.errors?.['required']" class="text-red-600">Email is required.</small>
+          </div>
         </div>
 
         <!-- Right Column -->
+         <!--[(ngModel)]="appointmentFormData.appointment_date"-->
         <div>
           <label class="block text-sm font-medium text-gray-700 mt-4">
             Appointment Date
           </label>
+          <!--(ngModelChange)="onDateChange($event)"-->
           <p-calendar
             class="max-w-full"
-            [(ngModel)]="appointmentFormData.appointment_date"
-            (ngModelChange)="onDateChange($event)"
             name="appaointment date"
+            formControlName="appointmentDate"
+            (ngModelChange)="onDateChange($event)"
             [inline]="true"
             [showWeek]="true"
           />
@@ -129,7 +159,7 @@
               class="flex items-center"
             >
               <button
-                class="p-3 shadow-lg rounded-lg text-gray-700 font-medium text-center"
+                class="p-3 shadow-lg rounded-lg text-gray-700 font-medium text-center bg-[#6e81c7]"
                 [ngClass]="{
                   'bg-blue-500 text-white': userSelectedSlot === slot.slot_id,
                   'bg-white': userSelectedSlot !== slot.slot_id
@@ -148,8 +178,7 @@
       <div class="flex justify-end mt-8 items-end">
         <button
           type="submit"
-          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
-          (click)="bookAppointment()"
+          class="px-5 py-4 bg-[#6e81c7] rounded-full text-medium font-normal text-white"
         >
           Book Appointment
         </button>
@@ -166,3 +195,6 @@
   (closeDoctorsSearch)="handelDoctorsClose($event)"
   (doctorInfo)="handleAppointmentData($event)"
 ></app-doctors>
+<!--*ngIf="issearchDoctor"-->
+<app-loader *ngIf="openLoader"></app-loader>
+<app-modal *ngIf="openModalComponnet" [message]="modalMessage" [typeOfModal]="typeOfModal" (closeModalEmit)="handleCloseEmitModal($event)"></app-modal>

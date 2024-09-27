@@ -3,71 +3,93 @@
   class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
 >
   <div
-    class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full h-screen p-8 space-y-8 mt-36"
+    class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full h-screen p-8 mt-36"
   >
     <!-- Close Button -->
-    <div class="flex justify-end">
+    <div class="flex justify-end mb-4">
       <mat-icon (click)="closeModal()">close</mat-icon>
     </div>
-    
+
     <!-- Search Input -->
     <input
       type="text"
       [(ngModel)]="searchContent"
       (ngModelChange)="onSerach()"
-      class="w-full h-14 bg-gray-100 border-none rounded-lg px-4 text-xl focus:outline-none"
+      class="w-full h-14 bg-gray-100 border-none rounded-lg px-4 text-xl focus:outline-none mb-4"
       placeholder="Search for doctors..."
     />
 
-    <!-- Doctors Grid -->
+    <!-- Scrollable Content (Doctors Grid) -->
     <div
-      class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-4"
-      *ngIf="doctors?.length"
+      class="overflow-y-auto overflow-x-hidden"
+      style="max-height: calc(100vh - 220px);"
     >
-      <!-- Iterate over doctors array and display each doctor card -->
       <div
-        class="rounded-lg shadow-lg bg-gray-100 relative transform transition duration-300 hover:scale-105 flex flex-col md:flex-row items-center"
-        *ngFor="let doctor of filteredData"
+        class="doctorsGrid relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mr-4 pb-4"
+        *ngIf="doctors?.length"
       >
-        <!-- Doctor image section -->
+        <!-- Iterate over doctors array and display each doctor card -->
         <div
-          class="flex-shrink-0 w-full md:w-4/12 h-44 flex items-center justify-center overflow-hidden"
+          class="rounded-lg shadow-lg h-80 bg-gray-100 relative transform transition duration-300 hover:scale-105 md:flex-row items-center"
+          *ngFor="let doctor of filteredData"
         >
-          <img
-            [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
-            class="w-full h-full object-cover rounded-lg"
-            alt="Doctor's photo"
-          />
-        </div>
-
-        <!-- Doctor information section -->
-        <div class="flex flex-col w-full md:w-5/12 justify-center text-left p-4">
-          <div class="text-2xl font-semibold text-gray-800">{{ doctor.name }}</div>
-          <div class="text-xl text-gray-600">{{ doctor.specialization }}</div>
-
-          <!-- Doctor contact information -->
-          <div class="flex flex-col space-y-2 mt-4">
-            <div class="flex items-center space-x-2">
-              <mat-icon class="text-blue-400">mail</mat-icon>
-              <p class="text-lg text-gray-800">{{ doctor.email }}</p>
+          <!-- Doctor image section -->
+          <div
+            class="flex-shrink-0 w-full md:w-full flex items-center justify-between overflow-hidden"
+          >
+            <div>
+              <img
+                [src]="
+                  'data:image/' + doctor.image_ext + ';base64,' + doctor.image
+                "
+                class="w-20 h-20 object-cover rounded-lg m-4 mb-2"
+                alt="Doctor's photo"
+              />
             </div>
-            <div class="flex items-center space-x-2">
-              <mat-icon class="text-blue-400 text-2xl">phone</mat-icon>
-              <p class="text-lg text-gray-800">{{ doctor.mobile_number }}</p>
+            <!-- Select Doctor Button button -->
+            <div class="flex justify-center w-36 p-6">
+              <button
+                class="py-2 bg-[#6e81c7] hover:bg-[#a4b1e2] text-white font-medium rounded-full shadow-md transition duration-300 w-full"
+                (click)="sendDoctordata(doctor.name, doctor.doctor_id)"
+              > 
+                Select
+              </button>
             </div>
           </div>
-        </div>
 
-        <!-- Book Appointment button -->
-        <div class="flex justify-center w-full p-4">
-          <button
-            class="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full shadow-md transition duration-300 w-full"
-            (click)="sendDoctordata(doctor.name,doctor.doctor_id)"
+          <!-- Doctor information section -->
+          <div
+            class="flex flex-col w-full md:w-full justify-center text-left p-4"
           >
-            Book Appointment
-          </button>
+            <div class="text-xl font-medium text-gray-800">
+              {{ doctor.name }}
+              <span class="text-gray-500 font-normal text-[17px]"
+                >( {{ doctor.specialization }} )</span
+              >
+            </div>
+            <div class="text-medium text-gray-800 mt-3">
+              {{ doctor.description }}
+            </div>
+
+            <!-- Doctor contact information -->
+            <div class="flex flex-col space-y-2 mt-4 absolute bottom-0 w-full">
+              <!-- Position at bottom -->
+              <div class="flex items-center space-x-2">
+                <mat-icon class="text-[#6e81c7]">mail</mat-icon>
+                <p class="text-lg text-gray-800 pt-2">{{ doctor.email }}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-loader *ngIf="loaderOn"></app-loader>
+<app-modal
+  *ngIf="openModalComponnet"
+  [message]="modalMessage"
+  [typeOfModal]="typeOfModal"
+  (closeModalEmit)="handleCloseEmitModal($event)"
+></app-modal>
