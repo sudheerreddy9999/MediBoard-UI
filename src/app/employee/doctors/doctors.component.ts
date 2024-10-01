@@ -141,13 +141,13 @@ export class DoctorComponent implements OnInit {
         html: `
           <div class="relative p-2 ${eventClass} border border-gray-300 rounded-lg shadow-sm cursor-pointer overflow-visible group" ${editableAttr} style="background-color: ${backgroundColor};">
             <!-- Truncated Event Title and Time -->
-            <div class="flex items-center space-x-2 w-[242px]">
-              <span class="text-sm text-gray-800 dark:text-gray-200">${startTime} - ${endTime}</span>
-              <span class="text-sm font-medium text-gray-900 dark:text-gray-100 flex-1 truncate overflow-hidden text-ellipsis whitespace-nowrap">${title}</span>
+            <div class="flex items-center space-x-2 w-[180px]">
+              <span class="text-xs text-gray-800 dark:text-gray-200">${startTime} - ${endTime}</span>
+              <span class="text-xs font-medium text-gray-900 dark:text-gray-100 flex-1 truncate overflow-hidden text-ellipsis whitespace-nowrap">${title}</span>
             </div>
             <!-- Tooltip with full details -->
             <div class="absolute z-50 top-1/2 ${tooltipBoundaryCheckClass} -translate-y-1/2 bg-gray-900 text-white text-xs rounded-lg p-3 shadow-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:visible max-w-xs">
-              <div><p class="font-medium">${title}</p></div>
+              <div><p class="font-xs">${title}</p></div>
               <div><span>${startTime} - ${endTime}</span></div>
               <div><span>${description}</span></div>
             </div>

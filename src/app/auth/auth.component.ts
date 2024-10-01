@@ -52,6 +52,7 @@ export class AuthComponent implements OnInit {
   authMessage = "Don't have account signUp";
   authIsSignup = false;
   openModalComponnet: boolean = false;
+  isEmployeeLogin = false;
   modalMessage: string = 'Success';
   typeOfModal: string = 'success';
   profileForm = new FormGroup({
@@ -87,6 +88,9 @@ export class AuthComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.authService.selectedEmployeeDropDown$.subscribe((message: boolean) => {
+      this.isEmployeeLogin = message;
+  })
     if (this.messageFromParent === 'Login') {
       this.isUserLogin = true;
       this.authMessage = "Don't have account signUp";
@@ -95,7 +99,7 @@ export class AuthComponent implements OnInit {
       this.isUserLogin = true;
       this.authMessage = "Already a user Login"
     }
-  }
+}
   onSubmit() {
     if (this.authIsSignup) {
       if (this.profileForm.invalid) {

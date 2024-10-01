@@ -1,126 +1,132 @@
-<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center rounded-lg justify-center z-50">
-  <div class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full h-auto mx-4 md:mx-0 md:max-w-5xl space-y-8">
+<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center rounded-lg justify-center z-50 "
+[ngClass]="{ 'mt-16': isEmployeeLogin }"
+>
+  <div class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-full h-auto mx-4 md:mx-0 md:max-w-3xl space-y-8">
     <!-- Modal Content -->
     <div class="flex flex-col md:flex-row bg-white dark:bg-neutral-950 rounded-lg shadow-lg">
       <!-- Image Section -->
-      <div class="w-7/12 h-[600px] flex items-center justify-center rounded-lg">
+      <div class="w-6/12 h-[480px] flex items-center justify-center rounded-lg">
         <img src="https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg" class=" rounded-tl-lg rounded-bl-lg w-full h-full object-cover">
       </div>
       <!-- Form Section   -->
-   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-5/12 h-[600px] rounded-lg">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-6/12 h-[450px] rounded-lg">
         <div id="moreDetailsContainer">
-          <div class="flex justify-end top-0 pr-3 mt-3" (click)="closeAuthForm()"><mat-icon style="font-size: 30px;">close</mat-icon></div>
-      <div class="flex items-center justify-center h-full">
-        <div class="authForm flex flex-col justify-center rounded-lg shadow-md p-6 pt-0 w-full h-[600px]">
-          <div class="headingContainer w-full ">
-            <div class="text-3xl font-bold text-gray-800 mb-2 text-center">{{messageFromParent}}</div>
-            <div class="text-center text-gray-500 mb-5">Empowering Hospitals with Smart Scheduling</div>
+          <div class="flex justify-end top-0 pr-3 mt-3" (click)="closeAuthForm()">
+            <mat-icon style="font-size: 25px;" *ngIf="!isEmployeeLogin">close</mat-icon>
           </div>
-          <div class="flex space-x-4 mb-5" *ngIf="authIsSignup">
-          
-            <div class="w-1/2">
-              <label class="block text-medium mb-1">First Name</label>
-              <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
-                <fa-icon [icon]="faUser" class="mr-3 text-gray-400"></fa-icon>
-                <input
-                  type="text"
-                  formControlName="first_name"
-                  class="w-full text-medium bg-transparent focus:outline-none"
-                  placeholder="Enter First Name"
-                />
+          <div class="flex items-center justify-center h-full">
+            <div class="authForm flex flex-col justify-center rounded-lg shadow-md p-4 pt-0 w-full h-[450px]">
+              <div class="headingContainer w-full">
+                <div class="text-lg font-semibold text-gray-800 mb-2 text-center">{{messageFromParent}}</div>
+                <div class="text-center text-sm text-gray-500 mb-4">Empowering Hospitals with Smart Scheduling</div>
               </div>
-              <div *ngIf="profileForm.get('first_name')?.touched && profileForm.get('first_name')?.invalid">
-                <small *ngIf="profileForm.get('first_name')?.errors?.['required']" class="text-red-600">First Name is required.</small>
-                <small *ngIf="profileForm.get('first_name')?.errors?.['minlength']" class="text-red-600">Must be at least 2 characters long.</small>
-                <small *ngIf="profileForm.get('first_name')?.errors?.['pattern']" class="text-red-600">Only letters and spaces allowed.</small>
+              <div class="flex space-x-4 mb-4" *ngIf="authIsSignup">
+                <div class="w-1/2">
+                  <label class="block text-sm mb-1">First Name</label>
+                  <div class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-1">
+                    <fa-icon [icon]="faUser" class="mr-2 text-gray-400"></fa-icon>
+                    <input
+                      type="text"
+                      formControlName="first_name"
+                      class="w-full text-sm bg-transparent focus:outline-none"
+                      placeholder="Enter First Name"
+                    />
+                  </div>
+                  <div *ngIf="profileForm.get('first_name')?.touched && profileForm.get('first_name')?.invalid">
+                    <small *ngIf="profileForm.get('first_name')?.errors?.['required']" class="text-red-600">First Name is required.</small>
+                    <small *ngIf="profileForm.get('first_name')?.errors?.['minlength']" class="text-red-600">Must be at least 2 characters long.</small>
+                    <small *ngIf="profileForm.get('first_name')?.errors?.['pattern']" class="text-red-600">Only letters and spaces allowed.</small>
+                  </div>
+                </div>
+      
+                <div class="w-1/2">
+                  <label class="block text-sm mb-1">Last Name</label>
+                  <div class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-1">
+                    <fa-icon [icon]="faUser" class="mr-2 text-gray-400"></fa-icon>
+                    <input
+                      type="text"
+                      formControlName="last_name"
+                      class="w-full text-sm bg-transparent focus:outline-none"
+                      placeholder="Enter Last Name"
+                    />
+                  </div>
+                  <div *ngIf="profileForm.get('last_name')?.touched && profileForm.get('last_name')?.invalid">
+                    <small *ngIf="profileForm.get('last_name')?.errors?.['required']" class="text-red-600">Last Name is required.</small>
+                    <small *ngIf="profileForm.get('last_name')?.errors?.['minlength']" class="text-red-600">Must be at least 2 characters long.</small>
+                    <small *ngIf="profileForm.get('last_name')?.errors?.['pattern']" class="text-red-600">Only letters and spaces allowed.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label class="block text-sm mb-1">Email</label>
+                <div class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-1">
+                  <fa-icon [icon]="faEnvelope" class="mr-2 text-gray-400"></fa-icon>
+                  <input
+                    type="text"
+                    formControlName="userName"
+                    class="w-full text-sm bg-transparent focus:outline-none"
+                    placeholder="Type your email"
+                    required
+                  />
+                </div>
+                <div *ngIf="profileForm.get('userName')?.touched && profileForm.get('userName')?.invalid">
+                  <small *ngIf="profileForm.get('userName')?.errors?.['required']" class="text-red-600">Email is required.</small>
+                  <small *ngIf="profileForm.get('userName')?.errors?.['minlength']" class="text-red-600">Email must be at least 4 characters long.</small>
+                  <small *ngIf="profileForm.get('userName')?.errors?.['pattern']" class="text-red-600">Please enter a valid email address.</small>
+                </div>
+              </div>
+              
+              <div class="mb-4" *ngIf="authIsSignup">
+                <label class="block text-sm mb-1">Mobile Number</label>
+                <div class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-1">
+                  <fa-icon [icon]="faPhone" class="mr-2 text-gray-400"></fa-icon>
+                  <input
+                    type="text"
+                    formControlName="mobile_number"
+                    class="w-full text-sm bg-transparent focus:outline-none"
+                    placeholder="Type your mobile number"
+                  />
+                </div>
+                <div *ngIf="profileForm.get('mobile_number')?.touched && profileForm.get('mobile_number')?.invalid">
+                  <small *ngIf="profileForm.get('mobile_number')?.errors?.['required']" class="text-red-600">Mobile number is required.</small>
+                  <small *ngIf="profileForm.get('mobile_number')?.errors?.['pattern']" class="text-red-600">Enter a valid 10-digit mobile number.</small>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <label class="block text-sm mb-1">Password</label>
+                <div class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-1">
+                  <fa-icon [icon]="faLock" class="mr-2 text-gray-400"></fa-icon>
+                  <input
+                    type="password"
+                    formControlName="password"
+                    class="w-full text-sm bg-transparent focus:outline-none"
+                    placeholder="Type your password"
+                  />
+                </div>
+                <div *ngIf="profileForm.get('password')?.touched && profileForm.get('password')?.invalid && authIsSignup">
+                  <small *ngIf="profileForm.get('password')?.errors?.['required'] && authIsSignup" class="text-red-600">Password is required.</small>
+                  <small *ngIf="profileForm.get('password')?.errors?.['minlength'] && authIsSignup" class="text-red-600">Password must be at least 8 characters long.</small>
+                  <small *ngIf="profileForm.get('password')?.errors?.['pattern'] && authIsSignup" class="text-red-600">Password must contain uppercase, lowercase, and a digit.</small>
+                </div>
+              </div>
+              
+              <p *ngIf="isUserLogin" class="text-xs text-gray-500 cursor-pointer hover:text-blue-400 mb-4" (click)="authToggle()">
+                {{ authMessage }}
+              </p>
+              
+              <div class="flex justify-center">
+                <button 
+                  type="submit"
+                  class="bg-[#6e81c7] hover:#6e81c7 text-medium py-1.5 px-5 rounded-full text-white shadow-lg transition-colors duration-300"
+                >
+                  Submit
+                </button>
               </div>
             </div>
-
-            <div class="w-1/2">
-              <label class="block text-medium mb-1">Last Name</label>
-              <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
-                <fa-icon [icon]="faUser" class="mr-3 text-gray-400"></fa-icon>
-                <input
-                  type="text"
-                  formControlName="last_name"
-                  class="w-full text-medium bg-transparent focus:outline-none"
-                  placeholder="Enter Last Name"
-                />
-              </div>
-              <div *ngIf="profileForm.get('last_name')?.touched && profileForm.get('last_name')?.invalid">
-                <small *ngIf="profileForm.get('last_name')?.errors?.['required']" class="text-red-600">Last Name is required.</small>
-                <small *ngIf="profileForm.get('last_name')?.errors?.['minlength']" class="text-red-600">Must be at least 2 characters long.</small>
-                <small *ngIf="profileForm.get('last_name')?.errors?.['pattern']" class="text-red-600">Only letters and spaces allowed.</small>
-              </div>
-            </div>
-          </div>
-          <div class="mb-5">
-            <label class="block text-medium mb-1">Email</label>
-            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
-              <fa-icon [icon]="faEnvelope" class="mr-3 text-gray-400"></fa-icon>
-              <input
-                type="text"
-                formControlName="userName"
-                class="w-full text-medium bg-transparent focus:outline-none"
-                placeholder="Type your email"
-                required
-              />
-            </div>
-            <div *ngIf="profileForm.get('userName')?.touched && profileForm.get('userName')?.invalid">
-              <small *ngIf="profileForm.get('userName')?.errors?.['required']" class="text-red-600">Email is required.</small>
-              <small *ngIf="profileForm.get('userName')?.errors?.['minlength']" class="text-red-600">Email must be at least 4 characters long.</small>
-              <small *ngIf="profileForm.get('userName')?.errors?.['pattern']" class="text-red-600">Please enter a valid email address.</small>
-            </div>
-          </div>
-          
-          <div class="mb-5" *ngIf="authIsSignup">
-            <label class="block text-medium mb-1">Mobile Number</label>
-            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
-              <fa-icon [icon]="faPhone" class="mr-3 text-gray-400"></fa-icon>
-              <input
-                type="text"
-                formControlName="mobile_number"
-                class="w-full text-medium bg-transparent focus:outline-none"
-                placeholder="Type your mobile number"
-              />
-            </div>
-            <div *ngIf="profileForm.get('mobile_number')?.touched && profileForm.get('mobile_number')?.invalid">
-              <small *ngIf="profileForm.get('mobile_number')?.errors?.['required']" class="text-red-600">Mobile number is required.</small>
-              <small *ngIf="profileForm.get('mobile_number')?.errors?.['pattern']" class="text-red-600">Enter a valid 10-digit mobile number.</small>
-            </div>
-          </div>
-          <div class="mb-5">
-            <label class="block text-medium mb-1">Password</label>
-            <div class="flex items-center bg-white rounded-lg border border-gray-300 px-3 py-2">
-              <fa-icon [icon]="faLock" class="mr-3 text-gray-400"></fa-icon>
-              <input
-                type="password"
-                formControlName="password"
-                class="w-full text-medium bg-transparent focus:outline-none"
-                placeholder="Type your password"
-              />
-            </div>
-            <div *ngIf="profileForm.get('password')?.touched && profileForm.get('password')?.invalid && authIsSignup">
-              <small *ngIf="profileForm.get('password')?.errors?.['required'] && authIsSignup" class="text-red-600">Password is required.</small>
-              <small *ngIf="profileForm.get('password')?.errors?.['minlength'] && authIsSignup" class="text-red-600">Password must be at least 8 characters long.</small>
-              <small *ngIf="profileForm.get('password')?.errors?.['pattern'] && authIsSignup" class="text-red-600">Password must contain uppercase, lowercase, and a digit.</small>
-            </div>
-          </div>
-          <p *ngIf="isUserLogin" class="text-medium text-gray-500 cursor-pointer hover:text-blue-400 mb-6" (click)="authToggle()">
-            {{ authMessage }}
-          </p>
-          <div class="flex justify-center">
-            <button 
-              type="submit"
-              class="bg-[#6e81c7] hover:#6e81c7 text-xl py-2 px-6 rounded-full text-white shadow-lg transition-colors duration-300"
-            >
-              Submit
-            </button>
           </div>
         </div>
-      </div>
-    </div>
-       </form>
+      </form>      
 </div>
 <app-loader *ngIf="OpenLoader"></app-loader>
 <app-modal *ngIf="openModalComponnet" [message]="modalMessage" [typeOfModal]="typeOfModal" (closeModalEmit)="handleCloseEmitModal($event)"></app-modal>

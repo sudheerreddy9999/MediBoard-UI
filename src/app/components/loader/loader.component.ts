@@ -8,5 +8,5 @@ import { Component,Input } from '@angular/core';
   styleUrl: './loader.component.css'
 })
 export class LoaderComponent {
-  @Input() message:string ='Loading'
+  @Input() message:string ='Loading Info ....'
 }

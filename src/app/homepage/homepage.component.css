@@ -6,7 +6,6 @@ swiper-container {
 
   swiper-slide {
     text-align: center;
-    font-size: 18px;
     background: #fff;
     display: flex;
     justify-content: center;
@@ -19,3 +18,10 @@ swiper-container {
     height: 100%;
     object-fit: cover;
   }
+  .swiper-button-next, 
+nav .swiper-rtl .swiper-button-prev {
+    color: brown !important;
+}
+.swiper-button-next{
+  background-color: aquamarine !important;
+}

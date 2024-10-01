@@ -110,14 +110,17 @@ export class NavComponent implements OnInit {
     }
   }
   onCountrySelect(){
-    console.log("Event data is",this.selectedUser)
     this.isLoginButtonClicked = false;
     if (this.selectedUser?.name === 'Patient') {
       this.router.navigate(['/']);
+      this.AuthService.userTypeEmployee(false);
     } else if (this.selectedUser?.name === 'Doctor') {
       this.router.navigate(['/Doctor']);
+      this.AuthService.userTypeEmployee(false);
     } else if (this.selectedUser?.name === 'Employee') {
       this.router.navigate(['/Employee']);
+      this.isLoginButtonClicked = true;
+      this.AuthService.userTypeEmployee(true);
     }else{
       this.selectedUser={
         "name": "Patient",

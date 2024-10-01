@@ -52,4 +52,7 @@
     background-color: #f4f4f4;
     padding: 5px;
   }
+  .fc-toolbar-title{
+    font-size: medium !important;
+  }
   

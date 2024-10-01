@@ -1,7 +1,84 @@
 .flatpickr-months {
-  padding-top: 30px;
+  padding-top: 10px;
 }
 
 .flatpickr-innerContainer {
-  padding: 0 30px 30px;
+  padding: 0 10px 10px;
 }
+#pn_id_1_panel {
+  background-color: aquamarine;
+}
+p-calendar.calendar-control  {
+  opacity: 1;
+  color: black;
+  background: #eeeeee;
+}
+.main-container ::ng-deep .ui-datepicker-trigger.ui-button {
+  background-color: blue;
+}
+:host ::ng-deep .Styling-Class{
+  background-color: aquamarine;
+}
+.p-datepicker table td{ padding: 0px; }
+.p-datepicker table td > span {  height: 25px;width: 25px;}
+
+.small-calendar {
+  width: 60% !important; /* Adjust the width as needed */
+  height: 150px !important; /* Adjust the height as needed */
+  font-size: 6px !important; /* Reduce font size for smaller text */
+}
+
+.small-calendar .ui-datepicker {
+  transform: scale(0.8); /* Use scale to shrink the calendar */
+}
+.ui-calendar .ui-datepicker {
+  height : 200px;
+  }
+  .custom-height{
+    height:300px;
+    background-color: cornflowerblue;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse; /* Removes spacing between table cells */
+  }
+  
+  thead {
+    background-color: #f5f5f5; /* Sets background color for table header */
+  }
+  
+  tr {
+    border-bottom: 1px solid #ddd; /* Adds border under each row */
+  }
+  
+  th {
+    padding: 8px; /* Adds padding inside table headers */
+    text-align: left; /* Aligns text to the left */
+    font-weight: bold; /* Makes text bold */
+    background-color: #333; /* Header background color */
+    color: white; /* Text color in header */
+  }
+  
+  span {
+    font-size: 14px; /* Set a font size for span */
+    color: #555; /* Text color for span */
+    padding: 2px;
+  }
+  /* .bg-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://ideogram.ai/assets/progressive-image/balanced/response/Zgpls2c0RoWDeePZIDxTvQ');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 0;
+    border-radius: inherit;
+  } 
+
+  */
+  
+  

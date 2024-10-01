@@ -1,19 +1,18 @@
-<div class="navMainContainer mb-4 shadow-2xl bg-white">
-  <div class="NavMain fixed top-0 left-0 right-0 flex justify-between z-50" style="background-color: #dde5fb; overflow: visible;">
+<div class="navMainContainer mb-2 shadow-2xl bg-white">
+  <div
+    class="NavMain fixed top-0 left-0 right-0 flex justify-between z-50 bg-gradient-to-r from-[#dadff5] to-[#7c94e1]"
+    style="overflow: visible"
+  >
     <div class="navLogo flex flex-none \ items-center ml-8">
       <div class>
-        <img
-          src="/images/mediLogo.png"
-          class="w-20 h-20"
-          alt="WebsiteLogo"
-        />
+        <img src="/images/mediLogo.png" class="w-14 h-14" alt="WebsiteLogo" />
       </div>
       <div>
-        <p class="pt-5 text-3xl font-black ">Medi Board</p>
+        <p class="pt-5 text-xl font-black">Medi Board</p>
       </div>
     </div>
     <div class="flex items-center justify-center" *ngIf="!userInfo">
-      <div class="rounded-full">
+      <div class="rounded-full z-10 mr-6">
         <p-dropdown
           class="custom-rounded-dropdown"
           [options]="countries"
@@ -30,18 +29,25 @@
             'hover:text-white': true,
             'transition-colors': true
           }"
-          [ngStyle]="{ 'background-color': '#dde5fb', 'border-radius': '80%' }"
+          [ngStyle]="{ border: 'none' }"
           [style]="{ color: '#dde5fb' }"
-          [panelStyle]="{ 'background-color': '#dde5fb', 'color': '#333', 'z-index': '100' }"
+          [panelStyle]="{
+            'background-color': '#dde5fb',
+            color: '#333',
+            'z-index': '101'
+          }"
+          appendTo="body"
         >
           <ng-template pTemplate="selectedItem">
             <div class="flex align-items-center gap-2" *ngIf="selectedUser">
               <img
                 [src]="selectedUser.image"
                 [class]="'flag flag-' + selectedUser.code.toLowerCase()"
-                style="width: 18px"
+                style="width: 14px; border-radius: 50%"
               />
-              <div>{{ selectedUser.name }}</div>
+              <div>
+                <p class="text-xs font-semibold">{{ selectedUser.name }}</p>
+              </div>
             </div>
           </ng-template>
           <ng-template let-country pTemplate="item">
@@ -49,42 +55,55 @@
               <img
                 [src]="country.image"
                 [class]="'flag flag-' + country.code.toLowerCase()"
-                style="width: 18px"
+                style="width: 14px; border-radius: 50%"
               />
-              <div>{{ country.name }}</div>
+              <div>
+                <p class="text-xs font-medium">{{ country.name }}</p>
+              </div>
             </div>
           </ng-template>
         </p-dropdown>
       </div>
-      <div class="mr-8">
+      
+      
+      <div class="mr-2" *ngIf="!isLoginButtonClicked">
         <button
-          class="mx-2 p-3 text-[18px] m-4 w-28 border-4 border-[#6f82c6] rounded-full hover:bg-[#6f82c6] hover:text-white transition-colors"
+          class="mx-2 p-2 text-sm w-24 border-[3px] bg-[#dadff5] font-medium border-[#6f82c6] rounded-full hover:bg-[#6f82c6]/80 hover:text-white/90 hover:border-[#c4ccea] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg"
           (click)="loginButtonClicked('Login')"
         >
           Login
         </button>
-
         <button
           *ngIf="typeOfUser === 'Patient'"
           (click)="loginButtonClicked('signUp')"
-          class="mx-2 p-3 text-[18px] m-4 w-28  border-4 border-[#6f82c6] rounded-full hover:bg-[#6f82c6] hover:text-white transition-colors"
+          class="mx-2 p-2 text-sm m-4 w-24 border-[3px] bg-[#dadff5] font-medium border-[#6f82c6] rounded-full hover:bg-[#6f82c6]/80 hover:text-white/90 hover:border-[#c4ccea] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg"
         >
           Signup
         </button>
       </div>
     </div>
     <div
-      class="relative group mr-12 text-[18px] mt-4  w-16 h-12 rounded-full"
+      class="relative group mr-12 text-[18px] mt-4 w-16 h-12 rounded-full"
       *ngIf="userInfo"
     >
-    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbGV8ZW58MHx8MHx8fDA%3D" class="w-12 h-12 rounded-lg">
+      <img
+        src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbGV8ZW58MHx8MHx8fDA%3D"
+        class="w-10 h-10 rounded-lg"
+      />
       <div
         class="absolute top-full w-24 flex flex-col items-center justify-center -ml-16 bg-[#8a9fec] text-white mt-1 px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
-      <div><p>{{ userInfo.first_name }}</p></div>
-      <div><p class="hover:cursor-pointer" (click)="logoutButtonClicked()">
-        Logout
-      </p></div>
+        <div>
+          <p class="text-sm">{{ userInfo.first_name }}</p>
+        </div>
+        <div>
+          <p
+            class="hover:cursor-pointer text-sm"
+            (click)="logoutButtonClicked()"
+          >
+            Logout
+          </p>
+        </div>
       </div>
     </div>
   </div>

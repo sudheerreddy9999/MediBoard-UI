@@ -1,6 +1,6 @@
 <!-- <app-main></app-main> -->
 <app-nav></app-nav>
-
-<app-homepage></app-homepage>
-
+<div *ngIf="!employeeLogin">
+    <app-homepage></app-homepage>
 <app-footer></app-footer>
+</div>
