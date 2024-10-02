@@ -26,12 +26,15 @@ export class DoctorComponent implements OnInit {
   currentDoctor: string = '';
   currentOpenedModal: string = '';
   currentComponent = 'doctors';
+  searchContent=""
   formTitle="Add New Schedule"
   activateLoader:boolean =false;
   loaderMessage ='Loading.....'
   isErrorModal:boolean=false
   typeofModal:string ='success'
   errorModalMessage ='Error'
+  doctorsData: any[] = [];
+  filteredContent: any[] =[]
   formInputFeilds = {
     title: '',
     start: '',
@@ -53,6 +56,7 @@ export class DoctorComponent implements OnInit {
       next: (response) => {
         if (response?.doctorData) {
           this.doctorsData = response.doctorData;
+          this.filteredContent = response.doctorData;
           console.log('Doctors data fetched successfully:', this.doctorsData);
         } else {
           console.warn('No doctor data available in the response.');
@@ -70,13 +74,22 @@ export class DoctorComponent implements OnInit {
       }
     });
   }
+  onSerach(){
+    if(this.searchContent ==''){
+      console.log("hello I am from")
+     this.filteredContent = this.doctorsData
+    }else{
+      this.filteredContent = this.doctorsData.filter(doctor => {
+        return doctor.name.toLowerCase().includes(this.searchContent.toLowerCase());
+      });
+    }
+  }
   sendToEmployee() {
     this.dataFromSchedule.emit(this.scheduleInput);
   }
   closeScheduleModal() {
     this.generateSlot = !this.generateSlot;
   }
-  doctorsData: any[] = [];
   calendarOptions: any = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, timeGridPlugin],

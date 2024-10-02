@@ -90,21 +90,22 @@
         src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbGV8ZW58MHx8MHx8fDA%3D"
         class="w-10 h-10 rounded-lg"
       />
-      <div
-        class="absolute top-full w-24 flex flex-col items-center justify-center -ml-16 bg-[#8a9fec] text-white mt-1 px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-      >
-        <div>
-          <p class="text-sm">{{ userInfo.first_name }}</p>
-        </div>
-        <div>
-          <p
-            class="hover:cursor-pointer text-sm"
-            (click)="logoutButtonClicked()"
-          >
-            Logout
-          </p>
+      <div class="relative z-50"> 
+        <div
+          class="absolute top-full w-24 flex flex-col items-center justify-center -ml-16 bg-[#dadff5] text-black mt-3 px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <div>
+            <p class="text-sm">{{ userInfo.first_name }}</p>
+          </div>
+          <div>
+            <p class="hover:cursor-pointer text-sm" (click)="logoutButtonClicked()">
+              Logout
+            </p>
+          </div>
         </div>
       </div>
+      
+      
     </div>
   </div>
 </div>
