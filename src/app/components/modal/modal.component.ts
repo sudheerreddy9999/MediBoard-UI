@@ -23,7 +23,7 @@ export class ModalComponent implements OnInit {
     if(this.typeOfModal ==='success'){
       setTimeout(()=>{
         this.typeOfModal ='';
-      },3000)
+      },2000)
     }
   }
 }

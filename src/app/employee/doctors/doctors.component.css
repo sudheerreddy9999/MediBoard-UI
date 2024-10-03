@@ -1,60 +1,44 @@
-/* CSS for the calendar day cell */
+/* Container for the calendar */
+.calendar-container {
+  height: 80vh;  /* Adjust height dynamically */
+  overflow: hidden;
+}
+
+/* Ensure the calendar takes full height */
+.full-calendar {
+  height: 100%; 
+  overflow: hidden;
+}
+
+/* Styling for individual day cells */
 .fc-daygrid-day {
   position: relative;
-  height: 80px; /* Reduced height of each day box */
-  max-height: 80px; /* Max height for each day box */
-  overflow: hidden; /* Hide overflow until hovered or expanded */
+  height: auto;  /* Dynamic height */
+  overflow: hidden;
 }
 
-/* Ensure events do not expand the day box unless necessary */
+/* Event item styles */
 .fc-event {
+  margin-bottom: 2px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden; /* Truncate event title if too long */
-  width: 100%; /* Ensure event fills the available width */
-  display: block;
-  margin-bottom: 2px; /* Reduced margin between events */
-}
-
-/* Show tooltip when hovering on an event */
-.fc-event:hover .fc-event-title {
-  overflow: visible;
-  white-space: normal;
-}
-
-/* Make the event list scrollable if there are too many events */
-.fc-daygrid-day-events {
-  max-height: 60px; /* Reduced event list height */
-  overflow-y: auto; /* Scrollable if events exceed height */
-  padding-right: 4px; /* Reduced space for scrollbar */
-}
-
-/* Adjust the overall calendar height */
-.full-calendar {
-  max-height: 40vh; /* Reduced overall calendar height */
-  overflow: hidden; /* Prevent overflow for the entire calendar */
-}
-
-.adjust-tooltip-right {
-  left: auto;
-  right: 100%;
-  transform: translateX(-5px); /* Adjust as necessary */
-}
-
-.day-box {
-  width: 80px;  /* Reduced width for day boxes */
   overflow: hidden;
-  position: relative;  /* This ensures any absolute positioning of inner elements is relative to the day box */
-  border: 1px solid #ccc;
+  width: 100%;
 }
 
-.appointment-box {
-  width: 100%;  /* Appointment should fit within the day box */
-  box-sizing: border-box;  /* Ensures padding doesn't increase the width */
-  background-color: #f4f4f4;
-  padding: 4px; /* Reduced padding */
+/* Disable interaction for completed events */
+.fc-event.cursor-not-allowed {
+  pointer-events: none;  /* Disable clicking */
+  background-color: #f5f5f5;
+  color: #999;
 }
 
-.fc-toolbar-title {
-  font-size: small !important; /* Reduced font size of toolbar title */
+/* Custom styling for the tooltip */
+.fc-event .group-hover .tooltip {
+  position: absolute;
+  z-index: 50;
+  background-color: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
 }

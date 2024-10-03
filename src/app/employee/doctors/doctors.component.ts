@@ -9,6 +9,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { environment } from '../../../environments/environment';
+import * as moment from 'moment';
+import 'moment-timezone';
+
 @Component({
   selector: 'app-doctors',
   standalone: true,
@@ -28,6 +31,7 @@ export class DoctorComponent implements OnInit {
   currentComponent = 'doctors';
   searchContent=""
   formTitle="Add New Schedule"
+  previousEditCliked=false;
   activateLoader:boolean =false;
   loaderMessage ='Loading.....'
   isErrorModal:boolean=false
@@ -57,7 +61,6 @@ export class DoctorComponent implements OnInit {
         if (response?.doctorData) {
           this.doctorsData = response.doctorData;
           this.filteredContent = response.doctorData;
-          console.log('Doctors data fetched successfully:', this.doctorsData);
         } else {
           console.warn('No doctor data available in the response.');
         }
@@ -76,7 +79,6 @@ export class DoctorComponent implements OnInit {
   }
   onSerach(){
     if(this.searchContent ==''){
-      console.log("hello I am from")
      this.filteredContent = this.doctorsData
     }else{
       this.filteredContent = this.doctorsData.filter(doctor => {
@@ -94,7 +96,6 @@ export class DoctorComponent implements OnInit {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, timeGridPlugin],
     height: 'auto',
-    contentHeight: 500,
     dateClick: this.handleDateClick.bind(this),
     eventClick: this.handleEventClick.bind(this),
     events: [],
@@ -181,7 +182,6 @@ export class DoctorComponent implements OnInit {
   toggleComponnet( docName: string, docId: number) {
     this.activateLoader = true;
     this.loaderMessage=`Loading... ${docName}'s Schedule`
-    console.log("heelo howare you man")
     this.generateSlot = true;
     if (this.generateSlot) {
       this.currentDoctor = docName;
@@ -216,27 +216,30 @@ export class DoctorComponent implements OnInit {
     // this.http.post(`${this.apiUrl}/`)
   }
   handleEventClick(arg: any) {
-    this.formTitle ="Edit Schedule"
-
-    console.log(arg.event);
+    this.formTitle = "Edit Schedule";
     this.selectedEvent = arg.event;
-    console.log(this.selectedEvent.start, "date is file");
   
-    // Helper function to format date as 'HH:MM'
-    const formatTime = (date: Date) => {
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    };
+    // Convert the event start date to IST
+    const startDate = moment.tz(this.selectedEvent.start, 'Asia/Kolkata'); // IST timezone
   
-    // Assuming this.selectedEvent.start and this.selectedEvent.end are date strings or Date objects
-    const startDate = new Date(this.selectedEvent.start);
-    const endDate = new Date(this.selectedEvent.end);
+    // Format the slot date as 'YYYY-MM-DD'
+    const slotDateString = startDate.format('YYYY-MM-DD'); 
   
-    // Format the start and end times
-    const startTimeString = formatTime(startDate);
-    const endTimeString = formatTime(endDate);
+    // Get the current date and time in IST
+    const currentDateTime = moment.tz('Asia/Kolkata'); // Current time in IST
   
-    // Format the date as 'YYYY-MM-DD' for the slot_date
-    const slotDateString = startDate.toISOString().slice(0, 10);
+    // Check if the selected date is before today
+    if (startDate.isBefore(currentDateTime, 'day')) {
+      this.previousEditCliked=true;
+    } else if (startDate.isSame(currentDateTime, 'day') && startDate.isBefore(currentDateTime)) {
+      this.previousEditCliked=true;
+    } else {
+      this.previousEditCliked=false;
+    }
+  
+    // Format the start and end times using Moment.js
+    const startTimeString = startDate.format('HH:mm'); // Format to 'HH:mm'
+    const endTimeString = startDate.add(1, 'hour').format('HH:mm'); // Assuming an end time for illustration
   
     // Update formInputFeilds with formatted values
     this.formInputFeilds = {
@@ -249,11 +252,9 @@ export class DoctorComponent implements OnInit {
       available_slots: this.selectedEvent.extendedProps.available_slots,
     };
   
-    console.log(this.formInputFeilds, "values are");
     this.isModalOpen = true; // Open the modal
-  }  
+  }
   saveEvent() {
-    console.log(this.formInputFeilds,"Helellelk")
     this.activateLoader = true;
     const body = {
       doctor_id: this.slotDetails.doctor_id || null,
@@ -265,11 +266,9 @@ export class DoctorComponent implements OnInit {
       title: this.formInputFeilds.title,
       description: this.formInputFeilds.description,
     };
-    console.log(body,"Boday nananan")
     if (body.slot_id) {
       this.http.put(`${this.apiUrl}/slots`, body).subscribe({
         next: (response) => {
-          console.log('Event updated successfully:', response);
           this.formInputFeilds = {
             title: '',
             start: '',
@@ -296,7 +295,6 @@ export class DoctorComponent implements OnInit {
     } else {
       this.http.post(`${this.apiUrl}/slots`, body).subscribe({
         next: (response) => {
-          console.log('Event updated successfully:', response);
           this.formInputFeilds = {
             title: '',
             start: '',

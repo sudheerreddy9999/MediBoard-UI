@@ -46,33 +46,25 @@ interface Country {
   styleUrl: './nav.component.css',
 })
 export class NavComponent implements OnInit {
-  typeOfUser: string = 'this.selectedUser';
+  typeOfUser: string = 'this.selectedUser'|| 'Patient';
   userInfo: any = '';
   isLoginButtonClicked = false;
   parentMessage: string = 'Hello from Parent!';
   currentRoute: string = '';
-  countries: Country[]; // Array to hold the countries list
-  selectedUser: Country | null ={
-    "name": "Patient",
-    "code": "US",
-    "image": "https://thumbs.dreamstime.com/b/portrait-young-handsome-man-white-shirt-outdoor-portrait-young-handsome-man-white-shirt-outdoor-nice-appearance-131934608.jpg"
-}
+  countries: Country[] = []; // Initialize an empty array to avoid the error
+  selectedUser: Country | null = null; // Initialize as null
 
-
-  onUserLoggedIn(user: any) {
-    this.userInfo = user;
-    this.isLoginButtonClicked = false;
-  }
-  onCloseButtonClicked(event:any){
-    this.isLoginButtonClicked=event
-  }
-
-  constructor(private router: Router, private route: ActivatedRoute,private AuthService:AuthService) {
+  constructor(private router: Router, private route: ActivatedRoute, private AuthService: AuthService) {
+    // Initialize the countries array
     this.countries = [
-      { name: 'Patient', code: 'US',image:"https://thumbs.dreamstime.com/b/portrait-young-handsome-man-white-shirt-outdoor-portrait-young-handsome-man-white-shirt-outdoor-nice-appearance-131934608.jpg" },
-      { name: 'Doctor', code: 'CA',image:"https://img.freepik.com/premium-vector/doctor-icon-avatar-white_136162-58.jpg" },
-      { name: 'Employee', code: 'GB',image:"https://w7.pngwing.com/pngs/429/434/png-transparent-computer-icons-icon-design-business-administration-admin-icon-hand-monochrome-silhouette-thumbnail.png"}]
+      { name: 'Patient', code: 'US', image: "/images/user.png" },
+      { name: 'Doctor', code: 'CA', image: "/images/doctor.png" },
+      { name: 'Employee', code: 'GB', image: "/images/nurse.png" }
+    ];
+    // Now you can safely assign the first element of countries to selectedUser
+    this.selectedUser = this.countries[0];
   }
+
   ngOnInit(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedData: string = localStorage.getItem('mediboard') || '';
@@ -82,34 +74,31 @@ export class NavComponent implements OnInit {
       this.router.events
         .pipe(filter((event) => event instanceof NavigationEnd))
         .subscribe(() => {
-          // Get the full URL path
           const fullUrl = this.router.url;
-          console.log('Full URL:', fullUrl); // Should give you '/employee'
-
-          // Store the route in a variable
           const segment = fullUrl.split('/');
           this.typeOfUser = segment[1] || 'Patient';
+          if(this.typeOfUser ==='Doctor'){
+            this.selectedUser = this.countries[1];
+          }
+          if(this.typeOfUser ==='Employee'){
+            this.selectedUser = this.countries[2];
+          }
         });
     }
   }
+
   loginButtonClicked(authType: string) {
-    console.log(authType)
     this.isLoginButtonClicked = !this.isLoginButtonClicked;
     if (this.isLoginButtonClicked) {
       if (authType === 'Login') {
-        if (this.typeOfUser === 'Patient') {
-          this.parentMessage = 'Login';
-        } else if (this.typeOfUser === 'Doctor') {
-          this.parentMessage = 'Doctor Login';
-        } else if (this.typeOfUser === 'Employee') {
-          this.parentMessage = 'Employee Login';
-        }
+        this.parentMessage = this.typeOfUser === 'Patient' ? 'Login' : this.typeOfUser + ' Login';
       } else {
         this.parentMessage = 'Signup';
       }
     }
   }
-  onCountrySelect(){
+
+  onCountrySelect() {
     this.isLoginButtonClicked = false;
     if (this.selectedUser?.name === 'Patient') {
       this.router.navigate(['/']);
@@ -121,18 +110,23 @@ export class NavComponent implements OnInit {
       this.router.navigate(['/Employee']);
       this.isLoginButtonClicked = true;
       this.AuthService.userTypeEmployee(true);
-    }else{
-      this.selectedUser={
-        "name": "Patient",
-        "code": "US",
-        "image": "https://thumbs.dreamstime.com/b/portrait-young-handsome-man-white-shirt-outdoor-portrait-young-handsome-man-white-shirt-outdoor-nice-appearance-131934608.jpg"
-    }
+    } else {
+      this.selectedUser = this.countries[0]; // Set default to 'Patient' if no selection
       this.router.navigate(['/']);
     }
   }
+
   logoutButtonClicked() {
     localStorage.removeItem('mediboard');
     this.AuthService.login(false);
     this.userInfo = '';
   }
+  onCloseButtonClicked(event:any){
+    this.isLoginButtonClicked=event
+  }
+  onUserLoggedIn(user: any) {
+    this.userInfo = user;
+    this.isLoginButtonClicked = false;
+  }
 }
+

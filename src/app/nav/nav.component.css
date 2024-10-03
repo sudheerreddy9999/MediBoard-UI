@@ -1,5 +1,3 @@
-
-
 :host ::ng-deep #pn_id_1 {
   background-color: #dde5fb;
   border: 3px solid #6f82c6;
@@ -17,7 +15,7 @@
 }
 
 :host ::ng-deep .p-dropdown-items-wrapper {
-  background-color: #dde5fb;
+  background-color: #7c94e1;
   border: 1px solid #dde5fb;
   border-radius: 45px;
   max-height: 300px;
@@ -26,16 +24,16 @@
 }
 
 :host ::ng-deep #pn_id_3{
-  background-color: #dde5fb;
-  border: 1px solid #6f82c6;
+  background-color: #7c94e1;
+  border: 1px solid hsl(227, 43%, 61%);
   color: #333;
   border-radius: 999px;
   font-size: 10px;
 }
 
 :host ::ng-deep .p-dropdown-items-wrapper:hover {
-  background-color: #dde5fb;
-  color: #dde5fb;
+  background-color: #7599fb;
+  color: #7599fb;
 }
 /* Add this to your CSS */
 .router-outlet {
@@ -45,6 +43,3 @@
 .custom-dropdown-panel {
   z-index: 100;
 }
-
-
-
