@@ -51,8 +51,9 @@ export class NavComponent implements OnInit {
   isLoginButtonClicked = false;
   parentMessage: string = 'Hello from Parent!';
   currentRoute: string = '';
-  countries: Country[] = []; // Initialize an empty array to avoid the error
-  selectedUser: Country | null = null; // Initialize as null
+  isFunctionLoaded =false
+  countries: Country[] = []; 
+  selectedUser: Country | null = null;
 
   constructor(private router: Router, private route: ActivatedRoute, private AuthService: AuthService) {
     // Initialize the countries array
@@ -70,22 +71,27 @@ export class NavComponent implements OnInit {
       const storedData: string = localStorage.getItem('mediboard') || '';
       if (storedData) {
         this.userInfo = JSON.parse(storedData);
+          // User is logged in, show the image
+      }else{
+        this.isFunctionLoaded =true
       }
+      
       this.router.events
         .pipe(filter((event) => event instanceof NavigationEnd))
         .subscribe(() => {
           const fullUrl = this.router.url;
           const segment = fullUrl.split('/');
           this.typeOfUser = segment[1] || 'Patient';
-          if(this.typeOfUser ==='Doctor'){
+          if (this.typeOfUser === 'Doctor') {
             this.selectedUser = this.countries[1];
           }
-          if(this.typeOfUser ==='Employee'){
+          if (this.typeOfUser === 'Employee') {
             this.selectedUser = this.countries[2];
           }
         });
     }
   }
+  
 
   loginButtonClicked(authType: string) {
     this.isLoginButtonClicked = !this.isLoginButtonClicked;
@@ -101,7 +107,7 @@ export class NavComponent implements OnInit {
   onCountrySelect() {
     this.isLoginButtonClicked = false;
     if (this.selectedUser?.name === 'Patient') {
-      this.router.navigate(['/']);
+      this.router.navigate(['/Patient']);
       this.AuthService.userTypeEmployee(false);
     } else if (this.selectedUser?.name === 'Doctor') {
       this.router.navigate(['/Doctor']);
@@ -117,6 +123,7 @@ export class NavComponent implements OnInit {
   }
 
   logoutButtonClicked() {
+    this.isFunctionLoaded =true
     localStorage.removeItem('mediboard');
     this.AuthService.login(false);
     this.userInfo = '';
@@ -127,6 +134,7 @@ export class NavComponent implements OnInit {
   onUserLoggedIn(user: any) {
     this.userInfo = user;
     this.isLoginButtonClicked = false;
+    this.isFunctionLoaded =false
   }
 }
 

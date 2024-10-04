@@ -22,13 +22,29 @@ import { filter } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'hospital-management';
   employeeLogin =false;
+  currentUser = ''
   constructor(private AuthService:AuthService,private router: Router,){}
   ngOnInit() {
     if (typeof window !== 'undefined' && window.localStorage) {
-      // const storedData: string = localStorage.getItem('mediboard') || '';
-      // // if (storedData) {
-      // //   this.userInfo = JSON.parse(storedData);
-      // // }
+      const storedData = localStorage.getItem('mediboard') || '';
+      this.currentUser = storedData
+      console.log(storedData,"hello Manania")
+      if (storedData) {
+        if(JSON.parse(storedData).userId){
+          console.log("User Login")
+          this.router.navigate(['/Patient']);
+
+        }else if(JSON.parse(storedData).userData.employeeId){
+          console.log("EMployee Login")
+          this.router.navigate(['/Employee']);
+        }else{
+          this.router.navigate(['/Patient']);
+          console.log("heloksssssssssssss")
+        }
+        console.log('hello how are you')
+      }else{
+        this.router.navigate(['/Patient']);
+      }
       this.router.events
         .pipe(filter((event) => event instanceof NavigationEnd))
         .subscribe(() => {
@@ -46,5 +62,6 @@ export class AppComponent implements OnInit {
       console.log(this.employeeLogin,"Hello")
     });
 }
+
 }
 

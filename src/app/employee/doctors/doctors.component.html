@@ -2,7 +2,7 @@
 type="text"
 [(ngModel)]="searchContent"
 (ngModelChange)="onSerach()"
-class="w-[98%] h-12 ml-4  bg-gray-100 mt-14 border-none rounded-lg px-4 text-sm focus:outline-none mb-4"
+class="w-[98%] h-12 ml-4  bg-gray-100 mt-16 border-none rounded-lg px-4 text-sm focus:outline-none mb-4"
 placeholder="Search for doctors..."
 *ngIf="!generateSlot"
 />
@@ -19,30 +19,30 @@ placeholder="Search for doctors..."
     >
       <!-- Doctor image section -->
       <div
-        class="bg-gradient-to-r from-[#7c94e1] to-[#dadff5] w-full h-24 flex items-center rounded-t-lg justify-center relative mb-10"
+        class="bg-gradient-to-r from-[#7c94e1] to-[#dadff5] w-full h-16 flex items-center rounded-t-lg justify-center relative mb-10"
       >
         <img
           [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
-          class="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+          class="w-[90px] h-[90px] rounded-full border-4 border-white shadow-lg"
           style="position: absolute; top: 60%; transform: translateY(-20%)"
         />
       </div>
   
       <!-- Doctor information section -->
       <div class="flex flex-col items-center text-center mb-4 mt-14 px-4">
-        <div class="text-medium font-semibold text-gray-800">{{ doctor.name }}</div>
-        <div class="text-sm text-gray-600">{{ doctor.specialization }}</div>
+        <div class="text-sm font-semibold text-gray-800">{{ doctor.name }}</div>
+        <div class="text-xs text-gray-600">{{ doctor.specialization }}</div>
       </div>
   
       <!-- Doctor contact information -->
       <div class="flex flex-col space-y-1 mb-4 px-4">
         <div class="flex items-center space-x-2">
-          <mat-icon class="text-[#7c94e1] text-base">mail</mat-icon>
-          <p class="text-sm text-gray-800">{{ doctor.email }}</p>
+          <mat-icon class="text-[#7c94e1] text-xs">mail</mat-icon>
+          <p class="text-xs text-gray-800">{{ doctor.email }}</p>
         </div>
         <div class="flex items-center space-x-2">
-          <mat-icon class="text-[#7c94e1] text-base">phone</mat-icon>
-          <p class="text-sm text-gray-800">{{ doctor.mobile_number }}</p>
+          <mat-icon class="text-[#7c94e1] text-xs">phone</mat-icon>
+          <p class="text-xs text-gray-800">{{ doctor.mobile_number }}</p>
         </div>
       </div>
   

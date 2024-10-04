@@ -89,8 +89,16 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.selectedEmployeeDropDown$.subscribe((message: boolean) => {
-      this.isEmployeeLogin = message;
+      this.isEmployeeLogin  = message;
   })
+  console.log(this.typeOfuser,"hello")
+  if(this.typeOfuser==='Employee'){
+    console.log("I am inside it")
+    this.profileForm.patchValue({
+      userName: 'admin@gmail.com',   // Update userName to 'admin'
+      password: 'admin@123'  // Update password to 'admin@123'
+    });
+  }
     if (this.messageFromParent === 'Login') {
       this.isUserLogin = true;
       this.authMessage = "Don't have account signUp";
