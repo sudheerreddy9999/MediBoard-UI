@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIcon,MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RouterLink ,Router} from '@angular/router';
 @Component({
   selector: 'app-users-info',
   standalone: true,
@@ -9,6 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './users-info.component.css'
 })
 export class UsersInfoComponent {
+
+  constructor (private router:Router){}
   allBoxesInfo = [
     {
       name: "Appointments",
@@ -41,5 +44,8 @@ export class UsersInfoComponent {
     
     
   ];
+  userPrefClicked(type:string){
+    if(type ==='Connect') this.router.navigate(['Patient/Doctors'])
+  }
   
 }

@@ -1,7 +1,7 @@
-<div class="flex justify-center items-center mb-10">
+<div class="flex justify-center items-center mb-10" id="usersInfoSection">
 <div class="w-[250px] h-[220px] bg-gradient-to-r from-[#dadff5] to-[#7c94e1] rounded-lg flex flex-col justify-center mx-10 shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" *ngFor="let box of allBoxesInfo">
     <div class="flex items-end justify-end px-2 pt-6">
-        <mat-icon class="text-2xl transition-transform duration-300 transform hover:scale-125 text-gray-800">arrow_outward</mat-icon>
+        <mat-icon class="text-2xl transition-transform duration-300 transform hover:scale-125 text-gray-800" (click)="userPrefClicked(box.heading)">arrow_outward</mat-icon>
     </div>
     <div class="flex justify-center items-center">
         <img [src]="box.image" class="h-20 w-20 rounded-lg transition-transform duration-300 transform hover:scale-110" alt="Scheduler Image">

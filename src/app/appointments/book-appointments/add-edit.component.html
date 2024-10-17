@@ -129,8 +129,8 @@
             </div>
 
             <div class="w-full mx-1 mt-4">
-              <label class="block text-xs font-medium text-black mb-1"
-                >Concern</label
+              <label class="block text-xs mb-1 text-black"
+                >Find the Right Doctor for Your Concern</label
               >
               <div
                 class="flex items-center bg-white rounded-lg border border-gray-300"
@@ -155,18 +155,13 @@
             <!-- Doctor Name Input -->
             <div class="w-full mx-1 mt-4">
               <label class="block text-sm mb-1 text-black">Doctor Name</label>
-              <div
-                class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-[6px]"
+                <div
+                class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-[6px] w-full"
               >
                 <mat-icon class="mr-2 text-black text-sm">token</mat-icon>
-                <input
-                  type="text"
-                  name="Doctor name"
-                  formControlName="doctor_name"
-                  (ngModelChange)="doctorValueChanged()"
-                  class="w-full text-xs bg-transparent focus:outline-none text-black placeholder-black"
-                  placeholder="Selected Doctor Name"
-                />
+                <select id="doctorName" name="doctorName" formControlName="doctor_name" (change)="onDoctorChange($event)" class=" text-xs w-full border-none outline-none select-hidden">
+                  <option *ngFor="let doctor of doctorsData" [value]="doctor.name" class="text-sm">{{ doctor.name }}</option>
+                </select>   
               </div>
               <div
                 *ngIf="
@@ -188,11 +183,6 @@
                 AppointmentData.get('doctor_name')?.invalid
               "
             >
-              <small
-                *ngIf="AppointmentData.get('doctor_name')?.errors?.['required']"
-                class="text-red-600"
-                >Email is required.</small
-              >
             </div>
           </div>
 
@@ -219,7 +209,7 @@
               >
                 <button
                   type="button"
-                  class="p-2 shadow-lg rounded-lg text-xs bg-[#6e81c7] text-white"
+                  class="p-2 shadow-lg rounded-lg text-xs"
                   [ngClass]="{
                     'bg-blue-500': userSelectedSlot === slot.slot_id
                   }"

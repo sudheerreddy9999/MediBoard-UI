@@ -6,6 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { environment } from '../../../environments/environment';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { DoctorService } from '../../services/doctor.service';
+interface ApiResponse {
+  message: string; // Adjust based on your actual API response structure
+  doctors: any[]; // Adjust based on your actual doctors data structure
+}
 @Component({
   selector: 'app-doctors',
   standalone: true,
@@ -19,32 +24,23 @@ export class DoctorsComponent implements OnInit {
   filteredData:any[] =[];
   searchContent:string = ''
   loaderOn:boolean=true;
-  openModalComponnet:boolean=false
+  openModalComponent:boolean=false
   modalMessage: string = 'faliure';
   typeOfModal: string = 'failure';
   @Output() doctorInfo = new EventEmitter<any>();
   @Output() closeDoctorsSearch = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private doctorsData:DoctorService) {
     this.filteredData = this.doctors
   }
   ngOnInit(): void {
-    this.http.get<any>(`${this.apiUrl}/doctors/all`).subscribe({
-      next: (response) => {
-        this.loaderOn = false
-        this.doctors = response.doctorData
-        this.filteredData=response.doctorData
-    },error:(error)=>{
-      console.error('There was an error!', error);
+    this.doctorsData.fetchDoctors().subscribe((data)=>{
       this.loaderOn = false
-      this.modalMessage = `${error}`
-      this.openModalComponnet=true
-    },   complete: () => {
-      console.log('API request completed successfully.'); // Optional: Handle completion if needed
-    },}
-  )
+      this.doctors = data.doctorData
+      this.filteredData=data.doctorData
+    })
   }
-  onSerach(){
+  onSearch(){
     this.filteredData = this.doctors.filter(item=>
       item.name.toLowerCase().includes(this.searchContent.toLowerCase())
     )
@@ -60,6 +56,6 @@ export class DoctorsComponent implements OnInit {
     this.doctorInfo.emit(doctorInfo)
   }
   handleCloseEmitModal(closeModal: boolean) {
-    this.openModalComponnet = closeModal;
+    this.openModalComponent = closeModal;
   }
 }

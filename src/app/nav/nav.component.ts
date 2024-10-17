@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef,ViewChild, viewChild } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from '../auth/auth.component';
@@ -46,7 +46,8 @@ interface Country {
   styleUrl: './nav.component.css',
 })
 export class NavComponent implements OnInit {
-  typeOfUser: string = 'this.selectedUser'|| 'Patient';
+  // typeOfUser: string =  'this.selectedUser'|| 'Patient';
+  typeOfUser: string =  'Patient';
   userInfo: any = '';
   isLoginButtonClicked = false;
   parentMessage: string = 'Hello from Parent!';
@@ -54,6 +55,7 @@ export class NavComponent implements OnInit {
   isFunctionLoaded =false
   countries: Country[] = []; 
   selectedUser: Country | null = null;
+  @ViewChild('usersInfoSection', { static: false }) usersInfoSection!: ElementRef;
 
   constructor(private router: Router, private route: ActivatedRoute, private AuthService: AuthService) {
     // Initialize the countries array
@@ -65,6 +67,7 @@ export class NavComponent implements OnInit {
     // Now you can safely assign the first element of countries to selectedUser
     this.selectedUser = this.countries[0];
   }
+
 
   ngOnInit(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -91,8 +94,13 @@ export class NavComponent implements OnInit {
         });
     }
   }
-  
 
+  handelScroll(value:any){
+      const element = document.getElementById(value);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+  }
   loginButtonClicked(authType: string) {
     this.isLoginButtonClicked = !this.isLoginButtonClicked;
     if (this.isLoginButtonClicked) {

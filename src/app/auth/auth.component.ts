@@ -95,8 +95,8 @@ export class AuthComponent implements OnInit {
   if(this.typeOfuser==='Employee'){
     console.log("I am inside it")
     this.profileForm.patchValue({
-      userName: 'admin@gmail.com',   // Update userName to 'admin'
-      password: 'admin@123'  // Update password to 'admin@123'
+      userName: 'admin@gmail.com',
+      password: 'admin@123'
     });
   }
     if (this.messageFromParent === 'Login') {
