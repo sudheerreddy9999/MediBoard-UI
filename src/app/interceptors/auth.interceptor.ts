@@ -14,7 +14,6 @@ export const authInterceptor: HttpInterceptorFn = (
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       token = parsedData.token || null;
-      console.log(token, "token value"); // Logs the token if it exists
     }
   }
 

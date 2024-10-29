@@ -11,6 +11,8 @@ import { AuthService } from './shared/auth.service';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { filter } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,25 +25,26 @@ export class AppComponent implements OnInit {
   title = 'hospital-management';
   employeeLogin =false;
   currentUser = ''
-  constructor(private AuthService:AuthService,private router: Router,){}
+  private apiUrl:string = environment.apiBaseUrl
+  constructor(private AuthService:AuthService,private router: Router,private http:HttpClient){}
   ngOnInit() {
+    this.http.get(`${this.apiUrl}/health`).subscribe(({
+      next: (response) => {
+        console.log(`api called Sucessfull`)
+      }
+    }))
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedData = localStorage.getItem('mediboard') || '';
       this.currentUser = storedData
-      console.log(storedData,"hello Manania")
       if (storedData) {
         if(JSON.parse(storedData).userId){
-          console.log("User Login")
           this.router.navigate(['/Patient']);
 
         }else if(JSON.parse(storedData).userData.employeeId){
-          console.log("EMployee Login")
           this.router.navigate(['/Employee']);
         }else{
           this.router.navigate(['/Patient']);
-          console.log("heloksssssssssssss")
         }
-        console.log('hello how are you')
       }else{
         this.router.navigate(['/Patient']);
       }
@@ -50,16 +53,13 @@ export class AppComponent implements OnInit {
         .subscribe(() => {
           const fullUrl = this.router.url;
           const segment = fullUrl.split('/');
-          console.log(segment,"Segment Valueis ")
           if(segment[1] === "Employee"){
-            console.log("hello How are you")
             this.employeeLogin =true
           }
         });
     }
     this.AuthService.selectedEmployeeDropDown$.subscribe((message: boolean) => {
       this.employeeLogin = message;
-      console.log(this.employeeLogin,"Hello")
     });
 }
 

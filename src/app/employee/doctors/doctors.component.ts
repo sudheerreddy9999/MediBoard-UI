@@ -283,7 +283,6 @@ export class DoctorComponent implements OnInit {
         },
         error: (error) => {  
           console.error('Error updating event:', error);
-          console.log(error.error.message)
           this.isErrorModal = true
           this.activateLoader = false;
           this.errorModalMessage =error.error.message || error

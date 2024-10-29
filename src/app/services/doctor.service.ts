@@ -29,9 +29,7 @@ export class DoctorService {
     } else {
       return this.http.get<ApiResponse>(`${this.apiUrl}/doctors/all`).pipe(
         tap((data) => {
-          console.log(data, "Fetched doctors data");
-          this.doctors = data.doctorData; // Store the doctors array in the class property
-          console.log(this.doctors, "Stored doctors data");
+          this.doctors = data.doctorData; 
         }),
         catchError((error) => {
           console.error('Error fetching doctors data:', error);

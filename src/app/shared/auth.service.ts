@@ -9,13 +9,12 @@ export class AuthService {
     private selectedEmployeeDropDown = new BehaviorSubject<boolean>(false);
     employeeLoginStatus$ = this.employeeLoginStatus.asObservable();
     selectedEmployeeDropDown$ = this.selectedEmployeeDropDown.asObservable();
+  isLoggedIn$: any;
     constructor(){}
     login(success: boolean) {
-        console.log("I am Inside it and hello how are you",success)
         this.employeeLoginStatus.next(success);
       }
     userTypeEmployee(value:boolean){
         this.selectedEmployeeDropDown.next(value)
     }
-
 }

@@ -26,7 +26,6 @@ export class HomepageComponent {
   ];
 
   bookAppointmentClicked() {
-    console.log('Book Appointment is Clicked');
     this.openBookAppointment = !this.openBookAppointment;
   }
 

@@ -1,19 +1,38 @@
 <div class="flex justify-center items-center mb-10" id="usersInfoSection">
-<div class="w-[250px] h-[220px] bg-gradient-to-r from-[#dadff5] to-[#7c94e1] rounded-lg flex flex-col justify-center mx-10 shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" *ngFor="let box of allBoxesInfo">
-    <div class="flex items-end justify-end px-2 pt-6">
-        <mat-icon class="text-2xl transition-transform duration-300 transform hover:scale-125 text-gray-800" (click)="userPrefClicked(box.heading)">arrow_outward</mat-icon>
+  <div *ngFor="let box of allBoxesInfo" class="relative mx-10">
+    <div
+      class="w-[250px] h-[220px] bg-gradient-to-r from-[#dadff5] to-[#7c94e1] rounded-lg flex flex-col justify-center items-center shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+      [ngClass]="{ 'blur-sm': !loggedInUser }"
+    >
+      <div class="flex items-end justify-end px-2 pt-6">
+        <mat-icon
+          class="text-2xl transition-transform duration-300 transform hover:scale-125 text-gray-800"
+          (click)="userPrefClicked(box.heading)"
+          >arrow_outward</mat-icon
+        >
+      </div>
+      <div class="flex justify-center items-center">
+        <img
+          [src]="box.image"
+          class="h-20 w-20 rounded-lg transition-transform duration-300 transform hover:scale-110"
+          alt="Scheduler Image"
+        />
+      </div>
+      <div
+        class="text-medium text-left pl-2 font-semibold text-gray-800 cursor-pointer transition-transform duration-300 hover:scale-105"
+      >
+        {{ box.heading }}
+      </div>
+      <div
+        class="text-sm text-left font-medium pl-2 pb-2 text-gray-800 cursor-pointer transition-transform duration-300 hover:scale-105"
+      >
+        {{ box.subHeading }}
+      </div>
+      <p class="text-xs px-2 pb-6 text-gray-600">{{ box.description }}</p>
     </div>
-    <div class="flex justify-center items-center">
-        <img [src]="box.image" class="h-20 w-20 rounded-lg transition-transform duration-300 transform hover:scale-110" alt="Scheduler Image">
-    </div>
-    <div class="text-medium text-left pl-2 font-semibold text-gray-800 cursor-pointer transition-transform duration-300 hover:scale-105">
-        {{box.heading}}
-    </div>
-    <div class="text-sm text-left font-medium pl-2 pb-2 text-gray-800 cursor-pointer transition-transform duration-300 hover:scale-105">
-        {{box.subHeading}}
-    </div>
-    
-    <p class="text-xs px-2 pb-6 text-gray-600">{{box.description}}</p>
-</div>
-<!--arrows_more_up-->
+
+    <!-- <button class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-500 text-white py-2 px-10 rounded-full">
+            Login
+        </button> -->
+  </div>
 </div>

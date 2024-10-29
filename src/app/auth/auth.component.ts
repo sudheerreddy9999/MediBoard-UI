@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -28,17 +34,25 @@ interface AuthResponse {
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule, ModalComponent,MatIconModule,ReactiveFormsModule,LoaderComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    FontAwesomeModule,
+    ModalComponent,
+    MatIconModule,
+    ReactiveFormsModule,
+    LoaderComponent,
+  ],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'], // Corrected typo here
 })
 export class AuthComponent implements OnInit {
-  private apiUrl:string = environment.apiBaseUrl
+  private apiUrl: string = environment.apiBaseUrl;
   @Input() messageFromParent: string = '';
   @Input() typeOfuser: string = '';
   @Output() userLoggedIn = new EventEmitter<any>();
   @Output() onCloseButtonClicked = new EventEmitter<boolean>();
-  OpenLoader:boolean = false
+  OpenLoader: boolean = false;
   userName: string = 'sudheerjanga9999@gmail.com';
   password: string = 'Sudheer@123';
   first_name: string = '';
@@ -58,56 +72,55 @@ export class AuthComponent implements OnInit {
   profileForm = new FormGroup({
     first_name: new FormControl('sudheer', [
       Validators.required,
-      Validators.minLength(2),  // Ensure at least 2 characters
-      Validators.pattern('^[a-zA-Z ]+$')  // Allow only alphabets and spaces
+      Validators.minLength(2), // Ensure at least 2 characters
+      Validators.pattern('^[a-zA-Z ]+$'), // Allow only alphabets and spaces
     ]),
     last_name: new FormControl('janga', [
       Validators.required,
-      Validators.minLength(2),  // Ensure at least 2 characters
-      Validators.pattern('^[a-zA-Z ]+$')  // Allow only alphabets and spaces
+      Validators.minLength(2), // Ensure at least 2 characters
+      Validators.pattern('^[a-zA-Z ]+$'), // Allow only alphabets and spaces
     ]),
     userName: new FormControl('sudheerjanga9999@gmail.com', [
       Validators.required,
       Validators.minLength(4),
-      Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+      Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'),
     ]),
-    password: new FormControl('Sudheer@123', this.authIsSignup 
-      ? [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$')
-        ]
-      : [
-          Validators.required,
-        ]
+    password: new FormControl(
+      'Sudheer@123',
+      this.authIsSignup
+        ? [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$'),
+          ]
+        : [Validators.required]
     ),
     mobile_number: new FormControl('6303896539', [
       Validators.required,
-      Validators.pattern('^[0-9]{10}$')
-    ])
+      Validators.pattern('^[0-9]{10}$'),
+    ]),
   });
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.selectedEmployeeDropDown$.subscribe((message: boolean) => {
-      this.isEmployeeLogin  = message;
-  })
-  console.log(this.typeOfuser,"hello")
-  if(this.typeOfuser==='Employee'){
-    console.log("I am inside it")
-    this.profileForm.patchValue({
-      userName: 'admin@gmail.com',
-      password: 'admin@123'
+      this.isEmployeeLogin = message;
     });
-  }
+    if (this.typeOfuser === 'Employee') {
+      this.profileForm.patchValue({
+        userName: 'admin@gmail.com',
+        password: 'admin@123',
+      });
+    }
     if (this.messageFromParent === 'Login') {
       this.isUserLogin = true;
       this.authMessage = "Don't have account signUp";
     } else if (this.messageFromParent === 'Signup') {
       this.authIsSignup = true;
       this.isUserLogin = true;
-      this.authMessage = "Already a user Login"
+      this.authMessage = 'Already a user Login';
     }
-}
+  }
   onSubmit() {
     if (this.authIsSignup) {
       if (this.profileForm.invalid) {
@@ -130,23 +143,21 @@ export class AuthComponent implements OnInit {
         .post(`${this.apiUrl}/user/add`, body, { headers: headers })
         .subscribe({
           next: (response) => {
-            console.log('Api response is', response);
             this.authService.login(true);
-            this.OpenLoader=false
+            this.OpenLoader = false;
           },
           error: (error) => {
             console.error('API Error:', error);
             this.openModalComponnet = true;
             this.modalMessage = `${error.error.message} try again `;
-            this.OpenLoader=false
+            this.OpenLoader = false;
             this.typeOfModal = 'failure';
           },
           complete: () => {
             console.log('API request completed successfully.');
           },
         });
-
-    } else if(!this.authIsSignup) {
+    } else if (!this.authIsSignup) {
       // For login, validate only email and password
       const emailControl = this.profileForm.get('userName');
       const passwordControl = this.profileForm.get('password');
@@ -156,35 +167,31 @@ export class AuthComponent implements OnInit {
         passwordControl?.markAsTouched();
         return;
       }
-      this.OpenLoader=true
-      console.log('Login Form Submitted', {
-        email: this.profileForm.value,
-        password: this.profileForm.value
-      });
+      this.OpenLoader = true;
       if (this.typeOfuser === 'Patient') {
         const headers = new HttpHeaders({
-          email:this.profileForm?.value.userName||'',
-          password: this.profileForm?.value.password||'',
+          email: this.profileForm?.value.userName || '',
+          password: this.profileForm?.value.password || '',
           'Content-Type': 'application/json',
         });
-        console.log(headers)
         this.http
           .get<AuthResponse>(`${this.apiUrl}/user/auth`, { headers: headers })
           .subscribe({
             next: (response) => {
-              console.log('Api response is', response);
-              this.OpenLoader=false
+              this.OpenLoader = false;
               const data = response.data;
               setTimeout(() => {
                 this.userLoggedIn.emit(data); // Emit the data (assuming you're using EventEmitter)
-              }, 3000);
+
+                this.authService.login(true);
+              }, 1000);
               this.openModalComponnet = true;
               localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
               this.modalMessage = 'Login Success';
               this.typeOfModal = 'success';
             },
             error: (error) => {
-              this.OpenLoader=false
+              this.OpenLoader = false;
               console.error('API Error:', error); // Handle the error
               this.openModalComponnet = true;
               this.modalMessage = `${error.error.message} try again `;
@@ -196,16 +203,17 @@ export class AuthComponent implements OnInit {
           });
       } else if (this.typeOfuser === 'Employee') {
         const headers = new HttpHeaders({
-          email:this.profileForm?.value.userName||'',
-          password: this.profileForm?.value.password||'',
+          email: this.profileForm?.value.userName || '',
+          password: this.profileForm?.value.password || '',
           'Content-Type': 'application/json',
         });
         this.http
-          .get<AuthResponse>(`${this.apiUrl}/employee/auth`, { headers: headers })
+          .get<AuthResponse>(`${this.apiUrl}/employee/auth`, {
+            headers: headers,
+          })
           .subscribe({
             next: (response) => {
-              this.OpenLoader=false
-              console.log('Api response is', response);
+              this.OpenLoader = false;
               const data = response.data;
               this.openModalComponnet = true;
               this.modalMessage = 'Login Success';
@@ -218,7 +226,7 @@ export class AuthComponent implements OnInit {
             },
             error: (error) => {
               console.error('API Error:', error); // Handle the error
-              this.OpenLoader=false
+              this.OpenLoader = false;
               this.openModalComponnet = true;
               this.modalMessage = `${error.error.message} try again `;
               this.typeOfModal = 'failure';
@@ -230,8 +238,6 @@ export class AuthComponent implements OnInit {
       }
     }
   }
-
-  constructor(private http: HttpClient, private authService: AuthService) {}
 
   submitCredentials() {
     if (this.authIsSignup) {
@@ -250,7 +256,6 @@ export class AuthComponent implements OnInit {
         .post(`${this.apiUrl}/add`, body, { headers: headers })
         .subscribe({
           next: (response) => {
-            console.log('Api response is', response);
             this.authService.login(true);
           },
           error: (error) => {
@@ -273,7 +278,6 @@ export class AuthComponent implements OnInit {
         .get<AuthResponse>(`${this.apiUrl}/auth`, { headers: headers })
         .subscribe({
           next: (response) => {
-            console.log('Api response is', response);
             const data = response.data;
             setTimeout(() => {
               this.userLoggedIn.emit(data); // Emit the data (assuming you're using EventEmitter)
@@ -303,7 +307,6 @@ export class AuthComponent implements OnInit {
         .get<AuthResponse>(`${this.apiUrl}/employee/auth`, { headers: headers })
         .subscribe({
           next: (response) => {
-            console.log('Api response is', response);
             const data = response.data;
             this.openModalComponnet = true;
             this.modalMessage = 'Login Success';
@@ -327,20 +330,19 @@ export class AuthComponent implements OnInit {
     }
   }
   authToggle() {
-    console.log("I git Toggled")
     this.authIsSignup = !this.authIsSignup;
     if (this.authIsSignup) {
-      this.messageFromParent = 'Sign Up'
+      this.messageFromParent = 'Sign Up';
       this.authMessage = 'Already have an account Login';
     } else {
-      this.messageFromParent = 'Login'
+      this.messageFromParent = 'Login';
       this.authMessage = "Don't have account signUp";
     }
   }
   handleCloseEmitModal(closeModal: boolean) {
     this.openModalComponnet = closeModal;
   }
-  closeAuthForm(){
+  closeAuthForm() {
     this.onCloseButtonClicked.emit(false);
   }
 }

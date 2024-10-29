@@ -160,7 +160,7 @@
               >
                 <mat-icon class="mr-2 text-black text-sm">token</mat-icon>
                 <select id="doctorName" name="doctorName" formControlName="doctor_name" (change)="onDoctorChange($event)" class=" text-xs w-full border-none outline-none select-hidden">
-                  <option *ngFor="let doctor of doctorsData" [value]="doctor.name" class="text-sm">{{ doctor.name }}</option>
+                  <option *ngFor="let doctor of doctorsData" [value]="doctor.name" class="text-sm">{{ doctor.name }} ,{{doctor.specialization}}</option>
                 </select>   
               </div>
               <div

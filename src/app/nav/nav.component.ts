@@ -95,12 +95,12 @@ export class NavComponent implements OnInit {
     }
   }
 
-  handelScroll(value:any){
-      const element = document.getElementById(value);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-  }
+  // handelScroll(value:any){
+  //     const element = document.getElementById(value);
+  //     if (element) {
+  //       element.scrollIntoView({ behavior: 'smooth' });
+  //     }
+  // }
   loginButtonClicked(authType: string) {
     this.isLoginButtonClicked = !this.isLoginButtonClicked;
     if (this.isLoginButtonClicked) {

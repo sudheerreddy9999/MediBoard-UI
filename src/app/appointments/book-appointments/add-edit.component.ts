@@ -130,18 +130,14 @@ export class AddEditComponent implements AfterViewInit, OnInit {
   }
 
   onDateChange(event: Date[] | Date) {
-    console.log('I am here for date Cahnge');
     if (Array.isArray(event)) {
       if (event.length > 0) {
         const selectedDate = event[0];
         const formattedDate = format(selectedDate, 'yyyy-MM-dd');
         this.currentDayDoctorSlots = this.currentDoctorSlots.filter((x) => {
           if (x.slot_date === formattedDate) {
-            console.log(x, 'It is true');
           }
         });
-
-        console.log(this.currentDayDoctorSlots);
       } else {
         console.error('No dates provided in the array');
       }
@@ -149,24 +145,18 @@ export class AddEditComponent implements AfterViewInit, OnInit {
       // If event is a single Date object
       const formattedDate = format(event, 'yyyy-MM-dd');
 
-      console.log(formattedDate, 'Formatted Date');
-
       // Use the formatted date in your logic as needed
       this.currentDayDoctorSlots = this.currentDoctorSlots.filter((x) => {
         if (x.slot_date === formattedDate) {
-          console.log(x, 'It is true');
           return x;
         }
       });
-
-      console.log(this.currentDayDoctorSlots);
     } else {
       console.error('Unexpected event type:', typeof event);
     }
   }
 
   openDoctorsModal() {
-    console.log('I got clickded');
     this.loaderMessage="Loading DOctors Info...."
     this.issearchDoctor = !this.issearchDoctor;
   }
@@ -174,8 +164,6 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     this.issearchDoctor = false;
   }
   doctorValueChanged() {
-    console.log('I gor added Here How are you');
-    console.log(this.doctor_id);
   }
   handleAppointmentData(event: any) {
     this.issearchDoctor = false;
@@ -202,7 +190,6 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     });
   }
   selectTimeSlotIf(slot_id: any) {
-    console.log(slot_id);
     this.userSelectedSlot = slot_id;
   }
   handleCloseModel() {
@@ -212,7 +199,6 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     this.openModalComponnet = closeModal;
   }
   onSubmit() {
-    console.log('hello 1232 ');
     if (this.AppointmentData.invalid) {
       this.AppointmentData.markAllAsTouched();
       return;
@@ -224,10 +210,8 @@ export class AddEditComponent implements AfterViewInit, OnInit {
         email: this.AppointmentData.value.patientEmail,
         slot_id: this.userSelectedSlot,
       };
-      console.log(body);
       this.http.post(`${this.apiUrl}/appointments/guest`, body).subscribe({
         next: (data) => {
-          console.log(data);
           this.openLoader = false;
           this.handleCloseModel();
         },
@@ -244,8 +228,6 @@ export class AddEditComponent implements AfterViewInit, OnInit {
   }
   onDoctorChange(event: Event): void {
     const selectedDoctor = (event.target as HTMLSelectElement).value;
-    console.log('Selected Doctor:', selectedDoctor);
-  
     this.AppointmentData.get('doctor_name')?.setValue(selectedDoctor);
   }
   
