@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   Output,
   EventEmitter,
+  Input,
 } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -44,24 +45,25 @@ interface ApiResponse {
     ReactiveFormsModule,
     LoaderComponent,
     ModalComponent,
-    DisplayDoctorsComponent
+    DisplayDoctorsComponent,
   ],
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.css'], // Corrected the property name
 })
 export class AddEditComponent implements AfterViewInit, OnInit {
   private apiUrl: string = environment.apiBaseUrl;
-  messageDoc="Loading Docs Information"
+  messageDoc = 'Loading Docs Information';
   doctorsData: any[] = [];
   doctor_id = '';
   doctor_name = '';
   openLoader = false;
   openModalComponnet: boolean = false;
   modalMessage: string = 'Success';
-  loaderMessage ='Loading.....'
+  loaderMessage = 'Loading.....';
   typeOfModal: string = 'failure';
   today: Date;
   @Output() closeAppointmentModel = new EventEmitter<boolean>();
+  @Input() selectedDoctor: any = null;
   currentDoctorSlots: any[] = [];
   currentDayDoctorSlots: any[] = [];
   userSelectedSlot: any = 0;
@@ -93,11 +95,14 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     ]),
     appointmentDate: new FormControl('', [Validators.required]),
   });
-  constructor(private http: HttpClient,private doctorService :DoctorService) {
+  constructor(private http: HttpClient, private doctorService: DoctorService) {
     this.today = new Date();
   }
- 
+
   ngOnInit(): void {
+    if (this.selectedDoctor) {
+      this.handleAppointmentData(this.selectedDoctor);
+    }
     this.doctorService.fetchDoctors().subscribe(
       (data: ApiResponse) => {
         this.doctorsData = data.doctorData;
@@ -107,7 +112,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
       }
     );
   }
-  
+
   issearchDoctor: boolean = false;
   ngAfterViewInit(): void {
     if (typeof window !== 'undefined') {
@@ -157,14 +162,13 @@ export class AddEditComponent implements AfterViewInit, OnInit {
   }
 
   openDoctorsModal() {
-    this.loaderMessage="Loading DOctors Info...."
+    this.loaderMessage = 'Loading DOctors Info....';
     this.issearchDoctor = !this.issearchDoctor;
   }
   handelDoctorsClose(event: boolean) {
     this.issearchDoctor = false;
   }
-  doctorValueChanged() {
-  }
+  doctorValueChanged() {}
   handleAppointmentData(event: any) {
     this.issearchDoctor = false;
     this.doctor_id = event.id;
@@ -174,6 +178,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     this.getDoctorSlots();
   }
   getDoctorSlots() {
+    console.log(this.doctor_id);
     const headers = new HttpHeaders({
       doctor_id: this.doctor_id,
     });
@@ -229,6 +234,11 @@ export class AddEditComponent implements AfterViewInit, OnInit {
   onDoctorChange(event: Event): void {
     const selectedDoctor = (event.target as HTMLSelectElement).value;
     this.AppointmentData.get('doctor_name')?.setValue(selectedDoctor);
+    const doctor = this.doctorsData.find((doc) => doc.name == selectedDoctor);
+    this.doctor_id = doctor.doctor_id;
+    this.getDoctorSlots();
   }
-  
+  handelOptionChange(name: any) {
+    console.log(name, 'Uojenjndnd Change eisnnsjj');
+  }
 }

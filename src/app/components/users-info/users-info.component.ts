@@ -65,7 +65,6 @@ export class UsersInfoComponent implements OnInit {
     }
   }
   userPrefClicked(type: string) {
-    console.log("String Data is ")
     if (type === 'Connect') this.router.navigate(['Patient/Doctors']);
     if (type === 'View') this.router.navigate(['Patient/Appointments']);
   }
