@@ -6,7 +6,6 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DoctorsComponent } from '../doctors/doctors.component';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -26,6 +25,7 @@ import { __param } from 'tslib';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { environment } from '../../../environments/environment';
+import { DisplayDoctorsComponent } from '../../components/display-doctors/display-doctors.component';
 interface ApiResponse {
   message: string; // Message from the API response
   doctorData: any[]; // Updated to match the response structure
@@ -35,7 +35,6 @@ interface ApiResponse {
   standalone: true,
   imports: [
     CommonModule,
-    DoctorsComponent,
     FormsModule,
     CalendarModule,
     TimeFormatPipe,
@@ -45,6 +44,7 @@ interface ApiResponse {
     ReactiveFormsModule,
     LoaderComponent,
     ModalComponent,
+    DisplayDoctorsComponent
   ],
   templateUrl: './add-edit.component.html',
   styleUrls: ['./add-edit.component.css'], // Corrected the property name
@@ -160,7 +160,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     this.loaderMessage="Loading DOctors Info...."
     this.issearchDoctor = !this.issearchDoctor;
   }
-  handelDoctorsClose(evnet: boolean) {
+  handelDoctorsClose(event: boolean) {
     this.issearchDoctor = false;
   }
   doctorValueChanged() {

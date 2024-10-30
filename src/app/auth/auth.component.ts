@@ -69,6 +69,7 @@ export class AuthComponent implements OnInit {
   isEmployeeLogin = false;
   modalMessage: string = 'Success';
   typeOfModal: string = 'success';
+  authLeftImage ='images/loginsideImg.webp'
   profileForm = new FormGroup({
     first_name: new FormControl('sudheer', [
       Validators.required,
@@ -105,6 +106,9 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.authService.selectedEmployeeDropDown$.subscribe((message: boolean) => {
       this.isEmployeeLogin = message;
+      if(this.isEmployeeLogin){
+        this.authLeftImage='images/employeeAuthImage.jpeg'
+      }
     });
     if (this.typeOfuser === 'Employee') {
       this.profileForm.patchValue({
@@ -334,9 +338,12 @@ export class AuthComponent implements OnInit {
     if (this.authIsSignup) {
       this.messageFromParent = 'Sign Up';
       this.authMessage = 'Already have an account Login';
+      this.authLeftImage ='images/userLeftImage.jpeg'
     } else {
       this.messageFromParent = 'Login';
       this.authMessage = "Don't have account signUp";
+      this.authLeftImage ='images/loginsideImg.webp'
+
     }
   }
   handleCloseEmitModal(closeModal: boolean) {

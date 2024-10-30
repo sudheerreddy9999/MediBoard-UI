@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/auth.service';
 @Component({
   selector: 'app-users-info',
@@ -51,21 +50,23 @@ export class UsersInfoComponent implements OnInit {
     },
   ];
   ngOnInit(): void {
+    this.authService.employeeLoginStatus$.subscribe((status) => {
+      if (status === true) {
+        this.loggedInUser = true;
+      } else if (status === false) {
+        this.loggedInUser = false;
+      }
+    });
     if (typeof window !== 'undefined' && window.localStorage) {
       const data = localStorage.getItem('mediboard') || '';
       if (data) {
         this.loggedInUser = true;
       }
-      this.authService.employeeLoginStatus$.subscribe((status) => {
-        if (status === true) {
-          this.loggedInUser = true;
-        } else if (status === false) {
-          this.loggedInUser = false;
-        }
-      });
     }
   }
   userPrefClicked(type: string) {
+    console.log("String Data is ")
     if (type === 'Connect') this.router.navigate(['Patient/Doctors']);
+    if (type === 'View') this.router.navigate(['Patient/Appointments']);
   }
 }

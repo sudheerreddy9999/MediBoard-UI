@@ -155,13 +155,25 @@
             <!-- Doctor Name Input -->
             <div class="w-full mx-1 mt-4">
               <label class="block text-sm mb-1 text-black">Doctor Name</label>
-                <div
+              <div
                 class="flex items-center bg-white rounded-lg border border-gray-300 px-2 py-[6px] w-full"
               >
                 <mat-icon class="mr-2 text-black text-sm">token</mat-icon>
-                <select id="doctorName" name="doctorName" formControlName="doctor_name" (change)="onDoctorChange($event)" class=" text-xs w-full border-none outline-none select-hidden">
-                  <option *ngFor="let doctor of doctorsData" [value]="doctor.name" class="text-sm">{{ doctor.name }} ,{{doctor.specialization}}</option>
-                </select>   
+                <select
+                  id="doctorName"
+                  name="doctorName"
+                  formControlName="doctor_name"
+                  (change)="onDoctorChange($event)"
+                  class="text-xs w-full border-none outline-none select-hidden"
+                >
+                  <option
+                    *ngFor="let doctor of doctorsData"
+                    [value]="doctor.name"
+                    class="text-sm"
+                  >
+                    {{ doctor.name }} ,{{ doctor.specialization }}
+                  </option>
+                </select>
               </div>
               <div
                 *ngIf="
@@ -182,8 +194,7 @@
                 AppointmentData.get('doctor_name')?.touched &&
                 AppointmentData.get('doctor_name')?.invalid
               "
-            >
-            </div>
+            ></div>
           </div>
 
           <!-- Right Column -->
@@ -235,13 +246,21 @@
     </div>
   </div>
 </div>
-
-<app-doctors
+<div
+  class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
   *ngIf="issearchDoctor"
-  (closeDoctorsSearch)="handelDoctorsClose($event)"
-  (doctorInfo)="handleAppointmentData($event)"
-></app-doctors>
-<!--*ngIf="issearchDoctor"-->
+>
+  <div
+    class="bg-white dark:bg-neutral-950 relative shadow-2xl w-full h-screen p-8"
+  >
+    <app-display-doctors
+      (doctorInfo)="handleAppointmentData($event)"
+      [enableCloseButton]="true"
+      buttonMessage="Select Doctor"
+      (closeDoctorsSearch)="handelDoctorsClose($event)"
+    ></app-display-doctors>
+  </div>
+</div>
 <app-loader
   *ngIf="openLoader"
   message="Loading data, please wait..."

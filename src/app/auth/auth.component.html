@@ -7,7 +7,7 @@
       <!-- Image Section -->
       <div class="w-6/12 h-[510px] flex items-center justify-center rounded-lg">
         <!--https://img.freepik.com/free-photo/woman-doctor-wearing-lab-coat-with-stethoscope-isolated_1303-29791.jpg-->
-        <img src="images/loginsideImg.webp" class=" rounded-tl-lg rounded-bl-lg w-full h-full object-cover">
+        <img [src]="authLeftImage" class=" rounded-tl-lg rounded-bl-lg w-full h-full object-cover">
       </div>
       <!-- Form Section   -->
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-6/12 h-[510px] rounded-lg">
