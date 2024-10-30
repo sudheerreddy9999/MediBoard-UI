@@ -1,5 +1,5 @@
 <div class="flex justify-center items-center mb-10" id="usersInfoSection">
-  <div *ngFor="let box of allBoxesInfo" class="relative mx-10">
+  <div *ngFor="let box of allBoxesInfo" class="relative mx-10 group">
     <div
       class="w-[250px] h-[220px] bg-gradient-to-r from-[#dadff5] to-[#7c94e1] rounded-lg flex flex-col justify-center items-center shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
       [ngClass]="{ 'blur-sm': !loggedInUser }"
@@ -31,8 +31,20 @@
       <p class="text-xs px-2 pb-6 text-gray-600">{{ box.description }}</p>
     </div>
 
-    <!-- <button class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-500 text-white py-2 px-10 rounded-full">
-            Login
-        </button> -->
+    <!-- Login Button (visible on hover if not logged in) -->
+    <button
+      *ngIf="!loggedInUser"
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-500 text-white py-2 px-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      (click)="loginClick()"
+    >
+      Login
+    </button>
   </div>
 </div>
+<app-auth 
+*ngIf="enableAuthComp"
+messageFromParent="Hello from Parent!"
+typeOfuser="Patient"
+(userLoggedIn)="onUserLoggedIn($event)"
+(onCloseButtonClicked)="onCloseButtonClicked($event)"
+></app-auth>

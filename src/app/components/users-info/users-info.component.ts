@@ -3,16 +3,18 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
+import { AuthComponent } from '../../auth/auth.component';
 @Component({
   selector: 'app-users-info',
   standalone: true,
-  imports: [MatIconModule, MatIcon, CommonModule],
+  imports: [MatIconModule, MatIcon, CommonModule,AuthComponent],
   templateUrl: './users-info.component.html',
   styleUrl: './users-info.component.css',
 })
 export class UsersInfoComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
   loggedInUser: boolean = false;
+  enableAuthComp :boolean = false;
   allBoxesInfo = [
     {
       name: 'Appointments',
@@ -67,5 +69,17 @@ export class UsersInfoComponent implements OnInit {
   userPrefClicked(type: string) {
     if (type === 'Connect') this.router.navigate(['Patient/Doctors']);
     if (type === 'View') this.router.navigate(['Patient/Appointments']);
+  }
+  loginClick(){
+    console.log("Hello I am Here after CLicked login")
+    this.enableAuthComp=true;
+  }
+  onCloseButtonClicked(event:any){
+    console.log(event);
+    this.enableAuthComp = false;
+  }
+  onUserLoggedIn(event:any){
+    console.log("event",event)
+
   }
 }
