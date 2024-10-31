@@ -28,6 +28,18 @@ export class DisplayDoctorsComponent {
   filteredData: any[] = [];
   searchContent: string = '';
   loaderOn: boolean = true;
+  selectedCategory :null =null;
+   doctorCategories = [
+    "Neurologist(MD)",
+    " Gastroenterologist(MD)",
+    "Cardiologists(MD)",
+    "Dermatologist(MD)",
+    "Orthopedic Surgeon",
+    "Orthopedic Surgeon(MD)",
+    "Gastroenterologist",
+    "Pediatricians",
+  ];
+  
 
   ngOnInit(): void {
     this.doctorService.fetchDoctors().subscribe(
@@ -52,6 +64,18 @@ export class DisplayDoctorsComponent {
       id: doctor_id,
     };
     this.doctorInfo.emit(doctorInfo);
+  }
+  categorySelected(category:any){
+    console.log(this.doctorsData)
+    this.filteredData = this.doctorsData.filter((item:any)=>{
+     return item.specialization ==category
+    })
+    if(this.selectedCategory ==category){
+      this.selectedCategory =null
+      this.filteredData = this.doctorsData
+    }else{
+      this.selectedCategory = category
+    }
   }
   closeModal() {
     this.closeDoctorsSearch.emit(false);
