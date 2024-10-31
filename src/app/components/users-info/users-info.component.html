@@ -4,6 +4,7 @@
       class="w-[250px] h-[220px] bg-gradient-to-r from-[#dadff5] to-[#7c94e1] rounded-lg flex flex-col justify-center items-center shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
       [ngClass]="{ 'blur-sm': !loggedInUser }"
     >
+      <!-- Icon and Image sections remain the same -->
       <div class="flex items-end justify-end px-2 pt-6 ml-52">
         <mat-icon
           class="text-2xl transition-transform duration-300 transform hover:scale-125 text-gray-800"
@@ -31,20 +32,26 @@
       <p class="text-xs px-2 pb-6 text-gray-600">{{ box.description }}</p>
     </div>
 
-    <!-- Login Button (visible on hover if not logged in) -->
-    <button
+    <!-- Hover Message -->
+    <div
       *ngIf="!loggedInUser"
-      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-gray-500 text-white py-2 px-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-      (click)="loginClick()"
+      class="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 text-white flex flex-col justify-center items-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     >
-      Login
-    </button>
+      <p class="text-sm px-4 mb-3 text-center">{{ box.hoverMessage }}</p>
+      <button
+        class="bg-[#7c94e1] text-white mt-4 py-2 px-8 rounded-full hover:bg-[#5374e3] transition-colors"
+        (click)="loginClick()"
+      >
+        Login
+      </button>
+    </div>
   </div>
 </div>
-<app-auth 
-*ngIf="enableAuthComp"
-messageFromParent="Hello from Parent!"
-typeOfuser="Patient"
-(userLoggedIn)="onUserLoggedIn($event)"
-(onCloseButtonClicked)="onCloseButtonClicked($event)"
+
+<app-auth
+  *ngIf="enableAuthComp"
+  messageFromParent="Login"
+  typeOfuser="Patient"
+  (userLoggedIn)="onUserLoggedIn($event)"
+  (onCloseButtonClicked)="onCloseButtonClicked($event)"
 ></app-auth>

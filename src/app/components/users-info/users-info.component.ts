@@ -7,14 +7,14 @@ import { AuthComponent } from '../../auth/auth.component';
 @Component({
   selector: 'app-users-info',
   standalone: true,
-  imports: [MatIconModule, MatIcon, CommonModule,AuthComponent],
+  imports: [MatIconModule, MatIcon, CommonModule, AuthComponent],
   templateUrl: './users-info.component.html',
   styleUrl: './users-info.component.css',
 })
 export class UsersInfoComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
   loggedInUser: boolean = false;
-  enableAuthComp :boolean = false;
+  enableAuthComp: boolean = false;
   allBoxesInfo = [
     {
       name: 'Appointments',
@@ -22,6 +22,7 @@ export class UsersInfoComponent implements OnInit {
       heading: 'View',
       subHeading: 'Schedule Appointments',
       description: 'Book, view, and manage your appointments effortlessly.',
+      hoverMessage: 'Login to access your appointment dashboard and easily manage all upcoming appointments.',
     },
     {
       name: 'Contact Your Doctor',
@@ -31,6 +32,7 @@ export class UsersInfoComponent implements OnInit {
       subHeading: 'Reach Out for Assistance',
       description:
         'Easily contact your doctor for any queries or follow-ups regarding your health.',
+      hoverMessage: 'Login to directly connect with your doctor for questions, follow-ups, and support.',
     },
     {
       name: 'Previous Records',
@@ -40,6 +42,7 @@ export class UsersInfoComponent implements OnInit {
       subHeading: 'See Your Previous Records',
       description:
         'Easily access and review your past appointments and records for better planning.',
+      hoverMessage: 'Login to view your complete medical history and stay on top of your records.',
     },
     {
       name: 'About Us',
@@ -49,8 +52,12 @@ export class UsersInfoComponent implements OnInit {
       subHeading: 'Learn More About Who We Are',
       description:
         'Discover our mission, values, and the dedicated team behind your healthcare experience.',
+      hoverMessage: 'Login to learn more about our team and our commitment to your health.',
     },
   ];
+  
+  
+  
   ngOnInit(): void {
     this.authService.employeeLoginStatus$.subscribe((status) => {
       if (status === true) {
@@ -70,16 +77,13 @@ export class UsersInfoComponent implements OnInit {
     if (type === 'Connect') this.router.navigate(['Patient/Doctors']);
     if (type === 'View') this.router.navigate(['Patient/Appointments']);
   }
-  loginClick(){
-    console.log("Hello I am Here after CLicked login")
-    this.enableAuthComp=true;
+  loginClick() {
+    this.enableAuthComp = true;
   }
-  onCloseButtonClicked(event:any){
-    console.log(event);
+  onCloseButtonClicked(event: any) {
     this.enableAuthComp = false;
   }
-  onUserLoggedIn(event:any){
-    console.log("event",event)
-
+  onUserLoggedIn(event: any) {
+    this.enableAuthComp = false;
   }
 }

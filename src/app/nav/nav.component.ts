@@ -74,10 +74,16 @@ export class NavComponent implements OnInit {
       const storedData: string = localStorage.getItem('mediboard') || '';
       if (storedData) {
         this.userInfo = JSON.parse(storedData);
-          // User is logged in, show the image
       }else{
         this.isFunctionLoaded =true
       }
+      this.AuthService.employeeLoginStatus$.subscribe((status) => {
+        if (status === true) {
+          this.isFunctionLoaded =false
+          this.userInfo = JSON.parse(localStorage.getItem("mediboard") || 'null');
+        } else {
+        }
+      });
       
       this.router.events
         .pipe(filter((event) => event instanceof NavigationEnd))
@@ -126,7 +132,7 @@ export class NavComponent implements OnInit {
       this.AuthService.userTypeEmployee(true);
     } else {
       this.selectedUser = this.countries[0]; // Set default to 'Patient' if no selection
-      this.router.navigate(['/']);
+      this.router.navigate(['/Patient']);
     }
   }
 
@@ -135,6 +141,8 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('mediboard');
     this.AuthService.login(false);
     this.userInfo = '';
+    this.router.navigate(['/Patient']);
+    this.isFunctionLoaded =true
   }
   onCloseButtonClicked(event:any){
     this.isLoginButtonClicked=event
