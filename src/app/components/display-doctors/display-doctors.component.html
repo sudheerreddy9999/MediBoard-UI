@@ -6,7 +6,7 @@
   type="text"
   [(ngModel)]="searchContent"
   (ngModelChange)="onSearch()"
-  class="w-full h-10 bg-gray-100 border-none rounded-lg px-4 text-sm focus:outline-none mb-4"
+  class="w-[99%] h-10 ml-2 bg-gray-100 border-none rounded-lg px-4 text-sm mt-1 focus:outline-none mb-4"
   placeholder="Search for doctors..."
 />
 
@@ -62,7 +62,7 @@
                 <span class="text-gray-500 font-normal text-xs">( {{ doctor.specialization }} )</span>
               </div>
               <div class="text-xs text-gray-800 mt-3">
-                {{ doctor.description }}
+                {{ truncateDescription(doctor.description) }}
               </div>
   
               <!-- Doctor contact information -->

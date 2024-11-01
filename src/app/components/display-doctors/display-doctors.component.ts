@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from '../loader/loader.component';
+import { AuthService } from '../../shared/auth.service';
 interface ApiResponse {
   message: string; // Message from the API response
   doctorData: any[]; // Updated to match the response structure
@@ -17,7 +18,10 @@ interface ApiResponse {
   styleUrl: './display-doctors.component.css',
 })
 export class DisplayDoctorsComponent {
-  constructor(private doctorService: DoctorService) {
+  constructor(
+    private doctorService: DoctorService,
+    private AuthService: AuthService
+  ) {
     this.filteredData = this.doctorsData;
   }
   @Output() doctorInfo = new EventEmitter<any>();
@@ -28,18 +32,17 @@ export class DisplayDoctorsComponent {
   filteredData: any[] = [];
   searchContent: string = '';
   loaderOn: boolean = true;
-  selectedCategory :null =null;
-   doctorCategories = [
-    "Neurologist(MD)",
-    " Gastroenterologist(MD)",
-    "Cardiologists(MD)",
-    "Dermatologist(MD)",
-    "Orthopedic Surgeon",
-    "Orthopedic Surgeon(MD)",
-    "Gastroenterologist",
-    "Pediatricians",
+  selectedCategory: any = null;
+  doctorCategories = [
+    'Neurologist(MD)',
+    ' Gastroenterologist(MD)',
+    'Cardiologists(MD)',
+    'Dermatologist(MD)',
+    'Orthopedic Surgeon',
+    'Orthopedic Surgeon(MD)',
+    'Gastroenterologist',
+    'Pediatricians',
   ];
-  
 
   ngOnInit(): void {
     this.doctorService.fetchDoctors().subscribe(
@@ -52,6 +55,13 @@ export class DisplayDoctorsComponent {
         console.error('Error fetching doctors:', error);
       }
     );
+    this.AuthService.searchValue$.subscribe((value) => {
+      this.searchContent = value;
+      this.onSearch();
+    });
+    this.AuthService.specializationValue$.subscribe((value) => {
+      this.categorySelected(value);
+    });
   }
   onSearch() {
     this.filteredData = this.doctorsData.filter((item: { name: string }) =>
@@ -65,17 +75,23 @@ export class DisplayDoctorsComponent {
     };
     this.doctorInfo.emit(doctorInfo);
   }
-  categorySelected(category:any){
-    console.log(this.doctorsData)
-    this.filteredData = this.doctorsData.filter((item:any)=>{
-     return item.specialization ==category
-    })
-    if(this.selectedCategory ==category){
-      this.selectedCategory =null
-      this.filteredData = this.doctorsData
-    }else{
-      this.selectedCategory = category
+  categorySelected(category: any) {
+    this.searchContent = '';
+    this.filteredData = this.doctorsData.filter((item: any) => {
+      return item.specialization == category;
+    });
+    if (this.selectedCategory == category) {
+      this.selectedCategory = null;
+      this.filteredData = this.doctorsData;
+    } else {
+      this.selectedCategory = category;
     }
+  }
+  truncateDescription(description: string, maxLength: number = 220): string {
+    if (!description) return '';
+    return description.length > maxLength
+      ? description.substring(0, maxLength) + '...'
+      : description;
   }
   closeModal() {
     this.closeDoctorsSearch.emit(false);

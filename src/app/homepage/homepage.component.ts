@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { AddEditComponent } from '../appointments/book-appointments/add-edit.component';
 import { UsersInfoComponent } from '../components/users-info/users-info.component';
 import { FooterComponent } from '../footer/footer.component';
+import { SpecialtiesComponent } from '../components/specialties/specialties.component';
 // Install the Swiper modules
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [CommonModule,FooterComponent, AddEditComponent,UsersInfoComponent],
+  imports: [CommonModule,FooterComponent, AddEditComponent,UsersInfoComponent,SpecialtiesComponent],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

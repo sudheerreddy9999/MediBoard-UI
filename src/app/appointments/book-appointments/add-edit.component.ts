@@ -204,6 +204,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     this.openModalComponnet = closeModal;
   }
   onSubmit() {
+    const urlValue = localStorage.getItem("mediboard")?'appointments':'appointments/guest'
     if (this.AppointmentData.invalid) {
       this.AppointmentData.markAllAsTouched();
       return;
@@ -215,7 +216,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
         email: this.AppointmentData.value.patientEmail,
         slot_id: this.userSelectedSlot,
       };
-      this.http.post(`${this.apiUrl}/appointments/guest`, body).subscribe({
+      this.http.post(`${this.apiUrl}/${urlValue}`, body).subscribe({
         next: (data) => {
           this.openLoader = false;
           this.handleCloseModel();

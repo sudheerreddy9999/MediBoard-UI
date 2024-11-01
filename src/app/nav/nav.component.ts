@@ -152,5 +152,8 @@ export class NavComponent implements OnInit {
     this.isLoginButtonClicked = false;
     this.isFunctionLoaded =false
   }
+  redirectHome(){
+    this.router.navigate(['/Patient'])
+  }
 }
 
