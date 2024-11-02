@@ -1,36 +1,76 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { CommonModule } from '@angular/common';
-import { error } from 'console';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { DatePipe } from '@angular/common';
+import { HoursFormat12Pipe } from '../../pipes/hours-format12.pipe';
+import { LoaderComponent } from '../loader/loader.component';
+
 @Component({
   selector: 'app-view-appointments',
   standalone: true,
-  imports: [MatIcon,MatIconModule,CommonModule],
+  imports: [MatIcon, MatIconModule, CommonModule, TimeFormatPipe, HoursFormat12Pipe,LoaderComponent],
+  providers: [DatePipe],
   templateUrl: './view-appointments.component.html',
-  styleUrl: './view-appointments.component.css'
+  styleUrls: ['./view-appointments.component.css']
 })
 export class ViewAppointmentsComponent implements OnInit {
-  apiUrl =environment.apiBaseUrl
-  userAppointments:any =[]
-  constructor(private router:Router,private http:HttpClient){}
-  handelReturn(){
-    console.log("i got clicked")
-    this.router.navigate(['Patient'])
-  }
+  apiUrl = environment.apiBaseUrl;
+  userAppointments: any = [];
+  appointmentValue: string = '';
+  filteredAppointments: any = [];
+  loaderEnable:boolean = true
+  selectedType: string = 'all';
+
+  constructor(private router: Router, private http: HttpClient) {}
+
   ngOnInit(): void {
     this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
-      next:(res:any)=>{
-        console.log(res)
-        this.userAppointments = res.data
-        console.log(this.userAppointments)
-      },error:(error)=>{
+      next: (res: any) => {
+        console.log(res);
+        this.userAppointments = res.data;
+        this.filteredAppointments = this.userAppointments;
+        this.loaderEnable= false
+      },
+      error: (error) => {
         console.error(error);
-      },complete:()=>{
-        console.log("Api Call completed SuccessFully")
+      },
+      complete: () => {
+        console.log('API Call completed successfully');
       }
-    })
+    });
+  }
+
+  handelReturn() {
+    console.log('I got clicked');
+    this.router.navigate(['Patient']);
+  }
+
+  handelTypeClicked(type: string) {
+    this.selectedType = type;
+
+    const currentDate = new Date();
+
+    if (type === 'all') {
+      this.filteredAppointments = [...this.userAppointments];
+    } else if (type === 'upcoming') {
+      this.filteredAppointments = this.userAppointments.filter((appointment: { slot_date: string | number | Date }) =>
+        new Date(appointment.slot_date) > currentDate
+      );
+    } else if (type === 'completed') {
+      this.filteredAppointments = this.userAppointments.filter((appointment: { slot_date: string | number | Date }) =>
+        new Date(appointment.slot_date) <= currentDate
+      );
+    }
+
+    // Sort by date in ascending order for a consistent display
+    this.filteredAppointments.sort((a: { slot_date: string | number | Date }, b: { slot_date: string | number | Date }) =>
+      new Date(a.slot_date).getTime() - new Date(b.slot_date).getTime()
+    );
+
+    console.log(this.filteredAppointments, 'Filtered data');
   }
 }

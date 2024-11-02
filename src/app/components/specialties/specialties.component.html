@@ -1,52 +1,76 @@
 <div class="flex flex-col justify-center items-center p-4">
-    <p class="text-2xl font-bold text-gray-800 mb-4 text-center">Explore Our Medical Specialties</p>
-    <p class="max-w-[900px] text-center text-gray-500 leading-relaxed">
-        Our hospital offers a range of specialties to meet the healthcare needs of our community. From preventive care and screenings to advanced procedures, our expert team is here to provide compassionate and precise care. With specialists in cardiology, orthopedics, neurology, oncology, pediatrics, and more, we are committed to personalized, quality care for every patient.
-    </p>
+  <p class="text-2xl font-bold text-gray-800 mb-4 text-center">
+    Explore Our Medical Specialties
+  </p>
+  <p class="max-w-[900px] text-center text-gray-500 leading-relaxed">
+    Our hospital offers a range of specialties to meet the healthcare needs of
+    our community. From preventive care and screenings to advanced procedures,
+    our expert team is here to provide compassionate and precise care. With
+    specialists in cardiology, orthopedics, neurology, oncology, pediatrics, and
+    more, we are committed to personalized, quality care for every patient.
+  </p>
 </div>
 
 <div class="flex flex-col md:flex-row w-full">
-    <div class="flex flex-col w-full md:w-8/12 p-4">
-        <!-- Heading Section -->
-        <div class="w-full text-center rounded-md">
-            <p class="text-xl pt-2 font-semibold text-gray-800">Explore Our Leading Medical Professionals</p>
-        </div>
-
-        <!-- Doctors Section -->
-        <div class="rounded-md">
-            <div class="flex flex-wrap justify-center items-center gap-6">
-                <div *ngFor="let doctor of topFiveDocs" class="w-full sm:w-60 md:w-72 bg-white rounded-lg shadow-lg p-4 text-center transition-transform transform hover:scale-105" (click)="handleDoctorClick(doctor.name)">
-                    <img
-                      [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
-                      class="w-24 h-24 mx-auto object-cover rounded-full border-2 border-gray-300 mb-4"
-                      alt="Doctor's photo"
-                    />
-                    <p class="text-lg font-bold text-gray-900 mb-1 cursor-pointer">{{ doctor.name }} <span class="text-sm">({{ doctor.specialization }})</span></p>
-                    <p class="text-gray-500 text-xs mt-1 cursor-pointer">{{ truncateDescription(doctor.description) }}</p>
-                </div>
-            </div>
-        </div>
+  <div class="flex flex-col w-full md:w-8/12 p-4">
+    <!-- Heading Section -->
+    <div class="w-full text-center rounded-md">
+      <p class="text-xl pt-2 font-semibold text-gray-800">
+        Explore Our Leading Medical Professionals
+      </p>
     </div>
 
-    <div class="w-full md:w-4/12 flex flex-col justify-center items-center">
-        <div class="w-full text-center rounded-md">
-            <p class="text-xl font-semibold text-gray-800">Explore Our Specialists</p>
+    <!-- Doctors Section -->
+    <div class="rounded-md">
+      <div class="flex flex-wrap justify-center items-center gap-6">
+        <div
+          *ngFor="let doctor of topFiveDocs"
+          class="w-full sm:w-60 md:w-72 bg-white rounded-lg shadow-lg p-4 text-center transition-transform transform hover:scale-105"
+          (click)="handleDoctorClick(doctor.name)"
+        >
+          <img
+            [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
+            class="w-24 h-24 mx-auto object-cover rounded-full border-2 border-gray-300 mb-4"
+            alt="Doctor's photo"
+          />
+          <p class="text-lg font-bold text-gray-900 mb-1 cursor-pointer">
+            {{ doctor.name }}
+            <span class="text-sm inline-block font-medium">({{ doctor.specialization }})</span>
+        </p>
+        
+        
+
+          <p class="text-gray-500 text-xs mt-1 cursor-pointer">
+            {{ doctor.description | truncateDescription : 110 }}
+          </p>
         </div>
-        <div class="p-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div
-                  class="bg-white rounded-lg shadow-md flex flex-col items-center justify-center text-center p-6 transition transform hover:scale-105 hover:shadow-lg hover:bg-gray-100"
-                  *ngFor="let category of doctorCategories"
-                  (click)="handlespecialization(category.categeory)"
-                >
-                    <img
-                      [src]="category.image"
-                      alt="{{ category.categeory }}"
-                      class="w-16 h-16 object-cover mb-4 transition transform hover:scale-110"
-                    />
-                    <p class="text-gray-800 text-xs font-medium transition-colors hover:text-blue-600">{{ category.categeory }}</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="w-full md:w-4/12 flex flex-col justify-center items-center">
+    <div class="w-full text-center rounded-md">
+      <p class="text-xl font-semibold text-gray-800">Explore Our Specialists</p>
+    </div>
+    <div class="p-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div
+          class="bg-white rounded-lg shadow-md flex flex-col items-center justify-center text-center p-6 transition transform hover:scale-105 hover:shadow-lg hover:bg-gray-100"
+          *ngFor="let category of doctorCategories"
+          (click)="handlespecialization(category.categeory)"
+        >
+          <img
+            [src]="category.image"
+            alt="{{ category.categeory }}"
+            class="w-16 h-16 object-cover mb-4 transition transform hover:scale-110"
+          />
+          <p
+            class="text-gray-800 text-xs font-medium transition-colors hover:text-blue-600"
+          >
+            {{ category.categeory }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

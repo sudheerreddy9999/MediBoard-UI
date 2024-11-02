@@ -62,7 +62,7 @@
                 <span class="text-gray-500 font-normal text-xs">( {{ doctor.specialization }} )</span>
               </div>
               <div class="text-xs text-gray-800 mt-3">
-                {{ truncateDescription(doctor.description) }}
+                {{doctor.description|truncateDescription:220}}
               </div>
   
               <!-- Doctor contact information -->

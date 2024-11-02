@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from '../loader/loader.component';
 import { AuthService } from '../../shared/auth.service';
+import { TruncateDescriptionPipe } from '../../pipes/truncate-description.pipe';
 interface ApiResponse {
   message: string; // Message from the API response
   doctorData: any[]; // Updated to match the response structure
@@ -13,7 +14,7 @@ interface ApiResponse {
 @Component({
   selector: 'app-display-doctors',
   standalone: true,
-  imports: [MatIcon, MatIconModule, CommonModule, FormsModule, LoaderComponent],
+  imports: [MatIcon, MatIconModule, CommonModule, FormsModule, LoaderComponent,TruncateDescriptionPipe],
   templateUrl: './display-doctors.component.html',
   styleUrl: './display-doctors.component.css',
 })
@@ -88,12 +89,6 @@ export class DisplayDoctorsComponent {
     } else {
       this.selectedCategory = category;
     }
-  }
-  truncateDescription(description: string, maxLength: number = 220): string {
-    if (!description) return '';
-    return description.length > maxLength
-      ? description.substring(0, maxLength) + '...'
-      : description;
   }
   closeModal() {
     this.closeDoctorsSearch.emit(false);
