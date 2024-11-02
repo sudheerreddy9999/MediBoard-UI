@@ -37,14 +37,14 @@
                 <div
                   class="bg-white rounded-lg shadow-md flex flex-col items-center justify-center text-center p-6 transition transform hover:scale-105 hover:shadow-lg hover:bg-gray-100"
                   *ngFor="let category of doctorCategories"
-                  (click)="handlespecialization(category)"
+                  (click)="handlespecialization(category.categeory)"
                 >
                     <img
-                      src="https://cdn-icons-png.freepik.com/256/9619/9619476.png?semt=ais_hybrid"
-                      alt="{{ category }}"
+                      [src]="category.image"
+                      alt="{{ category.categeory }}"
                       class="w-16 h-16 object-cover mb-4 transition transform hover:scale-110"
                     />
-                    <p class="text-gray-800 text-xs font-medium transition-colors hover:text-blue-600">{{ category }}</p>
+                    <p class="text-gray-800 text-xs font-medium transition-colors hover:text-blue-600">{{ category.categeory }}</p>
                 </div>
             </div>
         </div>

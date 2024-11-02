@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DisplayDoctorsComponent } from '../display-doctors/display-doctors.component';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -21,20 +21,12 @@ import { environment } from '../../../environments/environment';
   templateUrl: './doctors-info.component.html',
   styleUrl: './doctors-info.component.css',
 })
-export class DoctorsInfoComponent implements OnInit {
+export class DoctorsInfoComponent   {
   constructor(private router: Router,private http:HttpClient) {}
   enablecloseButton: boolean = false;
   enableBookAppointment: boolean = false;
   selectedDoctorData = null;
   apiUrl =environment.apiBaseUrl
-  ngOnInit(): void {
-    console.log("I am In it")
-    this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
-      next:(response)=>{
-        console.log(response);
-      }
-    })
-  }
   handelReturn() {
     this.router.navigate(['Patient']);
   }

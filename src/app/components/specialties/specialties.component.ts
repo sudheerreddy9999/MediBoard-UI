@@ -24,14 +24,37 @@ export class SpecialtiesComponent implements OnInit {
   allDoctors: any = [];
   topFiveDocs: any = [];
   doctorCategories = [
-    'Neurologist(MD)',
-    ' Gastroenterologist(MD)',
-    'Cardiologists(MD)',
-    'Dermatologist(MD)',
-    'Orthopedic Surgeon',
-    'Orthopedic Surgeon(MD)',
-    'Gastroenterologist',
-    'Pediatricians',
+    {
+      categeory:"Neurologist(MD)",
+      image:"https://cdn-icons-png.freepik.com/256/9619/9619476.png?semt=ais_hybrid"
+    },
+    {
+      categeory:' Gastroenterologist(MD)',
+      image:"https://cdn-icons-png.freepik.com/512/8143/8143044.png"
+    },
+    {
+      categeory:'Cardiologists(MD)',
+      image:"https://cdn-icons-png.freepik.com/512/10362/10362465.png"
+    },
+    {
+      categeory:'Dermatologist(MD)',
+      image:"https://img.freepik.com/premium-vector/dermatologist-icon-vector-image-can-be-used-skin-burns_120816-356192.jpg?w=740",
+
+    },
+    {
+      categeory:'Orthopedic Surgeon',
+      image:"https://img.freepik.com/premium-vector/vector-design-orthopedic-surgery-icon-style_822882-117689.jpg?w=740"
+    },
+    {
+      categeory:"Gastroenterologist",
+      image:"https://img.freepik.com/premium-vector/vector-design-gastroenterology-icon-style_1134108-98427.jpg"
+
+    },
+    {
+      categeory:"Pediatricians",
+      image:"https://cdn.iconscout.com/icon/premium/png-256-thumb/pediatric-care-5376702-4490281.png?f=webp&w=256"
+
+    },
   ];
   ngOnInit(): void {
     this.doctorService.fetchDoctors().subscribe(
@@ -46,10 +69,12 @@ export class SpecialtiesComponent implements OnInit {
   }
   handleDoctorClick(doctName: string) {
     this.router.navigate(['Patient/Doctors']);
+    this.AuthService.changeSpecialization('');
     this.AuthService.changeSearchValue(doctName);
   }
   handlespecialization(category: string) {
     this.router.navigate(['Patient/Doctors']);
+    this.AuthService.changeSearchValue('');
     this.AuthService.changeSpecialization(category);
   }
   truncateDescription(description: string, maxLength: number = 110): string {

@@ -56,11 +56,13 @@ export class DisplayDoctorsComponent {
       }
     );
     this.AuthService.searchValue$.subscribe((value) => {
+      if(value){
       this.searchContent = value;
       this.onSearch();
+      }
     });
     this.AuthService.specializationValue$.subscribe((value) => {
-      this.categorySelected(value);
+       value?this.categorySelected(value):''
     });
   }
   onSearch() {

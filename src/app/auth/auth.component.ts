@@ -107,7 +107,7 @@ export class AuthComponent implements OnInit {
     this.authService.selectedEmployeeDropDown$.subscribe((message: boolean) => {
       this.isEmployeeLogin = message;
       if(this.isEmployeeLogin){
-        this.authLeftImage='images/employeeAuthImage.jpeg'
+        this.authLeftImage='images/employeeAuthImage.webp'
       }
     });
     if (this.typeOfuser === 'Employee') {
