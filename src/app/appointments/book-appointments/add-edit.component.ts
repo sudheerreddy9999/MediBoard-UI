@@ -159,6 +159,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     } else {
       console.error('Unexpected event type:', typeof event);
     }
+    console.log(this.currentDayDoctorSlots," Current Day slots are")
   }
 
   openDoctorsModal() {
@@ -184,7 +185,9 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     });
     this.http.get<any>(`${this.apiUrl}/slots`, { headers }).subscribe({
       next: (data) => {
+        console.log(data.slots," Data Value is ")
         this.currentDoctorSlots = data.slots;
+        console.log(this.currentDoctorSlots,"Current Doctor slot Values are ")
       },
       error: (error) => {
         console.error(error);
@@ -219,7 +222,13 @@ export class AddEditComponent implements AfterViewInit, OnInit {
       this.http.post(`${this.apiUrl}/${urlValue}`, body).subscribe({
         next: (data) => {
           this.openLoader = false;
-          this.handleCloseModel();
+          this.typeOfModal ="success"
+          this.openModalComponnet = true;
+          this.modalMessage = "Appointment Booked Success View It on Your Appointments"
+          setTimeout(()=>{
+            // this.openModalComponnet = false
+            this.handleCloseModel();
+          },3000)
         },
         error: (error) => {
           this.openLoader = false;

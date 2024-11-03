@@ -19,10 +19,11 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export class ViewAppointmentsComponent implements OnInit {
   apiUrl = environment.apiBaseUrl;
+  loaderEnable:boolean = true
   userAppointments: any = [];
   appointmentValue: string = '';
   filteredAppointments: any = [];
-  loaderEnable:boolean = true
+  emptyAppointmentsMessage:string =''
   selectedType: string = 'all';
 
   constructor(private router: Router, private http: HttpClient) {}
@@ -31,9 +32,9 @@ export class ViewAppointmentsComponent implements OnInit {
     this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.userAppointments = res.data;
-        this.filteredAppointments = this.userAppointments;
         this.loaderEnable= false
+        this.userAppointments = res.data; 
+        this.filteredAppointments = this.userAppointments;
       },
       error: (error) => {
         console.error(error);
@@ -44,7 +45,7 @@ export class ViewAppointmentsComponent implements OnInit {
     });
   }
 
-  handelReturn() {
+  handleReturn() {
     console.log('I got clicked');
     this.router.navigate(['Patient']);
   }
@@ -60,17 +61,19 @@ export class ViewAppointmentsComponent implements OnInit {
       this.filteredAppointments = this.userAppointments.filter((appointment: { slot_date: string | number | Date }) =>
         new Date(appointment.slot_date) > currentDate
       );
+      this.emptyAppointmentsMessage = this.filteredAppointments.length === 0 ? "You have no upcoming appointments" : "";
     } else if (type === 'completed') {
       this.filteredAppointments = this.userAppointments.filter((appointment: { slot_date: string | number | Date }) =>
         new Date(appointment.slot_date) <= currentDate
       );
+      this.emptyAppointmentsMessage = this.filteredAppointments.length === 0 ?"You don't have previous appointment records":'';
     }
-
+    console.log(this.filteredAppointments)
     // Sort by date in ascending order for a consistent display
     this.filteredAppointments.sort((a: { slot_date: string | number | Date }, b: { slot_date: string | number | Date }) =>
       new Date(a.slot_date).getTime() - new Date(b.slot_date).getTime()
     );
+    console.log(this.filteredAppointments)
 
-    console.log(this.filteredAppointments, 'Filtered data');
   }
 }

@@ -147,8 +147,18 @@ export class AuthComponent implements OnInit {
         .post(`${this.apiUrl}/user/add`, body, { headers: headers })
         .subscribe({
           next: (response) => {
-            this.authService.login(true);
+            console.log(response,"After signup ")
             this.OpenLoader = false;
+              const data = response;
+              setTimeout(() => {
+                this.userLoggedIn.emit(data); // Emit the data (assuming you're using EventEmitter)
+
+                this.authService.login(true);
+              }, 1000);
+              this.openModalComponnet = true;
+              localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
+              this.modalMessage = 'Login Success';
+              this.typeOfModal = 'success';
           },
           error: (error) => {
             console.error('API Error:', error);
@@ -260,6 +270,7 @@ export class AuthComponent implements OnInit {
         .post(`${this.apiUrl}/add`, body, { headers: headers })
         .subscribe({
           next: (response) => {
+            console.log(response);
             this.authService.login(true);
           },
           error: (error) => {
@@ -284,7 +295,7 @@ export class AuthComponent implements OnInit {
           next: (response) => {
             const data = response.data;
             setTimeout(() => {
-              this.userLoggedIn.emit(data); // Emit the data (assuming you're using EventEmitter)
+              this.userLoggedIn.emit(data);
             }, 3000);
             this.openModalComponnet = true;
             localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
