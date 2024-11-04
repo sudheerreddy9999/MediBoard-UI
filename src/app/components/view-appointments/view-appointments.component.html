@@ -52,9 +52,7 @@
 >
   <p class="animate-pulse text-center max-w-xs">{{ emptyAppointmentsMessage }}</p>
 </div>
-
-
-<div *ngIf="filteredAppointments.length !== 0" class="grid grid-cols-1  md:grid-cols-2 gap-6 w-[1200px] ">
+<div *ngIf="filteredAppointments.length !== 0" class="grid grid-cols-1 md:grid-cols-2 gap-6 w-[1350px]">
   <div
     *ngFor="let appointment of filteredAppointments"
     class="relative p-6 rounded-lg shadow-lg h-60 transform transition-transform hover:scale-105 text-white bg-opacity-90 border border-gray-300 hover:shadow-xl"
@@ -63,28 +61,27 @@
     <div class="relative flex items-start justify-evenly">
       <!-- Left Side: Appointment Details -->
       <div class="w-1/2 space-y-4">
-        <p class="text-sm text-gray-600 font-medium">
-          Appointment ID:
-          <span class="text-gray-800">{{ appointment.appointment_id }}</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">event_note</mat-icon> Appointment ID:
+          <span class="text-gray-800 ml-1">{{ appointment.appointment_id }}</span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Patient Name:
-          <span class="text-gray-800">{{ appointment.patient_name }}</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">person</mat-icon> Patient Name:
+          <span class="text-gray-800 ml-1">{{ appointment.patient_name }}</span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Date:
-          <span class="text-gray-800">{{ appointment.slot_date }}</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">calendar_today</mat-icon> Date:
+          <span class="text-gray-800 ml-1">{{ appointment.slot_date }}</span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Slot Time:
-          <span class="text-gray-800">
-            {{ appointment.slot_time | hoursFormat12 }} -
-            {{ appointment.slot_end_time | hoursFormat12 }}
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">schedule</mat-icon> Slot Time:
+          <span class="text-gray-800 ml-1">
+            {{ appointment.slot_time | hoursFormat12 }} - {{ appointment.slot_end_time | hoursFormat12 }}
           </span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Patient Mob. No:
-          <span class="text-gray-800">7731022239</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">phone</mat-icon> Patient Mob. No:
+          <span class="text-gray-800 ml-1">7731022239</span>
         </p>
       </div>
 
@@ -93,28 +90,28 @@
 
       <!-- Right Side: Doctor and Appointment Info -->
       <div class="w-1/2 space-y-2">
-        <p class="text-sm text-gray-600 font-medium">
-          Doctor:
-          <span class="text-gray-800">{{ appointment.doctor_name }}</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">medical_services</mat-icon> Doctor:
+          <span class="text-gray-800 ml-1">{{ appointment.doctor_name }}</span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Doctor Contact:
-          <span class="text-gray-800">{{ appointment.mobile_number }}</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">phone_in_talk</mat-icon> Doctor Contact:
+          <span class="text-gray-800 ml-1">{{ appointment.mobile_number }}</span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Notes:
-          <span class="text-gray-800">Drink More Water, CT Scan</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">note</mat-icon> Notes:
+          <span class="text-gray-800 ml-1">Drink More Water, CT Scan</span>
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Test:
-          <span class="text-gray-800">{{ appointment.for_test }}/A</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">science</mat-icon> Test:
+          <span class="text-gray-800 ml-1">{{ appointment.for_test }}/A</span>
         </p>
-        <p *ngIf="appointment.is_emergency" class="text-sm text-[#7c94e1] font-semibold">
-          Emergency
+        <p *ngIf="appointment.is_emergency" class="text-sm text-[#7c94e1] font-semibold flex items-center">
+          <mat-icon class="text-sm mr-2">warning</mat-icon> Emergency
         </p>
-        <p class="text-sm text-gray-600 font-medium">
-          Status:
-          <span class="text-gray-800">{{ appointment.status }}</span>
+        <p class="text-sm text-gray-600 font-medium flex items-center">
+          <mat-icon class="text-sm mr-2">check_circle</mat-icon> Status:
+          <span class="text-gray-800 ml-1">{{ appointment.status }}</span>
         </p>
       </div>
     </div>

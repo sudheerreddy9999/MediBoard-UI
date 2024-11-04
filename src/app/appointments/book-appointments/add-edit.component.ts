@@ -61,6 +61,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
   modalMessage: string = 'Success';
   loaderMessage = 'Loading.....';
   typeOfModal: string = 'failure';
+  slotMessage:string ='No Slots Available'
   today: Date;
   @Output() closeAppointmentModel = new EventEmitter<boolean>();
   @Input() selectedDoctor: any = null;
@@ -135,6 +136,8 @@ export class AddEditComponent implements AfterViewInit, OnInit {
   }
 
   onDateChange(event: Date[] | Date) {
+    this.slotMessage = 'No Slots Available';
+    this.userSelectedSlot =0;
     if (Array.isArray(event)) {
       if (event.length > 0) {
         const selectedDate = event[0];
@@ -159,7 +162,6 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     } else {
       console.error('Unexpected event type:', typeof event);
     }
-    console.log(this.currentDayDoctorSlots," Current Day slots are")
   }
 
   openDoctorsModal() {
@@ -179,15 +181,12 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     this.getDoctorSlots();
   }
   getDoctorSlots() {
-    console.log(this.doctor_id);
     const headers = new HttpHeaders({
       doctor_id: this.doctor_id,
     });
     this.http.get<any>(`${this.apiUrl}/slots`, { headers }).subscribe({
       next: (data) => {
-        console.log(data.slots," Data Value is ")
         this.currentDoctorSlots = data.slots;
-        console.log(this.currentDoctorSlots,"Current Doctor slot Values are ")
       },
       error: (error) => {
         console.error(error);
@@ -198,6 +197,11 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     });
   }
   selectTimeSlotIf(slot_id: any) {
+    if(this.userSelectedSlot){
+      this.userSelectedSlot =0
+      return
+    }
+    this.slotMessage = 'No Slots Available';
     this.userSelectedSlot = slot_id;
   }
   handleCloseModel() {
@@ -212,6 +216,10 @@ export class AddEditComponent implements AfterViewInit, OnInit {
       this.AppointmentData.markAllAsTouched();
       return;
     } else {
+      if(!this.userSelectedSlot){
+        this.slotMessage = 'Select Valid Slot';
+        return
+      }
       this.openLoader = true;
       const body = {
         name: this.AppointmentData.value.patient_firstname,
@@ -224,7 +232,7 @@ export class AddEditComponent implements AfterViewInit, OnInit {
           this.openLoader = false;
           this.typeOfModal ="success"
           this.openModalComponnet = true;
-          this.modalMessage = "Appointment Booked Success View It on Your Appointments"
+          this.modalMessage = "Appointment Booked Successfully"
           setTimeout(()=>{
             // this.openModalComponnet = false
             this.handleCloseModel();
@@ -247,8 +255,5 @@ export class AddEditComponent implements AfterViewInit, OnInit {
     const doctor = this.doctorsData.find((doc) => doc.name == selectedDoctor);
     this.doctor_id = doctor.doctor_id;
     this.getDoctorSlots();
-  }
-  handelOptionChange(name: any) {
-    console.log(name, 'Uojenjndnd Change eisnnsjj');
   }
 }

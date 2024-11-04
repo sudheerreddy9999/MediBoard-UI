@@ -121,7 +121,6 @@ export class SpecialtiesComponent implements OnInit {
   ngOnInit(): void {
     this.doctorService.fetchDoctors().subscribe(
       (data: ApiResponse) => {
-        console.log(data.doctorData,"Data ")
         this.allDoctors = data.doctorData;
         this.topFiveDocs = data.doctorData.slice(0, 5);
       },

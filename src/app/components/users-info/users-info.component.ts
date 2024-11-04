@@ -78,6 +78,7 @@ export class UsersInfoComponent implements OnInit {
   userPrefClicked(type: string) {
     if (type === 'Connect') this.router.navigate(['Patient/Doctors']);
     if (type === 'View') this.router.navigate(['Patient/Appointments']);
+    if (type === 'Records') this.router.navigate(['Patient/Records']);
   }
   loginClick() {
     this.enableAuthComp = true;
