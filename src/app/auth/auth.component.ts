@@ -156,7 +156,7 @@ export class AuthComponent implements OnInit {
                 this.authService.login(true);
               }, 1000);
               this.openModalComponnet = true;
-              localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
+              localStorage.setItem('mediboard', JSON.stringify(data));
               this.modalMessage = 'Login Success';
               this.typeOfModal = 'success';
           },
@@ -200,7 +200,7 @@ export class AuthComponent implements OnInit {
                 this.authService.login(true);
               }, 1000);
               this.openModalComponnet = true;
-              localStorage.setItem('mediboard', JSON.stringify(data)); // Store the data in localStorage
+              localStorage.setItem('mediboard', JSON.stringify(data));
               this.modalMessage = 'Login Success';
               this.typeOfModal = 'success';
             },

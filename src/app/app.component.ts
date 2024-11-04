@@ -37,10 +37,10 @@ export class AppComponent implements OnInit {
       const storedData = localStorage.getItem('mediboard') || '';
       this.currentUser = storedData
       if (storedData) {
-        if(JSON.parse(storedData).userId){
+        if(JSON.parse(storedData).userDetails.userId){
           this.router.navigate(['/Patient']);
 
-        }else if(JSON.parse(storedData).userData.employeeId){
+        }else if(JSON.parse(storedData).employeeDetails.employeeId){
           this.router.navigate(['/Employee']);
         }else{
           this.router.navigate(['/Patient']);

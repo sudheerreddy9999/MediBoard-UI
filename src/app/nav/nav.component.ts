@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { DropdownModule } from 'primeng/dropdown';
+import { Location } from '@angular/common';
 import {
   NavigationEnd,
   RouterLink,
@@ -54,10 +55,10 @@ export class NavComponent implements OnInit {
   currentRoute: string = '';
   isFunctionLoaded =false
   countries: Country[] = []; 
-  selectedUser: Country | null = null;
+  selectedUser: Country | null = this.countries[0];
   @ViewChild('usersInfoSection', { static: false }) usersInfoSection!: ElementRef;
 
-  constructor(private router: Router, private route: ActivatedRoute, private AuthService: AuthService) {
+  constructor(private router: Router, private route: ActivatedRoute, private AuthService: AuthService,private location:Location) {
     // Initialize the countries array
     this.countries = [
       { name: 'Patient', code: 'US', image: "/images/user.png" },
@@ -99,6 +100,9 @@ export class NavComponent implements OnInit {
           }
         });
     }
+    this.AuthService.logout$.subscribe((status)=>{
+      if(status) this.logoutButtonClicked();
+    })
   }
 
   // handelScroll(value:any){
@@ -119,30 +123,43 @@ export class NavComponent implements OnInit {
   }
 
   onCountrySelect() {
+    if (!this.selectedUser) {
+       // Reset to default if no option is selected
+       this.resetToFirstCountry();
+    }
+    // Existing logic
     this.isLoginButtonClicked = false;
     if (this.selectedUser?.name === 'Patient') {
-      this.router.navigate(['/Patient']);
-      this.AuthService.userTypeEmployee(false);
+       this.router.navigate(['/Patient']);
+       this.AuthService.userTypeEmployee(false);
     } else if (this.selectedUser?.name === 'Doctor') {
-      this.router.navigate(['/Doctor']);
-      this.AuthService.userTypeEmployee(false);
+       this.router.navigate(['/Doctor']);
+       this.AuthService.userTypeEmployee(false);
     } else if (this.selectedUser?.name === 'Employee') {
-      this.router.navigate(['/Employee']);
-      this.isLoginButtonClicked = true;
-      this.AuthService.userTypeEmployee(true);
+       this.router.navigate(['/Employee']);
+       this.isLoginButtonClicked = true;
+       this.AuthService.userTypeEmployee(true);
     } else {
-      this.selectedUser = this.countries[0]; // Set default to 'Patient' if no selection
-      this.router.navigate(['/Patient']);
+       this.resetToFirstCountry();
     }
-  }
+ }
+ 
+  resetToFirstCountry() {
+    this.selectedUser = this.countries[0]; // Resets to the first country
+}
+
 
   logoutButtonClicked() {
+
     this.isFunctionLoaded =true
     localStorage.removeItem('mediboard');
     this.AuthService.login(false);
     this.userInfo = '';
     this.router.navigate(['/Patient']);
     this.isFunctionLoaded =true
+    setTimeout(()=>{
+      this.isLoginButtonClicked = !this.isLoginButtonClicked;
+    },4000)
   }
   onCloseButtonClicked(event:any){
     this.isLoginButtonClicked=event
@@ -153,7 +170,11 @@ export class NavComponent implements OnInit {
     this.isFunctionLoaded =false
   }
   redirectHome(){
-    this.router.navigate(['/Patient'])
+    if(this.userInfo.employeeDetails){
+      this.router.navigate(['/Employee'])
+    }else{
+      this.router.navigate(['/Patient'])
+    }
   }
 }
 
