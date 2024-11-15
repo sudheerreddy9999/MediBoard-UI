@@ -1,0 +1,142 @@
+<div class="flex justify-center">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="filterAppointments()"
+    class="fixed w-[95%] h-12 bg-gray-100 mt-28 ml-12 border-none rounded-lg px-4 text-sm focus:outline-none"
+    placeholder="Search Appointments By Id..."
+  />
+</div>
+
+<div *ngIf="!noRecordsFound">
+  <div class="flex mx-20 mt-36 flex-wrap">
+    <div class="flex py-10" *ngFor="let appointment of filteredAppointments">
+      <div
+        class="flex flex-col w-[550px] justify-center bg-gradient-to-r from-[#7c94e1] to-[#dadff5] shadow-2xl mx-10 rounded-3xl"
+      >
+        <div class="flex">
+          <div class="w-1/2 flex flex-col rounded-lg p-4">
+            <div class="flex justify-between items-center">
+              <p class="text-xl p-2 py-1 text-white bg-black rounded-full">
+                {{ appointment.appointment_id }}
+              </p>
+              <p class="font-medium">Appointment Id</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="40px"
+                viewBox="0 -960 960 960"
+                width="40px"
+                fill="#FFFFFF"
+              >
+                <path
+                  d="M382-306.67 653.33-480 382-653.33v346.66ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Zm0-66.67q139.33 0 236.33-97.33t97-236q0-139.33-97-236.33t-236.33-97q-138.67 0-236 97-97.33 97-97.33 236.33 0 138.67 97.33 236 97.33 97.33 236 97.33ZM480-480Z"
+                />
+              </svg>
+            </div>
+            <div class="pt-6">
+              <div class="font-medium m-0 p-2 leading-none">
+                {{ appointment.patient_name }}
+              </div>
+              <div class="text-sm m-0 px-2 leading-none">
+                {{ appointment.email }}
+              </div>
+            </div>
+            <div class="pt-6">
+              <div class="font-medium m-0 p-2 leading-none">Booked</div>
+              <div class="text-sm m-0 px-2 leading-none flex items-center">
+                <mat-icon class="text-gray-500">bookmark_added</mat-icon>
+                {{ appointment.email }}
+              </div>
+            </div>
+          </div>
+          <div class="w-1/2 flex flex-col p-5 pb-6 bg-white rounded-3xl">
+            <div>
+              <div class="flex justify-between">
+                <p>Appointment</p>
+                <div class="bg-gray-100 rounded-full p-1 text-2xl px-3">+</div>
+              </div>
+              <div class="text-2xl font-medium">
+                {{ appointment.patient_name }}
+              </div>
+              <div class="text-gray-500 text-sm">
+                {{ appointment.patient_name }}
+              </div>
+              <div class="text-medium font-medium">
+                {{ appointment.mobile_number }}
+              </div>
+              <div class="flex mt-6 justify-between items-center">
+                <p>Slot ID</p>
+                <p>{{ appointment.slot_id }}</p>
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="p-2 px-6 rounded-xl bg-gray-100">
+                  <div class="text-sm p-1">Date</div>
+                  <div class="text-xs">{{ appointment.slot_date }}</div>
+                </div>
+                <div class="p-2 px-6 rounded-xl bg-green-50">
+                  <div class="text-sm p-1">Status</div>
+                  <div class="text-sm">{{ appointment.for_test }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date & Slot Info -->
+        <div class="flex">
+          <div class="flex w-1/2 bg-white rounded-3xl p-6">
+            <div class="flex flex-col justify-between w-full">
+              <div class="flex">
+                <p>Date</p>
+              </div>
+              <div class="flex items-center">
+                <mat-icon class="text-[12px]">calendar_month</mat-icon>
+                <div class="text-sm">{{ appointment.slot_date }}</div>
+              </div>
+            </div>
+            <div class="w-[1px] bg-gray-300"></div>
+            <div class="flex flex-col justify-between items-center w-full">
+              <div class="flex">
+                <p>Slot Time</p>
+              </div>
+              <div class="flex items-center">
+                <mat-icon class="text-[18px]">schedule</mat-icon>
+                {{ appointment.slot_time }}
+              </div>
+            </div>
+          </div>
+
+          <div class="w-1/2 bg-white rounded-3xl p-6">
+            <div class="text-sm text-gray-700 pb-2">
+              Sudheerjanga9999gmail.com
+            </div>
+            <hr class="border-t border-gray-300 mx-1" />
+            <div class="text-gray-700 py-1 font-medium">
+              {{ appointment.doctor_name }}
+            </div>
+            <hr class="border-t border-gray-300 mx-1" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="noRecordsFound" class="flex flex-col items-center justify-center mt-64 space-y-4">
+    <div class="flex items-center space-x-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="48px"
+        viewBox="0 -960 960 960"
+        width="48px"
+        fill="#1a1918"
+        class="animate-bounce"
+      >
+        <path
+          d="m40-120 440-760 440 760H40Zm104-60h672L480-760 144-180Zm340.18-57q12.82 0 21.32-8.68 8.5-8.67 8.5-21.5 0-12.82-8.68-21.32-8.67-8.5-21.5-8.5-12.82 0-21.32 8.68-8.5 8.67-8.5 21.5 0 12.82 8.68 21.32 8.67 8.5 21.5 8.5ZM454-348h60v-224h-60v224Zm26-122Z"
+        />
+      </svg>
+      <p class="text-2xl font-semibold text-gray-600">No Records Found</p>
+    </div>
+    <p class="text-gray-500 text-sm">Please try searching with a different term.</p>
+  </div>
+  

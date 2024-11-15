@@ -8,11 +8,12 @@ import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import { DatePipe } from '@angular/common';
 import { HoursFormat12Pipe } from '../../pipes/hours-format12.pipe';
 import { LoaderComponent } from '../loader/loader.component';
+import { AppointmentcardComponent } from '../appointmentcard/appointmentcard.component';
 
 @Component({
   selector: 'app-view-appointments',
   standalone: true,
-  imports: [MatIcon, MatIconModule, CommonModule, TimeFormatPipe, HoursFormat12Pipe,LoaderComponent],
+  imports: [MatIcon, MatIconModule, CommonModule, TimeFormatPipe, HoursFormat12Pipe,LoaderComponent,AppointmentcardComponent],
   providers: [DatePipe],
   templateUrl: './view-appointments.component.html',
   styleUrls: ['./view-appointments.component.css']
@@ -31,7 +32,6 @@ export class ViewAppointmentsComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.loaderEnable= false
         this.userAppointments = res.data; 
         this.filteredAppointments = this.userAppointments;
