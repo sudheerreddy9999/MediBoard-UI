@@ -32,9 +32,13 @@ export class ViewAppointmentsComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
       next: (res: any) => {
-        this.loaderEnable= false
-        this.userAppointments = res.data; 
-        this.filteredAppointments = this.userAppointments;
+        this.loaderEnable= false 
+        const filteredAppointments = res.data.filter((x: any) => {
+          const date = new Date(x.slot_date);
+          return new Date() <= date;
+        });
+        this.filteredAppointments = filteredAppointments;
+        this.userAppointments = filteredAppointments
       },
       error: (error) => {
         console.error(error);
