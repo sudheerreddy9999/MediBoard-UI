@@ -73,7 +73,6 @@ export class ViewAppointmentsComponent implements OnInit {
       this.emptyAppointmentsMessage = this.filteredAppointments.length === 0 ?"You don't have previous appointment records":'';
     }
     console.log(this.filteredAppointments)
-    // Sort by date in ascending order for a consistent display
     this.filteredAppointments.sort((a: { slot_date: string | number | Date }, b: { slot_date: string | number | Date }) =>
       new Date(a.slot_date).getTime() - new Date(b.slot_date).getTime()
     );

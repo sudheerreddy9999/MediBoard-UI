@@ -1,37 +1,51 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-appointmentcard',
   standalone: true,
-  imports: [MatIconModule,CommonModule,FormsModule],
+  imports: [MatIconModule, CommonModule, FormsModule,CalendarModule],
   templateUrl: './appointmentcard.component.html',
-  styleUrl: './appointmentcard.component.css'
+  styleUrl: './appointmentcard.component.css',
 })
 export class AppointmentcardComponent implements OnInit {
   @Input() appointmentData: any;
   filteredAppointments: any = [];
-  noRecordsFound:boolean = false;
+  noRecordsFound: boolean = false;
+  selectedDate: any = null;
   searchTerm: string = '';
   ngOnInit(): any {
-    console.log(this.appointmentData," Appointment")
     this.filteredAppointments = this.appointmentData.userAppointments;
-    console.log(this.filteredAppointments, " filtered Appointments are ");
   }
 
   filterAppointments() {
     this.noRecordsFound = false;
+    this.selectedDate = null
     if (this.searchTerm) {
-      this.filteredAppointments = this.appointmentData.userAppointments.filter((appointment: any) =>
-        appointment.appointment_id.toString().includes(this.searchTerm.trim())
+      this.filteredAppointments = this.appointmentData.userAppointments.filter(
+        (appointment: any) =>
+          appointment.appointment_id.toString().includes(this.searchTerm.trim())
       );
-      if(this.filteredAppointments.length == 0){
+      if (this.filteredAppointments.length == 0) {
         this.noRecordsFound = true;
-        }
-      console.log(this.filteredAppointments," After seeach is ")
+      }
     } else {
-      this.filteredAppointments = this.appointmentData.userAppointments; 
+      this.filteredAppointments = this.appointmentData.userAppointments;
+    }
+  }
+  filterAppointmentsByDate() {
+    this.noRecordsFound = false;
+    if (this.selectedDate) {
+      this.filteredAppointments = this.appointmentData.userAppointments.filter(
+        (x: any) => x.slot_date === this.selectedDate
+      );
+      if (this.filteredAppointments.length === 0) {
+        this.noRecordsFound = true;
+      }
+    } else {
+      this.filteredAppointments = this.appointmentData.userAppointments;
     }
   }
 }

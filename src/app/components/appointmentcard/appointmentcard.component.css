@@ -1,0 +1,31 @@
+/* In styles.css or your component's CSS file */
+.custom-height .p-inputtext {
+    height: 70px; /* Set the height of the calendar input field */
+    background-color: aqua;
+    padding: 30px;
+  }
+  
+  .custom-height .p-calendar {
+    height: 40px; /* Set the height of the calendar widget */
+  }
+  
+  .custom-height .p-calendar .p-calendar-input {
+    height: 40px; /* Adjust input field inside the calendar */
+  }
+  
+  /* Optional: Customizing the icon's appearance */
+  .custom-height .p-calendar .p-calendar-icon {
+    font-size: 18px; /* Adjust the size of the calendar icon */
+    color: #007bff; /* Change the icon color */
+  }
+  
+  /* Optional: Adjusting the calendar popup */
+  .custom-height .p-calendar .p-calendar-panel {
+    font-size: 14px; /* Adjust font size inside the calendar */
+    padding: 10px;  /* Adjust padding for the popup */
+  }
+  
+  .custom-height .p-calendar input {
+    padding-left: 30px; /* Add padding to input if needed */
+  }
+  
