@@ -22,7 +22,7 @@ export class PreviousRecordsComponent implements OnInit {
   constructor(private route: Router, private router: Router, private http: HttpClient) { }
 
   handleReturn() {
-    this.route.navigate(['/Patient']);
+    this.route.navigate(['/']);
   }
 
   ngOnInit(): void {

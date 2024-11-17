@@ -51,7 +51,7 @@ export class ViewAppointmentsComponent implements OnInit {
 
   handleReturn() {
     console.log('I got clicked');
-    this.router.navigate(['Patient']);
+    this.router.navigate(['/']);
   }
 
   handelTypeClicked(type: string) {

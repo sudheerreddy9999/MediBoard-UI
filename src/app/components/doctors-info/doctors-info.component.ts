@@ -28,7 +28,7 @@ export class DoctorsInfoComponent   {
   selectedDoctorData = null;
   apiUrl =environment.apiBaseUrl
   handelReturn() {
-    this.router.navigate(['Patient']);
+    this.router.navigate(['/']);
   }
   handleAppointmentData(event: any) {
     this.selectedDoctorData = event;

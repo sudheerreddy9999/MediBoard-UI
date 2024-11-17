@@ -6,11 +6,11 @@
   type="text"
   [(ngModel)]="searchContent"
   (ngModelChange)="onSearch()"
-  class="w-[99%] h-10 ml-2 bg-gray-100 border-none rounded-lg px-4 text-sm mt-1 focus:outline-none mb-4"
+  class="w-[95%] fixed h-10 ml-14 mt-[36px] bg-gray-100 border-none rounded-lg px-4 text-sm  focus:outline-none mb-4"
   placeholder="Search for doctors..."
 />
 
-<div class="flex w-full">
+<div class="flex w-full mt-24">
   <!-- Doctor categories column -->
   <div class="w-64 mb-4 flex flex-col">
     <div *ngFor="let category of doctorCategories">

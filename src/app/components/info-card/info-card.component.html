@@ -1,0 +1,48 @@
+<div class="flex justify-center items-center mb-10" id="usersInfoSection">
+    <div *ngFor="let box of boxesInfo" class="relative mx-10 group">
+      <div
+        class="w-[250px] h-[220px] bg-gradient-to-r from-[#dadff5] to-[#7c94e1] rounded-lg flex flex-col justify-center items-center shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+        [ngClass]="{ 'blur-sm': !loggedInUser }"
+        (click)="userPrefClicked(box.heading)"
+      >
+        <div class="flex items-end justify-end px-2 pt-6 ml-52">
+          <mat-icon
+            class="text-2xl transition-transform duration-300 transform hover:scale-125 text-gray-800"
+            >arrow_outward</mat-icon
+          >
+        </div>
+        <div class="flex justify-center items-center">
+          <img
+            [src]="box.image"
+            class="h-20 w-20 rounded-lg transition-transform duration-300 transform hover:scale-110"
+            alt="Scheduler Image"
+          />
+        </div>
+        <div
+          class="text-medium text-left pl-2 font-semibold text-gray-800 cursor-pointer transition-transform duration-300 hover:scale-105"
+        >
+          {{ box.heading }}
+        </div>
+        <div
+          class="text-sm text-left font-medium pl-2 pb-2 text-gray-800 cursor-pointer transition-transform duration-300 hover:scale-105"
+        >
+          {{ box.subHeading }}
+        </div>
+        <p class="text-xs px-2 pb-6 text-gray-600">{{ box.description }}</p>
+      </div>
+  
+      <!-- Hover Message -->
+      <div
+        *ngIf="!loggedInUser"
+        class="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 text-white flex flex-col justify-center items-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      >
+        <!-- <p class="text-sm px-4 mb-3 text-center">{{ box.hoverMessage }}</p> -->
+        <button
+          class="bg-[#7c94e1] text-white mt-4 py-2 px-8 rounded-full hover:bg-[#5374e3] transition-colors"
+          (click)="loginClick()"
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
