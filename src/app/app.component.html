@@ -10,6 +10,6 @@
     <!-- <app-homepage></app-homepage> -->
 
 </div>
-<div *ngIf="currentRoute === '/'">
-    <app-homepage></app-homepage>
+<div *ngIf="currentUser =='patient'">
+    <app-homepage *ngIf="currentRoute === '/'"></app-homepage>
 </div>

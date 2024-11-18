@@ -47,8 +47,6 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      console.log(this.currentUser)
-      console.log(this.currentUser, " Cutrrent user value is ")
      if(this.currentUser=="employee") this.router.navigate(['/Employee'])
       this.currentRoute = this.router.url; 
     });
@@ -59,10 +57,10 @@ intialRendering (){
     const storedData = localStorage.getItem('mediboard') || '';
     this.currentUser = storedData
     if (storedData) {
-      if(JSON.parse(storedData).userDetails.userId){
+      if(JSON.parse(storedData)?.userDetails?.userId){
         // this.router.navigate(['/Patient']);
         this.currentUser = 'patient';
-      }else if(JSON.parse(storedData).employeeDetails.employeeId){
+      }else if(JSON.parse(storedData)?.employeeDetails?.employeeId){
         this.currentUser = 'employee';
         this.router.navigate(['/Employee']);
       }else{
