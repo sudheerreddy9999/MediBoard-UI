@@ -1,6 +1,6 @@
 <p>doctors-info works!</p>
 <mat-icon
-  class="fixed top-[85px] left-4 transform -translate-x-1/2 -translate-y-1/2 text-[35px] p-16 hover:text-[42px] hover:text-blue-400 transition-all duration-300 ease-in-out cursor-pointer"
+  class="ml-4 mt-20 text-[35px] pb-8 pr-10 cursor-pointer"
   (click)="handelReturn()"
   >arrow_back</mat-icon
 >
@@ -13,5 +13,5 @@
 <app-add-edit
   *ngIf="enableBookAppointment"
   (closeAppointmentModel)="handleCloseAppointment()"
-  [selectedDoctor]="selectedDoctorData"
+  [selectedDoctor] ="selectedDoctorData"
 ></app-add-edit>

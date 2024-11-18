@@ -130,7 +130,7 @@ export class NavComponent implements OnInit {
     // Existing logic
     this.isLoginButtonClicked = false;
     if (this.selectedUser?.name === 'Patient') {
-       this.router.navigate(['/']);
+       this.router.navigate(['/Patient']);
        this.AuthService.userTypeEmployee(false);
     } else if (this.selectedUser?.name === 'Doctor') {
        this.router.navigate(['/Doctor']);
@@ -145,7 +145,7 @@ export class NavComponent implements OnInit {
  }
  
   resetToFirstCountry() {
-    this.selectedUser = this.countries[0];
+    this.selectedUser = this.countries[0]; // Resets to the first country
 }
 
 
@@ -155,7 +155,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('mediboard');
     this.AuthService.login(false);
     this.userInfo = '';
-    this.router.navigate(['/']);
+    this.router.navigate(['/Patient']);
     this.isFunctionLoaded =true
     setTimeout(()=>{
       this.isLoginButtonClicked = !this.isLoginButtonClicked;
@@ -173,7 +173,7 @@ export class NavComponent implements OnInit {
     if(this.userInfo.employeeDetails){
       this.router.navigate(['/Employee'])
     }else{
-      this.router.navigate(['/'])
+      this.router.navigate(['/Patient'])
     }
   }
 }

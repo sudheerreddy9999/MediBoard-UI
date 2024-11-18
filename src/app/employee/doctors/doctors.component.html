@@ -2,11 +2,11 @@
 type="text"
 [(ngModel)]="searchContent"
 (ngModelChange)="onSerach()"
-class="w-[92%] h-12 ml-16  bg-gray-100 mt-[36px] border-none rounded-lg px-4 text-sm focus:outline-none mb-4"
+class="w-[98%] h-12 ml-4  bg-gray-100 mt-16 border-none rounded-lg px-4 text-sm focus:outline-none mb-4"
 placeholder="Search for doctors..."
 *ngIf="!generateSlot"
 />
-<div class="mx-10 pt-2 mt-24 ">
+<div class="mx-10 pt-2 ">
     <!-- Doctors grid -->
     <div
     class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full pb-4"

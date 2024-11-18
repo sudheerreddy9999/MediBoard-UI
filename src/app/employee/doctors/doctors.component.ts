@@ -19,7 +19,7 @@ import 'moment-timezone';
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.css'
 })
-export class EmployeeDoctorComponent implements OnInit {
+export class DoctorComponent implements OnInit {
   @Output() dataFromSchedule = new EventEmitter<string>();
   private apiUrl:string = environment.apiBaseUrl;
   selectedEvent: any = null;
