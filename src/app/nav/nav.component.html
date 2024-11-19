@@ -105,7 +105,7 @@
             </div>
           </div>
         </div>
-        <div class="mr-2" *ngIf="!isLoginButtonClicked">
+        <div class="mr-2 w-64" *ngIf="!isLoginButtonClicked">
           <button
             class="mx-2 p-2 text-sm w-24 border-[3px] bg-gray-100 font-medium border-[#6f82c6] rounded-full hover:bg-[#6f82c6]/80 hover:text-white/90 hover:border-[#c4ccea] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg"
             (click)="loginButtonClicked('Login')"
@@ -123,23 +123,23 @@
       </div>
 
       <div
-        class="relative group text-[18px] w-16 h-12 rounded-full ml-6"
+        class="relative group text-[18px] w-16 h-12 rounded-full ml-6 mr-4"
         *ngIf="userInfo"
       >
         <img
-          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbGV8ZW58MHx8MHx8fDA%3D"
-          class="w-10 h-10 rounded-lg"
+          src="https://cdn-icons-png.flaticon.com/128/1999/1999625.png"
+          class="w-11 h-11 rounded-lg"
         />
         <div class="relative z-50">
           <div
-            class="absolute top-full w-24 flex flex-col items-center justify-center -ml-16 bg-[#dadff5] text-black mt-3 px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            class="absolute top-full w-28  flex flex-col items-center justify-center -ml-10 bg-gray-100 shadow-2xl text-black mt-4 px-3 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
             <div>
-              <p class="text-sm">{{ userInfo.first_name }}</p>
+              <p class="text-sm">{{ userInfo?.userDetails?.first_name }}</p>
             </div>
             <div>
               <p
-                class="hover:cursor-pointer text-sm"
+                class="hover:cursor-pointer text-white p-1 px-2 bg-red-500 text-sm rounded-lg"
                 (click)="logoutButtonClicked()"
               >
                 Logout
