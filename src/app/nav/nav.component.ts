@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
 
-interface Country {
+interface Users {
   name: string;
   code: string;
   image:string;
@@ -51,25 +51,28 @@ export class NavComponent implements OnInit {
   typeOfUser: string =  'Patient';
   userInfo: any = '';
   isLoginButtonClicked = false;
-  parentMessage: string = 'Hello from Parent!';
+  parentMessage: string = 'Admin Login';
   currentRoute: string = '';
   isFunctionLoaded =false
-  countries: Country[] = []; 
-  selectedUser: Country | null = this.countries[0];
+  users: Users[] = []; 
+  selectedUser: Users | null = this.users[0] || null;
   @ViewChild('usersInfoSection', { static: false }) usersInfoSection!: ElementRef;
 
   constructor(private router: Router, private route: ActivatedRoute, private AuthService: AuthService,private location:Location) {
     // Initialize the countries array
-    this.countries = [
+    this.users = [
       { name: 'Patient', code: 'US', image: "/images/user.png" },
       { name: 'Doctor', code: 'CA', image: "/images/doctor.png" },
       { name: 'Employee', code: 'GB', image: "/images/nurse.png" }
     ];
     // Now you can safely assign the first element of countries to selectedUser
-    this.selectedUser = this.countries[0];
+    this.selectedUser = this.users[0];
   }
+  dropdownOpen = false;
 
-
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
   ngOnInit(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedData: string = localStorage.getItem('mediboard') || '';
@@ -93,10 +96,10 @@ export class NavComponent implements OnInit {
           const segment = fullUrl.split('/');
           this.typeOfUser = segment[1] || 'Patient';
           if (this.typeOfUser === 'Doctor') {
-            this.selectedUser = this.countries[1];
+            this.selectedUser = this.users[1];
           }
           if (this.typeOfUser === 'Employee') {
-            this.selectedUser = this.countries[2];
+            this.selectedUser = this.users[2];
           }
         });
     }
@@ -104,13 +107,6 @@ export class NavComponent implements OnInit {
       if(status) this.logoutButtonClicked();
     })
   }
-
-  // handelScroll(value:any){
-  //     const element = document.getElementById(value);
-  //     if (element) {
-  //       element.scrollIntoView({ behavior: 'smooth' });
-  //     }
-  // }
   loginButtonClicked(authType: string) {
     this.isLoginButtonClicked = !this.isLoginButtonClicked;
     if (this.isLoginButtonClicked) {
@@ -121,31 +117,27 @@ export class NavComponent implements OnInit {
       }
     }
   }
-
-  onCountrySelect() {
-    if (!this.selectedUser) {
-       // Reset to default if no option is selected
-       this.resetToFirstCountry();
-    }
-    // Existing logic
-    this.isLoginButtonClicked = false;
-    if (this.selectedUser?.name === 'Patient') {
-       this.router.navigate(['/Patient']);
-       this.AuthService.userTypeEmployee(false);
-    } else if (this.selectedUser?.name === 'Doctor') {
-       this.router.navigate(['/Doctor']);
-       this.AuthService.userTypeEmployee(false);
-    } else if (this.selectedUser?.name === 'Employee') {
-       this.router.navigate(['/Employee']);
-       this.isLoginButtonClicked = true;
-       this.AuthService.userTypeEmployee(true);
-    } else {
-       this.resetToFirstCountry();
-    }
+ selectUser(user: any) {
+  this.selectedUser = user;
+  this.dropdownOpen = false;
+  this.isLoginButtonClicked = false;
+  if(this.selectedUser?.name==='Patient' ) {
+    this.router.navigate(['/Patient']);
+    this.AuthService.userTypeEmployee(false);
+  }else if (this.selectedUser?.name === 'Doctor') {
+    this.router.navigate(['/Doctor']);
+    this.AuthService.userTypeEmployee(false);
+ } else if (this.selectedUser?.name === 'Employee') {
+    this.router.navigate(['/Employee']);
+    this.isLoginButtonClicked = true;
+    this.AuthService.userTypeEmployee(true);
+ } else {
+    this.resetToFirstCountry();
  }
+}
  
   resetToFirstCountry() {
-    this.selectedUser = this.countries[0]; // Resets to the first country
+    this.selectedUser = this.users[0]; // Resets to the first country
 }
 
 

@@ -25,11 +25,9 @@ export class AuthService {
         this.selectedEmployeeDropDown.next(value)
     }
     changeSearchValue(value: string) {
-      console.log(value,"Inside Auth Service")
       this.searchValue.next(value);
     }
     changeSpecialization(value:string){
-      console.log(value,"specalixation value");
       this.specializationValue.next(value);
     }
     logoutAuth(value:boolean){

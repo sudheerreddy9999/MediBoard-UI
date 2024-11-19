@@ -26,7 +26,6 @@ export class PreviousRecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Previous Records Component Loaded');
     this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
       next: (res: any) => {
         const filteredAppointments = res.data.filter((x: any) => {

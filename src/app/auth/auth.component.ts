@@ -147,7 +147,6 @@ export class AuthComponent implements OnInit {
         .post(`${this.apiUrl}/user/add`, body, { headers: headers })
         .subscribe({
           next: (response) => {
-            console.log(response,"After signup ")
             this.OpenLoader = false;
               const data = response;
               setTimeout(() => {
@@ -270,7 +269,6 @@ export class AuthComponent implements OnInit {
         .post(`${this.apiUrl}/add`, body, { headers: headers })
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.authService.login(true);
           },
           error: (error) => {

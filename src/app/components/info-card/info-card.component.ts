@@ -26,7 +26,6 @@ export class InfoCardComponent {
     console.log(`login is clicked`);
   }
     userPrefClicked(heading: string) {
-      console.log(`User preference clicked is: ${heading}`);
       this.selectedBox.emit(heading)
     }
     
