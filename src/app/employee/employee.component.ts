@@ -60,6 +60,7 @@ export class EmployeeComponent implements OnInit {
     this.currentComponent = componnet;
   }
   ngOnInit(): void {
+    // this.route.navigate(['/employee/doctors'])
     this.ActivateLoader = true;
     this.authService.employeeLoginStatus$.subscribe((status) => {
       if (status === true) {

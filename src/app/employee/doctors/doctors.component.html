@@ -6,19 +6,40 @@ class="w-[98%] h-12 ml-4  bg-gray-100 mt-16 border-none rounded-lg px-4 text-sm 
 placeholder="Search for doctors..."
 *ngIf="!generateSlot"
 />
-<div class="mx-10 pt-2 ">
-    <!-- Doctors grid -->
+
+<!-- <div class="bg-slate-100 shadow-2xl rounded-lg flex w-[550px] mx-10">
+  <div class="bg-green-200 rounded-lg w-5/12">
+    <div class="flex justify-between items-center py-2 pb-0 px-4">
+      <div><p>+</p></div>
+      <div class="w-[1px] h-8 bg-black mx-1 font-bold text-3xl"></div>
+      <div> <p>Book Appointment </p></div>
+    </div>
+    <div class="w-full h-[1px] bg-black"></div>
+    <div>
+      <p class="text-center mt-2">Neurologist</p>
+      <div class="w-full h-[1px] bg-black"></div>
+      <p>AGE: </p>
+      <div class="w-full h-[1px] bg-black"></div>
+      <p>Achivements: </p>
+      <div class="w-full h-[1px] bg-black"></div>
+      <p>Mobile Number: 6303896539 </p>
+      <div class="w-full h-[1px] bg-black"></div>
+    </div>
+  </div>
+  <div class="bg-blue-200 rounded-lg w-7/12">
+
+  </div>
+</div> -->
+ <div class="mx-10 pt-2 ">
     <div
     class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full pb-4"
     *ngIf="filteredContent?.length && !generateSlot"
   >
-    <!-- Individual doctor card -->
     <div
       class="rounded-lg shadow-lg bg-white relative transform transition duration-300 hover:scale-105 hover:shadow-xl"
       *ngFor="let doctor of filteredContent"
     >
-      <!-- Doctor image section -->
-      <div
+          <div
         class="bg-gradient-to-r from-[#7c94e1] to-[#dadff5] w-full h-16 flex items-center rounded-t-lg justify-center relative mb-10"
       >
         <img
@@ -27,14 +48,12 @@ placeholder="Search for doctors..."
           style="position: absolute; top: 60%; transform: translateY(-20%)"
         />
       </div>
-  
-      <!-- Doctor information section -->
+
       <div class="flex flex-col items-center text-center mb-4 mt-14 px-4">
         <div class="text-sm font-semibold text-gray-800">{{ doctor.name }}</div>
         <div class="text-xs text-gray-600">{{ doctor.specialization }}</div>
       </div>
   
-      <!-- Doctor contact information -->
       <div class="flex flex-col space-y-1 mb-4 px-4">
         <div class="flex items-center space-x-2">
           <mat-icon class="text-[#7c94e1] text-xs">mail</mat-icon>
@@ -46,7 +65,6 @@ placeholder="Search for doctors..."
         </div>
       </div>
   
-      <!-- Action buttons -->
       <div class="flex justify-between space-x-2 px-4 pb-4">
         <button
           class="py-3 bg-[#7c94e1] text-white text-xs font-medium rounded-full shadow-md transition duration-300 w-full"
@@ -63,7 +81,6 @@ placeholder="Search for doctors..."
     </div>
   </div>
   
-<!-- Calendar Grid -->
 <div *ngIf="generateSlot" class="relative rounded-lg shadow-lg mt-20">
   <div class="flex justify-between items-center mx-4 mt-12">
     <div>
@@ -95,7 +112,6 @@ placeholder="Search for doctors..."
 </div>
 
 
-<!-- Modal -->
 <div
   class="fixed inset-0 bg-black bg-opacity-70 mt-28 flex items-center justify-center z-50"
   *ngIf="isModalOpen"
@@ -103,7 +119,6 @@ placeholder="Search for doctors..."
   <div
     class="bg-white dark:bg-neutral-950 relative rounded-lg shadow-2xl w-4/12 h-auto mx-4 p-6 space-y-6"
   >
-    <!-- Modal Header -->
     <div class="relative flex items-center justify-center border-b pb-4">
       <p class="text-lg font-medium text-gray-900">{{ formTitle }}</p>
       <button
@@ -114,9 +129,7 @@ placeholder="Search for doctors..."
       </button>
     </div>
 
-   <!-- Modal Body -->
 <form #formRef="ngForm" (ngSubmit)="saveEvent()" class="space-y-4">
-  <!-- Doctor Name -->
   <div *ngIf="currentOpenedModal === 'add'">
     <label class="block text-sm font-medium text-gray-700 mb-1">Doctor</label>
     <input
@@ -128,7 +141,6 @@ placeholder="Search for doctors..."
     />
   </div>
 
-  <!-- Event Title -->
   <div>
     <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
     <input
@@ -143,7 +155,6 @@ placeholder="Search for doctors..."
   </div>
 
   <div class="grid grid-cols-2 gap-2">
-    <!-- Available Slots -->
     <div>
       <label for="available_slots" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Available Slots</label>
       <input
@@ -157,7 +168,6 @@ placeholder="Search for doctors..."
       />
     </div>
 
-    <!-- Date -->
     <div>
       <label for="slot_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
       <input
@@ -173,7 +183,6 @@ placeholder="Search for doctors..."
   </div>
 
   <div class="grid grid-cols-2 gap-2">
-    <!-- Start Time -->
     <div>
       <label for="start" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Time</label>
       <input
@@ -187,7 +196,6 @@ placeholder="Search for doctors..."
       />
     </div>
 
-    <!-- End Time -->
     <div>
       <label for="end" class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Time</label>
       <input
@@ -202,7 +210,6 @@ placeholder="Search for doctors..."
     </div>
   </div>
 
-  <!-- Description -->
   <div>
     <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
     <textarea
@@ -215,8 +222,6 @@ placeholder="Search for doctors..."
       required
     ></textarea>
   </div>
-
-  <!-- Modal Footer -->
   <div class="flex justify-end space-x-2 pt-4 border-t">
     <button
       type="button"
@@ -241,6 +246,8 @@ placeholder="Search for doctors..."
 
 
  </div>
+ 
+ 
  <app-loader [message]="loaderMessage" *ngIf="activateLoader"></app-loader>
  <app-modal [message]="errorModalMessage" [typeOfModal]="typeofModal" *ngIf="isErrorModal"></app-modal>
 
