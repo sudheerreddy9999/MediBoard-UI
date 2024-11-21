@@ -6,33 +6,83 @@ class="w-[98%] h-12 ml-4  bg-gray-100 mt-16 border-none rounded-lg px-4 text-sm 
 placeholder="Search for doctors..."
 *ngIf="!generateSlot"
 />
-
-<!-- <div class="bg-slate-100 shadow-2xl rounded-lg flex w-[550px] mx-10">
-  <div class="bg-green-200 rounded-lg w-5/12">
-    <div class="flex justify-between items-center py-2 pb-0 px-4">
-      <div><p>+</p></div>
-      <div class="w-[1px] h-8 bg-black mx-1 font-bold text-3xl"></div>
-      <div> <p>Book Appointment </p></div>
+<!-- <div class="mx-10 pt-2 ">
+  <div
+  class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 w-full pb-4"
+  *ngIf="filteredContent?.length && !generateSlot"
+>
+  <div
+    class=" relative transform transition duration-300  hover:shadow-xl"
+    *ngFor="let doctor of filteredContent"
+  >
+  <div class="shadow-2xl rounded-2xl flex w-[650px] mx-10">
+    <div class="rounded-2xl rounded-r-none w-4/12">
+      <div class="flex px-3  pt-2">
+        <img class="w-9 h-9 mt-4 rounded-xl" src='https://img.freepik.com/premium-vector/doctor-icon-avatar-white_136162-58.jpg'>
+        <div class="flex flex-col px-3">
+          <div class="pt-2 text-xs">{{doctor.name}}</div>
+          <div class="pl-2 text-sm">34 Years</div>
+        </div>
+      </div>
+      <div class="mt-6">
+        <div class="pl-4 pb-4">
+          <div class="mt-2 text-sm text-gray-400">Date oF Birth</div>
+          <div class="flex items-center ">
+            <mat-icon class="text-black text-sm">calendar_month</mat-icon>
+            <span class="text-sm">{{doctor.dob}}</span>
+          </div>        
+        </div>
+        <div class="w-full h-[1px] bg-black"></div>
+        <div class="pl-4 pb-4">
+          <div class="mt-2 text-sm text-gray-400">Doctors Email</div>
+          <div class="flex items-center ">
+            <mat-icon class="text-black text-sm">email</mat-icon>
+            <span class="text-xs">{{doctor.email}}</span>
+          </div>        
+        </div>
+        <div class="w-full h-[1px] bg-black"></div>
+        <div class="pl-4 pb-4">
+          <div class="mt-2 text-sm text-gray-400">Doctors Mobile Number</div>
+          <div class="flex items-center ">
+            <mat-icon class="text-black text-sm">call</mat-icon>
+            <span class="text-sm">{{doctor.mobile_number}}</span>
+          </div>        
+        </div>
+        <div class="w-full h-[1px] bg-black"></div>
+        <div class="pl-4 pb-4">
+          <div class="mt-2 text-sm text-gray-400">specialization</div>
+          <div class="flex items-center ">
+            <mat-icon class="text-black text-sm">workspace_premium</mat-icon>
+            <span class="text-sm">Authopedition</span>
+          </div>        
+        </div>
+      </div>
     </div>
-    <div class="w-full h-[1px] bg-black"></div>
-    <div>
-      <p class="text-center mt-2">Neurologist</p>
-      <div class="w-full h-[1px] bg-black"></div>
-      <p>AGE: </p>
-      <div class="w-full h-[1px] bg-black"></div>
-      <p>Achivements: </p>
-      <div class="w-full h-[1px] bg-black"></div>
-      <p>Mobile Number: 6303896539 </p>
-      <div class="w-full h-[1px] bg-black"></div>
+    <div class="w-5/12 bg-gray-50 rounded-md shadow-2xl">
+      <div class="px-4 font-medium text-2xl ml-2">Doctor Name </div>
+      <div class="flex items-center ml-6 mb-3">
+        <mat-icon class="text-black text-[19px] pt-[2px]">workspace_premium</mat-icon>
+        <span class="">{{doctor.specialization}}</span>
+      </div> 
+      <p class="text-xs px-4">{{doctor.description}}</p>
+      <div class="flex space-x-3 px-2 pt-3">
+        <button class="text-xs text-white bg-gradient-to-r from-[#6578ca] to-[#9cb0f1] rounded-lg p-3 w-36">Edit doctor</button>
+        <button class="text-xs text-white bg-gradient-to-r from-[#6578ca] to-[#9cb0f1] rounded-lg p-3 w-36" (click)="toggleComponnet(doctor.name, doctor.doctor_id)">Schedule</button>
+      </div>
+    </div>
+    <div class="bg-blue-200 rounded-2xl rounded-l-none w-3/12">
+      <img class="w-full rounded-2xl rounded-l-none h-full" [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image">
     </div>
   </div>
-  <div class="bg-blue-200 rounded-lg w-7/12">
-
   </div>
-</div> -->
- <div class="mx-10 pt-2 ">
-    <div
-    class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full pb-4"
+  </div>
+  </div> -->
+
+
+
+  <div class="mx-10 pt-2 ">
+  <div
+    class="doctorsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6  w-full pb-4"
     *ngIf="filteredContent?.length && !generateSlot"
   >
     <div
@@ -40,28 +90,34 @@ placeholder="Search for doctors..."
       *ngFor="let doctor of filteredContent"
     >
           <div
-        class="bg-gradient-to-r from-[#7c94e1] to-[#dadff5] w-full h-16 flex items-center rounded-t-lg justify-center relative mb-10"
+        class="bg-gradient-to-r from-[#7c94e1] to-[#dadff5] w-full h-20 flex items-center rounded-t-lg justify-center relative mb-10"
       >
         <img
           [src]="'data:image/' + doctor.image_ext + ';base64,' + doctor.image"
-          class="w-[90px] h-[90px] rounded-full border-4 border-white shadow-lg"
+          class="w-[110px] h-[110px] rounded-full border-4 border-white shadow-lg"
           style="position: absolute; top: 60%; transform: translateY(-20%)"
         />
       </div>
 
-      <div class="flex flex-col items-center text-center mb-4 mt-14 px-4">
+      <div class="flex flex-col items-center text-center mb-4 mt-20 px-4">
         <div class="text-sm font-semibold text-gray-800">{{ doctor.name }}</div>
         <div class="text-xs text-gray-600">{{ doctor.specialization }}</div>
       </div>
   
       <div class="flex flex-col space-y-1 mb-4 px-4">
-        <div class="flex items-center space-x-2">
-          <mat-icon class="text-[#7c94e1] text-xs">mail</mat-icon>
-          <p class="text-xs text-gray-800">{{ doctor.email }}</p>
+        <div class="flex space-x-4">
+          <div class="flex items-center space-x-2 ">
+            <mat-icon class="text-[#7c94e1] text-xs">mail</mat-icon>
+            <p class="text-xs text-gray-800">{{ doctor.email }}</p>
+          </div>
+          <div class="flex items-center space-x-2 ml-4">
+            <mat-icon class="text-[#7c94e1] text-xs">phone</mat-icon>
+            <p class="text-xs text-gray-800">{{ doctor.mobile_number }}</p>
+          </div>
         </div>
+        
         <div class="flex items-center space-x-2">
-          <mat-icon class="text-[#7c94e1] text-xs">phone</mat-icon>
-          <p class="text-xs text-gray-800">{{ doctor.mobile_number }}</p>
+          <p class="text-xs text-gray-800">{{ doctor.description }}</p>
         </div>
       </div>
   
@@ -79,7 +135,7 @@ placeholder="Search for doctors..."
         </button>
       </div>
     </div>
-  </div>
+  </div> 
   
 <div *ngIf="generateSlot" class="relative rounded-lg shadow-lg mt-20">
   <div class="flex justify-between items-center mx-4 mt-12">
@@ -245,7 +301,7 @@ placeholder="Search for doctors..."
 </div>
 
 
- </div>
+ </div> 
  
  
  <app-loader [message]="loaderMessage" *ngIf="activateLoader"></app-loader>
