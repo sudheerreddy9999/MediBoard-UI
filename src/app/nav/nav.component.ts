@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { Location } from '@angular/common';
+import { SideNavComponent } from '../components/side-nav/side-nav.component';
 import {
   NavigationEnd,
   RouterLink,
@@ -41,7 +42,8 @@ interface Users {
     DoctorComponent,
     EmployeeComponent,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    SideNavComponent
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',

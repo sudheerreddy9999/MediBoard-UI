@@ -1,8 +1,17 @@
-<mat-icon
-class="fixed top-[84px] left-4 transform -translate-x-1/2 -translate-y-1/2 text-[35px] p-16 hover:text-[42px] hover:text-blue-400 transition-all duration-300 ease-in-out cursor-pointer"
-(click)="handleReturn()"
->arrow_back</mat-icon
->
-<app-appointmentcard *ngIf="userAppointments.length !== 0" class="w-full" [appointmentData] = {userAppointments} />
+<div class="ml-20">
+  <app-appointmentcard
+    *ngIf="userAppointments.length !== 0"
+    class="w-full"
+    [appointmentData]="{userAppointments}"
+  />
+</div>
+
+<div *ngIf="userAppointments.length == 0">
+  <app-error
+    subText="Book your appointment now and stay ahead of your schedule!"
+    mainText="No scheduled appointments at the moment."
+  ></app-error>
+</div>
 <!-- Loader Component -->
 <app-loader *ngIf="loaderEnable"></app-loader>
+<app-side-nav [sideNavContent]="sideNavContent"></app-side-nav>

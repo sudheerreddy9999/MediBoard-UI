@@ -9,11 +9,13 @@ import { DatePipe } from '@angular/common';
 import { HoursFormat12Pipe } from '../../pipes/hours-format12.pipe';
 import { LoaderComponent } from '../loader/loader.component';
 import { AppointmentcardComponent } from '../appointmentcard/appointmentcard.component';
+import { SideNavComponent } from '../side-nav/side-nav.component';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-view-appointments',
   standalone: true,
-  imports: [MatIcon, MatIconModule, CommonModule, TimeFormatPipe, HoursFormat12Pipe,LoaderComponent,AppointmentcardComponent],
+  imports: [MatIcon, MatIconModule, CommonModule, TimeFormatPipe, HoursFormat12Pipe,LoaderComponent,AppointmentcardComponent,SideNavComponent,ErrorComponent],
   providers: [DatePipe],
   templateUrl: './view-appointments.component.html',
   styleUrls: ['./view-appointments.component.css']
@@ -26,6 +28,13 @@ export class ViewAppointmentsComponent implements OnInit {
   filteredAppointments: any = [];
   emptyAppointmentsMessage:string =''
   selectedType: string = 'all';
+  sideNavContent = [
+    {route:"/Patient",image:"images/side-bar/home.png"},
+    {route:"/Patient/Doctors",image:"images/side-bar/doctor.png"},
+    {route:"Patient/Records",image:"images/side-bar/medical-records.png"},
+    {route:"/Patient",image:"images/side-bar/info.png"},
+    {route:"/Patient",image:"images/side-bar/turn-off.png"},
+  ]
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -33,7 +42,7 @@ export class ViewAppointmentsComponent implements OnInit {
     this.http.get(`${this.apiUrl}/appointments/user`).subscribe({
       next: (res: any) => {
         this.loaderEnable= false 
-        const filteredAppointments = res.data.filter((x: any) => {
+        const filteredAppointments = res?.data.filter((x: any) => {
           const date = new Date(x.slot_date);
           return new Date() <= date;
         });
@@ -51,28 +60,5 @@ export class ViewAppointmentsComponent implements OnInit {
 
   handleReturn() {
     this.router.navigate(['Patient']);
-  }
-
-  handelTypeClicked(type: string) {
-    this.selectedType = type;
-
-    const currentDate = new Date();
-
-    if (type === 'all') {
-      this.filteredAppointments = [...this.userAppointments];
-    } else if (type === 'upcoming') {
-      this.filteredAppointments = this.userAppointments.filter((appointment: { slot_date: string | number | Date }) =>
-        new Date(appointment.slot_date) > currentDate
-      );
-      this.emptyAppointmentsMessage = this.filteredAppointments.length === 0 ? "You have no upcoming appointments" : "";
-    } else if (type === 'completed') {
-      this.filteredAppointments = this.userAppointments.filter((appointment: { slot_date: string | number | Date }) =>
-        new Date(appointment.slot_date) <= currentDate
-      );
-      this.emptyAppointmentsMessage = this.filteredAppointments.length === 0 ?"You don't have previous appointment records":'';
-    }
-    this.filteredAppointments.sort((a: { slot_date: string | number | Date }, b: { slot_date: string | number | Date }) =>
-      new Date(a.slot_date).getTime() - new Date(b.slot_date).getTime()
-    );
   }
 }

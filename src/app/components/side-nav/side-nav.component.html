@@ -1,0 +1,30 @@
+<!-- <div
+  class="text-lg z-[9999] fixed top-16 left-0 right-0 flex items-center justify-start pt-3 pl-3"
+  [ngClass]="{'pl-7': isSideNavOpen}"
+>
+  <img
+    src="images/side-bar/hamburger.png"
+    alt="Toggle Side Nav"
+    class="h-6 w-6 cursor-pointer text-gray-700 hover:scale-105 transition-transform duration-300"
+    (click)="toggleSideNav()"
+  />
+</div> -->
+<div
+  *ngIf="isSideNavOpen"
+  class="NavMain fixed top-16 left-0 h-full rounded-sm w-[75px] z-50 bg-gradient-to-b from-[#dadff5] to-[#7c94e1] shadow-lg"
+  [ngClass]="{ 'translate-x-0': isSideNavOpen }"
+>
+  <ul class="mt-8 flex flex-col items-center " *ngFor="let item of sideNavContent">
+    <li
+      class="p-4 py-2 hover:p-3 hover:bg-gray-200 rounded-lg cursor-pointer transition-all duration-300"
+      (click)="navigateTo(item.route)"
+    >
+      <img
+        [src]="item.image"
+        alt="Dashboard Icon"
+        class="h-6 w-6"
+      />
+    </li>
+  </ul>
+</div>
+

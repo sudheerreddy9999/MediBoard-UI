@@ -3,10 +3,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
+import { ErrorComponent } from '../error/error.component';
 @Component({
   selector: 'app-appointmentcard',
   standalone: true,
-  imports: [MatIconModule, CommonModule, FormsModule,CalendarModule],
+  imports: [MatIconModule, CommonModule, FormsModule,CalendarModule,ErrorComponent],
   templateUrl: './appointmentcard.component.html',
   styleUrl: './appointmentcard.component.css',
 })
